@@ -20,6 +20,8 @@ import CitationTracker from './pages/features/CitationTracker';
 import VoiceAssistantTester from './pages/features/VoiceAssistantTester';
 import LlmSiteSummaries from './pages/features/LlmSiteSummaries';
 import EntityCoverageAnalyzer from './pages/features/EntityCoverageAnalyzer';
+import CompetitiveAnalysis from './pages/features/CompetitiveAnalysis';
+import AiContentOptimizer from './pages/features/AiContentOptimizer';
 import AccountSettings from './pages/account/AccountSettings';
 import AddSite from './pages/sites/AddSite';
 import SiteDetails from './pages/sites/SiteDetails';
@@ -66,6 +68,8 @@ function App() {
               <Route path="/add-site" element={<ProtectedRoute><AddSite /></ProtectedRoute>} />
               <Route path="/sites/:siteId" element={<ProtectedRoute><SiteDetails /></ProtectedRoute>} />
               <Route path="/ai-visibility-audit" element={<ProtectedRoute><AiVisibilityAudit /></ProtectedRoute>} />
+              <Route path="/competitive-analysis" element={<ProtectedRoute><CompetitiveAnalysis /></ProtectedRoute>} />
+              <Route path="/ai-content-optimizer" element={<ProtectedRoute><AiContentOptimizer /></ProtectedRoute>} />
               <Route path="/schema-generator" element={<ProtectedRoute><SchemaGenerator /></ProtectedRoute>} />
               <Route path="/prompt-match-suggestions" element={<ProtectedRoute><PromptMatchSuggestions /></ProtectedRoute>} />
               <Route path="/ai-content-generator" element={<ProtectedRoute><AiContentGenerator /></ProtectedRoute>} />
@@ -77,7 +81,7 @@ function App() {
               
               {/* Fallbacks */}
               <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate to="/404\" replace />} />
+              <Route path="*" element={<Navigate to="/404" replace />} />
             </Routes>
           </Router>
         </SiteProvider>

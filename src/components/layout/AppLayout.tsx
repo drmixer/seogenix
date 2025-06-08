@@ -15,7 +15,9 @@ import {
   X, 
   LogOut, 
   Plus,
-  Home
+  Home,
+  TrendingUp,
+  Zap
 } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useSites } from '../../contexts/SiteContext';
@@ -36,6 +38,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const navItems = [
     { label: 'Dashboard', icon: <Home size={20} />, path: '/dashboard' },
     { label: 'AI Visibility Audit', icon: <BarChart2 size={20} />, path: '/ai-visibility-audit' },
+    { label: 'Competitive Analysis', icon: <TrendingUp size={20} />, path: '/competitive-analysis' },
+    { label: 'Content Optimizer', icon: <Zap size={20} />, path: '/ai-content-optimizer' },
     { label: 'Schema Generator', icon: <Code size={20} />, path: '/schema-generator' },
     { label: 'Prompt Match Suggestions', icon: <MessageSquare size={20} />, path: '/prompt-match-suggestions' },
     { label: 'AI Content Generator', icon: <FileText size={20} />, path: '/ai-content-generator' },

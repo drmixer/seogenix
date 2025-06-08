@@ -10,9 +10,30 @@ export interface Site {
   updated_at: string;
 }
 
+export interface CompetitorSite {
+  id: string;
+  user_id: string;
+  site_id: string;
+  url: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Audit {
   id: string;
   site_id: string;
+  ai_visibility_score: number;
+  schema_score: number;
+  semantic_score: number;
+  citation_score: number;
+  technical_seo_score: number;
+  created_at: string;
+}
+
+export interface CompetitorAudit {
+  id: string;
+  competitor_site_id: string;
   ai_visibility_score: number;
   schema_score: number;
   semantic_score: number;
@@ -111,6 +132,107 @@ export const siteApi = {
       .eq('id', id);
 
     if (error) throw error;
+  }
+};
+
+// Competitor API
+export const competitorApi = {
+  async getCompetitorSites(userId: string): Promise<CompetitorSite[]> {
+    const { data, error } = await supabase
+      .from('competitor_sites')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  },
+
+  async addCompetitorSite(userId: string, url: string, name: string, userSiteId: string): Promise<CompetitorSite> {
+    const { data, error } = await supabase
+      .from('competitor_sites')
+      .insert([{ 
+        user_id: userId, 
+        site_id: userSiteId, 
+        url, 
+        name 
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
+  async deleteCompetitorSite(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('competitor_sites')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+
+  async runCompetitorAnalysis(competitorSiteId: string, competitorUrl: string): Promise<CompetitorAudit> {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      console.log('🚀 Calling analyzeCompetitorSite edge function with:', { competitorSiteId, competitorUrl });
+
+      // Call the analyzeCompetitorSite edge function
+      const { data, error } = await supabase.functions.invoke('analyzeCompetitorSite', {
+        body: { competitorSiteId, url: competitorUrl, user_id: user.id }
+      });
+
+      console.log('📥 analyzeCompetitorSite response:', { data, error });
+
+      if (error) {
+        console.error('❌ analyzeCompetitorSite edge function error:', error);
+        throw new Error(`Edge function failed: ${error.message || 'Unknown error'}`);
+      }
+
+      if (!data) {
+        throw new Error('No data returned from analyzeCompetitorSite edge function');
+      }
+
+      if (data.error) {
+        console.error('❌ analyzeCompetitorSite returned error:', data.error);
+        throw new Error(`Competitor analysis failed: ${data.error}`);
+      }
+
+      console.log('✅ analyzeCompetitorSite completed successfully');
+
+      // Save the audit to the database
+      const { data: savedAudit, error: dbError } = await supabase
+        .from('competitor_audits')
+        .insert([data.audit])
+        .select()
+        .single();
+
+      if (dbError) {
+        console.error('❌ Database error saving competitor audit:', dbError);
+        throw new Error(`Failed to save competitor audit: ${dbError.message}`);
+      }
+
+      console.log('✅ Competitor audit saved to database:', savedAudit);
+
+      return savedAudit;
+    } catch (error) {
+      console.error('❌ Error running competitor analysis:', error);
+      throw error;
+    }
+  },
+
+  async getCompetitorAudits(competitorSiteId: string): Promise<CompetitorAudit[]> {
+    const { data, error } = await supabase
+      .from('competitor_audits')
+      .select('*')
+      .eq('competitor_site_id', competitorSiteId)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data || [];
   }
 };
 
@@ -531,6 +653,42 @@ export const contentApi = {
       return data;
     } catch (error) {
       console.error('Error generating content:', error);
+      throw error;
+    }
+  },
+
+  async analyzeContent(content: string): Promise<any> {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      console.log('🚀 Calling analyzeContentForSEO edge function with content length:', content.length);
+
+      const { data, error } = await supabase.functions.invoke('analyzeContentForSEO', {
+        body: { content }
+      });
+
+      console.log('📥 analyzeContentForSEO response:', { data, error });
+
+      if (error) {
+        console.error('❌ analyzeContentForSEO edge function error:', error);
+        throw new Error(`Edge function failed: ${error.message || 'Unknown error'}`);
+      }
+
+      if (!data) {
+        throw new Error('No data returned from analyzeContentForSEO edge function');
+      }
+
+      if (data.error) {
+        console.error('❌ analyzeContentForSEO returned error:', data.error);
+        throw new Error(`Content analysis failed: ${data.error}`);
+      }
+
+      console.log('✅ analyzeContentForSEO completed successfully');
+
+      return data;
+    } catch (error) {
+      console.error('❌ Error analyzing content:', error);
       throw error;
     }
   }

@@ -9,6 +9,7 @@ interface Plan {
   price: number;
   limits: {
     sites: number;
+    competitorSites: number;
     auditFrequency: 'monthly' | 'weekly' | 'daily';
     citationsPerMonth: number;
     aiContentGenerations: number;
@@ -18,6 +19,8 @@ interface Plan {
       voiceAssistant: boolean;
       aiContent: boolean;
       entityAnalysis: boolean;
+      competitiveAnalysis: boolean;
+      contentOptimizer: boolean;
       apiAccess: boolean;
       whiteLabel: boolean;
       prioritySupport: boolean;
@@ -37,6 +40,7 @@ interface SubscriptionContextType {
   usage: Usage;
   isFeatureEnabled: (feature: keyof Plan['limits']['features']) => boolean;
   getSiteLimit: () => number;
+  getCompetitorSiteLimit: () => number;
   getAuditFrequency: () => string;
   canRunAudit: () => boolean;
   canGenerateContent: () => boolean;
@@ -50,6 +54,7 @@ const plans: Record<PlanTier, Plan> = {
     price: 29,
     limits: {
       sites: 1,
+      competitorSites: 0,
       auditFrequency: 'monthly',
       citationsPerMonth: 100,
       aiContentGenerations: 10,
@@ -59,6 +64,8 @@ const plans: Record<PlanTier, Plan> = {
         voiceAssistant: false,
         aiContent: false,
         entityAnalysis: false,
+        competitiveAnalysis: false,
+        contentOptimizer: false,
         apiAccess: false,
         whiteLabel: false,
         prioritySupport: false,
@@ -71,6 +78,7 @@ const plans: Record<PlanTier, Plan> = {
     price: 79,
     limits: {
       sites: 3,
+      competitorSites: 3,
       auditFrequency: 'weekly',
       citationsPerMonth: 500,
       aiContentGenerations: 50,
@@ -80,6 +88,8 @@ const plans: Record<PlanTier, Plan> = {
         voiceAssistant: true,
         aiContent: true,
         entityAnalysis: true,
+        competitiveAnalysis: true,
+        contentOptimizer: true,
         apiAccess: false,
         whiteLabel: false,
         prioritySupport: true,
@@ -92,6 +102,7 @@ const plans: Record<PlanTier, Plan> = {
     price: 199,
     limits: {
       sites: Infinity,
+      competitorSites: Infinity,
       auditFrequency: 'daily',
       citationsPerMonth: Infinity,
       aiContentGenerations: Infinity,
@@ -101,6 +112,8 @@ const plans: Record<PlanTier, Plan> = {
         voiceAssistant: true,
         aiContent: true,
         entityAnalysis: true,
+        competitiveAnalysis: true,
+        contentOptimizer: true,
         apiAccess: true,
         whiteLabel: true,
         prioritySupport: true,
@@ -305,6 +318,10 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     return 10; // Allow up to 10 sites for testing
   };
 
+  const getCompetitorSiteLimit = (): number => {
+    return 10; // Allow up to 10 competitor sites for testing
+  };
+
   const getAuditFrequency = (): string => {
     return 'unlimited'; // No frequency limits for testing
   };
@@ -332,6 +349,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
         usage,
         isFeatureEnabled,
         getSiteLimit,
+        getCompetitorSiteLimit,
         getAuditFrequency,
         canRunAudit,
         canGenerateContent,
