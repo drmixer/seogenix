@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link2, RefreshCw, ExternalLink } from 'lucide-react';
+import { Link2, RefreshCw, ExternalLink, Newspaper } from 'lucide-react';
 import { useSubscription } from '../../contexts/SubscriptionContext';
 import { useSites } from '../../contexts/SiteContext';
 import { citationApi } from '../../lib/api';
@@ -21,13 +21,13 @@ interface Citation {
   detected_at: string;
 }
 
-// Source logo component
+// Source logo component with improved visibility
 const SourceLogo: React.FC<{ sourceType: string; className?: string }> = ({ sourceType, className = "w-5 h-5" }) => {
   const normalizedSource = sourceType.toLowerCase();
   
   if (normalizedSource.includes('google')) {
     return (
-      <div className={`${className} flex items-center justify-center bg-white rounded-full p-1 shadow-sm`}>
+      <div className={`${className} flex items-center justify-center bg-white rounded-full p-1 shadow-md border border-gray-200`}>
         <svg viewBox="0 0 24 24" className="w-full h-full">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -51,9 +51,7 @@ const SourceLogo: React.FC<{ sourceType: string; className?: string }> = ({ sour
   if (normalizedSource.includes('news') || normalizedSource.includes('article')) {
     return (
       <div className={`${className} flex items-center justify-center bg-[#1a73e8] rounded-full p-1`}>
-        <svg viewBox="0 0 24 24" className="w-full h-full" fill="white">
-          <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
-        </svg>
+        <Newspaper className="w-full h-full text-white" strokeWidth={2} />
       </div>
     );
   }
@@ -309,17 +307,17 @@ const CitationTracker = () => {
                   <h4 className="font-medium text-blue-800 mb-2">Search Results Summary</h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
                     <div className="flex items-center">
-                      <SourceLogo sourceType="Google" className="w-4 h-4 mr-2" />
+                      <SourceLogo sourceType="Google" className="w-5 h-5 mr-2" />
                       <span className="text-blue-600 font-medium">Google:</span>
                       <span className="ml-1 text-blue-800">{searchSummary.google_results || 0}</span>
                     </div>
                     <div className="flex items-center">
-                      <SourceLogo sourceType="News" className="w-4 h-4 mr-2" />
+                      <SourceLogo sourceType="News" className="w-5 h-5 mr-2" />
                       <span className="text-blue-600 font-medium">News:</span>
                       <span className="ml-1 text-blue-800">{searchSummary.news_results || 0}</span>
                     </div>
                     <div className="flex items-center">
-                      <SourceLogo sourceType="Reddit" className="w-4 h-4 mr-2" />
+                      <SourceLogo sourceType="Reddit" className="w-5 h-5 mr-2" />
                       <span className="text-blue-600 font-medium">Reddit:</span>
                       <span className="ml-1 text-blue-800">{searchSummary.reddit_results || 0}</span>
                     </div>
@@ -430,15 +428,15 @@ const CitationTracker = () => {
                     </p>
                     <ul className="mt-2 list-disc list-inside space-y-1">
                       <li className="flex items-center">
-                        <SourceLogo sourceType="Google" className="w-4 h-4 mr-2" />
+                        <SourceLogo sourceType="Google" className="w-5 h-5 mr-2" />
                         <strong>Google Search:</strong> Web mentions and featured snippets
                       </li>
                       <li className="flex items-center">
-                        <SourceLogo sourceType="News" className="w-4 h-4 mr-2" />
+                        <SourceLogo sourceType="News" className="w-5 h-5 mr-2" />
                         <strong>News Articles:</strong> Press coverage and industry publications
                       </li>
                       <li className="flex items-center">
-                        <SourceLogo sourceType="Reddit" className="w-4 h-4 mr-2" />
+                        <SourceLogo sourceType="Reddit" className="w-5 h-5 mr-2" />
                         <strong>Reddit:</strong> Community discussions and recommendations
                       </li>
                     </ul>
