@@ -17,6 +17,7 @@ interface Plan {
     aiContentOptimizations: number;
     promptSuggestions: number;
     citationTracking: 'delayed' | 'realtime' | 'full';
+    citationsPerMonth: number;
     features: {
       schemaGeneration: 'basic' | 'full' | 'unlimited';
       entityAnalysis: boolean;
@@ -29,6 +30,7 @@ interface Plan {
       prioritySupport: boolean;
       dedicatedSupport: boolean;
       earlyAccess: boolean;
+      chatbotAccess: 'none' | 'basic' | 'full';
     };
   };
 }
@@ -54,6 +56,8 @@ interface SubscriptionContextType {
   canOptimizeContent: () => boolean;
   canGeneratePrompts: () => boolean;
   canTrackCitations: () => boolean;
+  canTrackMoreCitations: () => boolean;
+  getChatbotAccess: () => 'none' | 'basic' | 'full';
   loading: boolean;
 }
 
@@ -71,6 +75,7 @@ const plans: Record<PlanTier, Plan> = {
       aiContentOptimizations: 0,
       promptSuggestions: 5,
       citationTracking: 'delayed',
+      citationsPerMonth: 10,
       features: {
         schemaGeneration: 'basic',
         entityAnalysis: false,
@@ -83,6 +88,7 @@ const plans: Record<PlanTier, Plan> = {
         prioritySupport: false,
         dedicatedSupport: false,
         earlyAccess: false,
+        chatbotAccess: 'none',
       },
     },
   },
@@ -99,6 +105,7 @@ const plans: Record<PlanTier, Plan> = {
       aiContentOptimizations: 10,
       promptSuggestions: 20,
       citationTracking: 'realtime',
+      citationsPerMonth: 50,
       features: {
         schemaGeneration: 'full',
         entityAnalysis: true,
@@ -111,6 +118,7 @@ const plans: Record<PlanTier, Plan> = {
         prioritySupport: false,
         dedicatedSupport: false,
         earlyAccess: false,
+        chatbotAccess: 'basic',
       },
     },
   },
@@ -127,6 +135,7 @@ const plans: Record<PlanTier, Plan> = {
       aiContentOptimizations: 30,
       promptSuggestions: 60,
       citationTracking: 'full',
+      citationsPerMonth: 200,
       features: {
         schemaGeneration: 'full',
         entityAnalysis: true,
@@ -139,6 +148,7 @@ const plans: Record<PlanTier, Plan> = {
         prioritySupport: true,
         dedicatedSupport: false,
         earlyAccess: false,
+        chatbotAccess: 'full',
       },
     },
   },
@@ -155,6 +165,7 @@ const plans: Record<PlanTier, Plan> = {
       aiContentOptimizations: Infinity,
       promptSuggestions: Infinity,
       citationTracking: 'full',
+      citationsPerMonth: Infinity,
       features: {
         schemaGeneration: 'unlimited',
         entityAnalysis: true,
@@ -167,6 +178,7 @@ const plans: Record<PlanTier, Plan> = {
         prioritySupport: true,
         dedicatedSupport: true,
         earlyAccess: true,
+        chatbotAccess: 'full',
       },
     },
   },
@@ -437,6 +449,20 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     return currentPlan.limits.citationTracking !== 'delayed' || usage.citationsUsed === 0;
   };
 
+  const canTrackMoreCitations = (): boolean => {
+    if (!currentPlan) return false;
+    
+    const citationLimit = currentPlan.limits.citationsPerMonth;
+    if (citationLimit === Infinity) return true;
+    
+    return usage.citationsUsed < citationLimit;
+  };
+
+  const getChatbotAccess = (): 'none' | 'basic' | 'full' => {
+    if (!currentPlan) return 'none';
+    return currentPlan.limits.features.chatbotAccess;
+  };
+
   return (
     <SubscriptionContext.Provider 
       value={{ 
@@ -451,6 +477,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
         canOptimizeContent,
         canGeneratePrompts,
         canTrackCitations,
+        canTrackMoreCitations,
+        getChatbotAccess,
         loading 
       }}
     >

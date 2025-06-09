@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles, User, Loader2, Minimize2, Maximize2, Lightbulb } from 'lucide-react';
+import { MessageCircle, X, Send, Sparkles, User, Loader2, Minimize2, Maximize2, Lightbulb, Lock, Crown, Zap } from 'lucide-react';
 import { useSites } from '../../contexts/SiteContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSubscription } from '../../contexts/SubscriptionContext';
 import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../ui/Button';
 import toast from 'react-hot-toast';
 
@@ -23,6 +25,7 @@ interface ChatbotWidgetProps {
 const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
   const { user } = useAuth();
   const { selectedSite, sites } = useSites();
+  const { currentPlan, isFeatureEnabled } = useSubscription();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -33,6 +36,11 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Check if chatbot is available based on subscription
+  const isChatbotAvailable = currentPlan && currentPlan.name !== 'free';
+  const isFullFeatured = currentPlan && (currentPlan.name === 'pro' || currentPlan.name === 'agency');
+  const isBasicChatbot = currentPlan && currentPlan.name === 'core';
+
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -40,143 +48,200 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
 
   // Focus input when chat opens
   useEffect(() => {
-    if (isOpen && !isMinimized) {
+    if (isOpen && !isMinimized && isChatbotAvailable) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [isOpen, isMinimized]);
+  }, [isOpen, isMinimized, isChatbotAvailable]);
 
-  // Generate context-aware suggested prompts based on current page and user data
+  // Generate context-aware suggested prompts based on subscription level
   const generateSuggestedPrompts = () => {
     const currentPath = location.pathname;
     const siteName = selectedSite?.name || 'my site';
     
     let prompts: string[] = [];
 
-    // Page-specific suggestions
-    switch (currentPath) {
-      case '/dashboard':
-        prompts = [
-          `What should I focus on first to improve ${siteName}'s AI visibility?`,
-          'How do I interpret my audit scores?',
-          'What are the most important AI optimization steps?',
-          'How often should I run audits?'
-        ];
-        break;
-      case '/ai-visibility-audit':
-        prompts = [
-          `How can I improve ${siteName}'s AI visibility score?`,
-          'What do the different audit scores mean?',
-          'Which score should I prioritize improving first?',
-          'How do I fix low schema scores?'
-        ];
-        break;
-      case '/competitive-analysis':
-        prompts = [
-          'How do I choose the right competitors to track?',
-          'What should I do if competitors are outperforming me?',
-          'How can I learn from competitor strategies?',
-          'What metrics matter most in competitive analysis?'
-        ];
-        break;
-      case '/ai-content-optimizer':
-        prompts = [
-          'How do I write content that AI systems will cite?',
-          'What makes content AI-friendly?',
-          'How can I improve my content scores?',
-          'What are the best practices for AI content optimization?'
-        ];
-        break;
-      case '/schema-generator':
-        prompts = [
-          'Which schema types should I implement first?',
-          'How do I add schema markup to my website?',
-          'Why is schema important for AI visibility?',
-          'How do I test if my schema is working?'
-        ];
-        break;
-      case '/citation-tracker':
-        prompts = [
-          'How can I increase my chances of being cited by AI?',
-          'What types of content get cited most often?',
-          'How do I improve my citation score?',
-          'Why am I not getting any citations?'
-        ];
-        break;
-      case '/voice-assistant-tester':
-        prompts = [
-          'How do I optimize for voice search?',
-          'What questions should I test with voice assistants?',
-          'How can I improve voice assistant responses about my site?',
-          'Why isn\'t my site mentioned in voice responses?'
-        ];
-        break;
-      case '/llm-site-summaries':
-        prompts = [
-          'How do I use these summaries to improve AI visibility?',
-          'Which summary type is most important?',
-          'How can I make my site easier for AI to understand?',
-          'Where should I use these summaries on my website?'
-        ];
-        break;
-      case '/entity-coverage-analyzer':
-        prompts = [
-          'How do I fix entity coverage gaps?',
-          'What entities should I focus on for my industry?',
-          'How does entity coverage affect AI understanding?',
-          'How can I improve my entity coverage score?'
-        ];
-        break;
-      default:
-        prompts = [
-          `How can I improve ${siteName}'s performance with AI systems?`,
-          'What\'s the most important thing to focus on first?',
-          'How do I get started with AI visibility optimization?',
-          'What are the latest AI SEO best practices?'
-        ];
+    if (isFullFeatured) {
+      // Pro/Agency: Full functionality including report interpretation and suggestions
+      switch (currentPath) {
+        case '/dashboard':
+          prompts = [
+            `What should I focus on first to improve ${siteName}'s AI visibility?`,
+            'How do I interpret my audit scores?',
+            'What are the most important AI optimization steps?',
+            'Can you analyze my recent performance trends?'
+          ];
+          break;
+        case '/ai-visibility-audit':
+          prompts = [
+            `How can I improve ${siteName}'s AI visibility score?`,
+            'What do my audit scores mean and what should I prioritize?',
+            'Why is my schema score low and how do I fix it?',
+            'Can you suggest specific improvements based on my results?'
+          ];
+          break;
+        case '/competitive-analysis':
+          prompts = [
+            'How do I choose the right competitors to track?',
+            'What should I do if competitors are outperforming me?',
+            'Can you analyze my competitive position?',
+            'What strategies should I adopt based on competitor data?'
+          ];
+          break;
+        case '/ai-content-optimizer':
+          prompts = [
+            'How do I write content that AI systems will cite?',
+            'Can you analyze my content scores and suggest improvements?',
+            'What specific changes will boost my content performance?',
+            'How can I optimize this content for better AI visibility?'
+          ];
+          break;
+        default:
+          prompts = [
+            `How can I improve ${siteName}'s performance with AI systems?`,
+            'Can you analyze my current metrics and suggest next steps?',
+            'What are my biggest optimization opportunities?',
+            'How do I prioritize my AI visibility improvements?'
+          ];
+      }
+    } else if (isBasicChatbot) {
+      // Core: Tool guidance and explanations only
+      switch (currentPath) {
+        case '/dashboard':
+          prompts = [
+            'How do I use the dashboard features?',
+            'What do the different metrics mean?',
+            'How do I navigate between tools?',
+            'What should I do first as a new user?'
+          ];
+          break;
+        case '/ai-visibility-audit':
+          prompts = [
+            'How do I run an AI visibility audit?',
+            'What does the audit analyze?',
+            'How often should I run audits?',
+            'What do the different audit scores mean?'
+          ];
+          break;
+        case '/schema-generator':
+          prompts = [
+            'How do I use the schema generator?',
+            'What types of schema should I implement?',
+            'How do I add schema to my website?',
+            'Why is schema important for AI visibility?'
+          ];
+          break;
+        case '/citation-tracker':
+          prompts = [
+            'How does the citation tracker work?',
+            'What sources does it check?',
+            'How do I interpret citation results?',
+            'How often should I check for citations?'
+          ];
+          break;
+        default:
+          prompts = [
+            'How do I use this tool?',
+            'What does this feature do?',
+            'How do I get started with SEOgenix?',
+            'What are the main features available?'
+          ];
+      }
     }
 
-    // Add general helpful prompts
-    const generalPrompts = [
-      'Explain AI visibility in simple terms',
-      'What are the biggest AI SEO mistakes to avoid?',
-      'How is AI SEO different from traditional SEO?',
-      'What tools does SEOgenix offer?'
-    ];
-
-    // Combine and limit to 6 suggestions
-    const allPrompts = [...prompts, ...generalPrompts];
-    return allPrompts.slice(0, 6);
+    return prompts.slice(0, 6);
   };
 
-  // Initialize with welcome message and suggestions
+  // Initialize with welcome message based on subscription
   useEffect(() => {
-    if (messages.length === 0) {
+    if (messages.length === 0 && isChatbotAvailable) {
       const suggestions = generateSuggestedPrompts();
       setSuggestedPrompts(suggestions);
       
-      setMessages([{
-        id: '1',
-        type: 'assistant',
-        content: `✨ Hi! I'm Genie, your AI assistant for SEOgenix. I'm here to help you optimize your content for AI visibility and answer any questions about the platform.
+      let welcomeMessage = '';
+      
+      if (isFullFeatured) {
+        welcomeMessage = `✨ Hi! I'm Genie, your AI assistant for SEOgenix. I'm here to help you optimize your content for AI visibility and provide personalized insights.
 
 ${selectedSite ? `I see you're working with **${selectedSite.name}**. ` : ''}I can help you with:
 
-• **Understanding your audit results** and what they mean
-• **Implementing recommendations** from your analysis
-• **Optimizing content** for AI systems like ChatGPT and voice assistants
-• **Competitive analysis** insights and strategies
-• **Citation tracking** and improvement techniques
-• **Schema markup** implementation and best practices
+• **Understanding your reports** and what they mean
+• **Analyzing your performance** and identifying trends
+• **Providing specific recommendations** for improvement
+• **Interpreting audit results** and competitive data
+• **Suggesting optimization strategies** tailored to your content
+• **Proactive alerts** when metrics need attention
 
-What would you like to know? You can ask me anything or try one of the suggested questions below! 🚀`,
+I have full access to your data and can provide detailed, actionable insights! 🚀`;
+      } else if (isBasicChatbot) {
+        welcomeMessage = `✨ Hi! I'm Genie, your AI assistant for SEOgenix. I'm here to help you understand and use our platform effectively.
+
+${selectedSite ? `I see you're working with **${selectedSite.name}**. ` : ''}I can help you with:
+
+• **Tool guidance** and how to use SEOgenix features
+• **Feature explanations** and what each tool does
+• **Getting started** with AI visibility optimization
+• **Understanding metrics** and what they measure
+• **Navigation help** and finding the right tools
+
+💡 **Want personalized insights and recommendations?** Upgrade to Pro for full AI analysis and custom suggestions!`;
+      }
+
+      setMessages([{
+        id: '1',
+        type: 'assistant',
+        content: welcomeMessage,
         timestamp: new Date(),
         suggestions: suggestions
       }]);
     }
-  }, [selectedSite, location.pathname]);
+  }, [selectedSite, location.pathname, isChatbotAvailable, isFullFeatured, isBasicChatbot]);
 
   const sendMessage = async (content: string) => {
-    if (!content.trim() || isLoading) return;
+    if (!content.trim() || isLoading || !isChatbotAvailable) return;
+
+    // Check for restricted content on Core plan
+    if (isBasicChatbot && !isFullFeatured) {
+      const restrictedKeywords = [
+        'analyze', 'improve', 'suggest', 'recommendation', 'fix', 'optimize',
+        'score', 'performance', 'trend', 'insight', 'strategy'
+      ];
+      
+      const hasRestrictedContent = restrictedKeywords.some(keyword => 
+        content.toLowerCase().includes(keyword)
+      );
+      
+      if (hasRestrictedContent) {
+        const upgradeMessage: Message = {
+          id: Date.now().toString(),
+          type: 'assistant',
+          content: `🔒 I'd love to help you with personalized analysis and recommendations, but that requires a Pro or Agency plan!
+
+On your current Core plan, I can help with:
+• How to use SEOgenix tools
+• Understanding what features do
+• Navigation and getting started
+
+**Upgrade to Pro** to unlock:
+• Detailed report analysis
+• Custom improvement suggestions  
+• Performance insights and trends
+• Proactive optimization alerts
+
+Would you like to know how to use a specific tool instead?`,
+          timestamp: new Date(),
+          suggestions: [
+            'How do I run an AI visibility audit?',
+            'What does the schema generator do?',
+            'How do I use the citation tracker?',
+            'Tell me about SEOgenix features'
+          ]
+        };
+        
+        setMessages(prev => [...prev, upgradeMessage]);
+        setInputValue('');
+        return;
+      }
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -208,11 +273,14 @@ What would you like to know? You can ask me anything or try one of the suggested
           message: content.trim(),
           user_id: user?.id,
           site_id: selectedSite?.id,
+          subscription_level: currentPlan?.name || 'free',
           context: {
             current_page: location.pathname,
             site_name: selectedSite?.name,
             site_url: selectedSite?.url,
             total_sites: sites.length,
+            is_full_featured: isFullFeatured,
+            is_basic_chatbot: isBasicChatbot,
             user_activity: {
               last_page: location.pathname,
               has_selected_site: !!selectedSite,
@@ -232,7 +300,7 @@ What would you like to know? You can ask me anything or try one of the suggested
         throw new Error(data.error);
       }
 
-      // Generate new suggestions based on the response
+      // Generate new suggestions based on the response and subscription level
       const newSuggestions = generateContextualSuggestions(content, data.response);
 
       // Replace loading message with actual response
@@ -267,54 +335,71 @@ What would you like to know? You can ask me anything or try one of the suggested
 
   const generateContextualSuggestions = (userMessage: string, aiResponse: string): string[] => {
     const lowerMessage = userMessage.toLowerCase();
-    const lowerResponse = aiResponse.toLowerCase();
     
-    // Generate follow-up questions based on the conversation
     let suggestions: string[] = [];
 
-    if (lowerMessage.includes('audit') || lowerMessage.includes('score')) {
-      suggestions = [
-        'How do I improve my lowest scoring area?',
-        'What should I prioritize first?',
-        'How often should I run new audits?',
-        'Can you explain what affects these scores?'
-      ];
-    } else if (lowerMessage.includes('competitor') || lowerMessage.includes('competition')) {
-      suggestions = [
-        'How do I find the right competitors to track?',
-        'What can I learn from their strategies?',
-        'How do I outperform my competitors?',
-        'What metrics should I focus on?'
-      ];
-    } else if (lowerMessage.includes('content') || lowerMessage.includes('writing')) {
-      suggestions = [
-        'What makes content AI-friendly?',
-        'How do I structure content for better AI understanding?',
-        'What are the best content optimization practices?',
-        'How do I create citation-worthy content?'
-      ];
-    } else if (lowerMessage.includes('schema') || lowerMessage.includes('markup')) {
-      suggestions = [
-        'Which schema types should I implement first?',
-        'How do I add schema to my website?',
-        'How do I test my schema implementation?',
-        'What are the most important schema types for AI?'
-      ];
-    } else if (lowerMessage.includes('citation') || lowerMessage.includes('mention')) {
-      suggestions = [
-        'How can I get more AI citations?',
-        'What content gets cited most often?',
-        'How do I track citation opportunities?',
-        'Why am I not getting cited by AI systems?'
-      ];
-    } else {
-      // Default follow-up suggestions
-      suggestions = [
-        'What should I work on next?',
-        'Can you give me specific action steps?',
-        'How do I measure my progress?',
-        'What are the most common mistakes to avoid?'
-      ];
+    if (isFullFeatured) {
+      // Pro/Agency: Full suggestions including analysis and recommendations
+      if (lowerMessage.includes('audit') || lowerMessage.includes('score')) {
+        suggestions = [
+          'Can you analyze my specific audit results?',
+          'What should I prioritize to improve my scores?',
+          'How do my scores compare to industry benchmarks?',
+          'What specific actions will boost my lowest score?'
+        ];
+      } else if (lowerMessage.includes('competitor') || lowerMessage.includes('competition')) {
+        suggestions = [
+          'How do I outperform my top competitor?',
+          'Can you analyze my competitive gaps?',
+          'What strategies are my competitors using?',
+          'How do I track competitive changes over time?'
+        ];
+      } else if (lowerMessage.includes('content') || lowerMessage.includes('writing')) {
+        suggestions = [
+          'Can you review my content and suggest improvements?',
+          'What specific changes will boost my content score?',
+          'How do I optimize this content for AI citations?',
+          'What content gaps should I address first?'
+        ];
+      } else {
+        suggestions = [
+          'Can you analyze my current performance?',
+          'What are my biggest optimization opportunities?',
+          'How do I prioritize my next improvements?',
+          'What metrics should I focus on this week?'
+        ];
+      }
+    } else if (isBasicChatbot) {
+      // Core: Tool guidance only
+      if (lowerMessage.includes('audit') || lowerMessage.includes('score')) {
+        suggestions = [
+          'How do I run an audit?',
+          'What do the different scores measure?',
+          'How often should I run audits?',
+          'How do I interpret audit results?'
+        ];
+      } else if (lowerMessage.includes('competitor') || lowerMessage.includes('competition')) {
+        suggestions = [
+          'How do I add competitors to track?',
+          'What does competitive analysis show?',
+          'How do I use the competitive analysis tool?',
+          'What metrics can I compare?'
+        ];
+      } else if (lowerMessage.includes('content') || lowerMessage.includes('writing')) {
+        suggestions = [
+          'How do I use the content optimizer?',
+          'What does the content generator do?',
+          'How do I create AI-friendly content?',
+          'What tools help with content optimization?'
+        ];
+      } else {
+        suggestions = [
+          'How do I use this feature?',
+          'What tools are available?',
+          'How do I get started?',
+          'What does this metric mean?'
+        ];
+      }
     }
 
     return suggestions.slice(0, 4);
@@ -338,13 +423,19 @@ What would you like to know? You can ask me anything or try one of the suggested
   };
 
   const clearChat = () => {
+    if (!isChatbotAvailable) return;
+    
     const suggestions = generateSuggestedPrompts();
     setSuggestedPrompts(suggestions);
+    
+    const welcomeMessage = isFullFeatured 
+      ? `✨ Chat cleared! I'm Genie, ready to provide detailed insights and recommendations for SEOgenix. ${selectedSite ? `Currently working with **${selectedSite.name}**. ` : ''}What would you like to analyze?`
+      : `✨ Chat cleared! I'm Genie, ready to help you understand and use SEOgenix tools. ${selectedSite ? `Currently working with **${selectedSite.name}**. ` : ''}How can I help you navigate the platform?`;
     
     setMessages([{
       id: Date.now().toString(),
       type: 'assistant',
-      content: `✨ Chat cleared! I'm Genie, ready to help you with SEOgenix. ${selectedSite ? `Currently working with **${selectedSite.name}**. ` : ''}What would you like to know?`,
+      content: welcomeMessage,
       timestamp: new Date(),
       suggestions: suggestions
     }]);
@@ -371,12 +462,52 @@ What would you like to know? You can ask me anything or try one of the suggested
         if (line.trim() === '') {
           return <br key={index} />;
         }
-        if (line.startsWith('✨') || line.startsWith('🚀') || line.startsWith('💡')) {
+        if (line.startsWith('✨') || line.startsWith('🚀') || line.startsWith('💡') || line.startsWith('🔒')) {
           return <p key={index} className="text-indigo-600 font-medium">{line}</p>;
         }
         return <p key={index}>{line}</p>;
       });
   };
+
+  // Free plan upgrade prompt
+  if (!isChatbotAvailable) {
+    return (
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg p-4 shadow-lg max-w-sm ${className}`}
+      >
+        <div className="flex items-start space-x-3">
+          <div className="flex-shrink-0">
+            <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+              <Lock size={16} className="text-white" />
+            </div>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-white font-medium text-sm mb-1">Need AI Guidance?</h3>
+            <p className="text-indigo-100 text-xs mb-3">
+              Unlock Genie, your AI assistant for personalized optimization insights and tool guidance.
+            </p>
+            <Link to="/account-settings">
+              <Button size="sm" variant="secondary" className="w-full text-xs">
+                <Crown size={12} className="mr-1" />
+                Upgrade to Core
+              </Button>
+            </Link>
+          </div>
+          <button
+            onClick={() => {
+              const element = document.querySelector('.fixed.bottom-6.right-6') as HTMLElement;
+              if (element) element.style.display = 'none';
+            }}
+            className="text-white hover:text-indigo-200 transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <>
@@ -395,6 +526,11 @@ What would you like to know? You can ask me anything or try one of the suggested
             <div className="relative">
               <Sparkles size={24} />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+              {isFullFeatured && (
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                  <Zap size={8} className="text-white" />
+                </div>
+              )}
             </div>
           </motion.button>
         )}
@@ -417,17 +553,47 @@ What would you like to know? You can ask me anything or try one of the suggested
             } ${className}`}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-t-lg">
+            <div className={`flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg ${
+              isFullFeatured 
+                ? 'bg-gradient-to-r from-green-50 to-blue-50' 
+                : 'bg-gradient-to-r from-indigo-50 to-purple-50'
+            }`}>
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <div className="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                    isFullFeatured 
+                      ? 'bg-gradient-to-r from-green-600 to-blue-600' 
+                      : 'bg-gradient-to-r from-indigo-600 to-purple-600'
+                  }`}>
                     <Sparkles size={16} className="text-white" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                  {isFullFeatured && (
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                      <Zap size={8} className="text-white" />
+                    </div>
+                  )}
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900">Genie</h3>
-                  <p className="text-xs text-gray-500">Your AI SEO Assistant</p>
+                  <h3 className="font-medium text-gray-900 flex items-center">
+                    Genie
+                    {isFullFeatured && (
+                      <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">
+                        Pro
+                      </span>
+                    )}
+                    {isBasicChatbot && (
+                      <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
+                        Core
+                      </span>
+                    )}
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    {isFullFeatured 
+                      ? 'Your AI SEO Analyst' 
+                      : 'Your AI Tool Guide'
+                    }
+                  </p>
                 </div>
               </div>
               <div className="flex items-center space-x-1">
@@ -546,7 +712,11 @@ What would you like to know? You can ask me anything or try one of the suggested
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      placeholder="Ask Genie anything about SEOgenix..."
+                      placeholder={
+                        isFullFeatured 
+                          ? "Ask Genie to analyze your data or suggest improvements..."
+                          : "Ask Genie how to use SEOgenix tools..."
+                      }
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
                       disabled={isLoading}
                     />
@@ -569,6 +739,24 @@ What would you like to know? You can ask me anything or try one of the suggested
                       Press Enter to send
                     </div>
                   </div>
+                  
+                  {/* Upgrade prompt for Core users */}
+                  {isBasicChatbot && (
+                    <div className="mt-3 p-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-md border border-purple-200">
+                      <div className="flex items-center text-xs text-purple-700">
+                        <Crown size={12} className="mr-1" />
+                        <span className="font-medium">Want personalized insights?</span>
+                      </div>
+                      <p className="text-xs text-purple-600 mt-1">
+                        Upgrade to Pro for detailed analysis and custom recommendations.
+                      </p>
+                      <Link to="/account-settings">
+                        <Button size="sm" variant="outline" className="mt-2 text-xs">
+                          Upgrade to Pro
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </>
             )}

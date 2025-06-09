@@ -179,24 +179,60 @@ async function getUserSiteData(userId: string, siteId?: string) {
   }
 }
 
-// Helper function to create contextual prompt with personality
-function createContextualPrompt(message: string, userData: any, context: any): string {
+// Helper function to create contextual prompt with subscription-based personality
+function createContextualPrompt(message: string, userData: any, context: any, subscriptionLevel: string): string {
   const { sites, selectedSite, auditData, citationData, summaryData, entityData, competitorData, recentActivity } = userData;
+  const isFullFeatured = subscriptionLevel === 'pro' || subscriptionLevel === 'agency';
+  const isBasicChatbot = subscriptionLevel === 'core';
   
-  let contextInfo = `You are Genie, an intelligent and helpful AI assistant for SEOgenix, a platform that helps users optimize their content for AI visibility. You have a friendly, knowledgeable personality and provide actionable advice with enthusiasm.
+  let contextInfo = `You are Genie, an intelligent and helpful AI assistant for SEOgenix, a platform that helps users optimize their content for AI visibility.
 
-PERSONALITY TRAITS:
-- Friendly and approachable, like a knowledgeable friend
-- Use occasional emojis (✨, 🚀, 💡, 📊, 🎯) to make responses engaging
-- Provide specific, actionable advice rather than generic tips
-- Reference the user's actual data when giving recommendations
-- Be encouraging and supportive, especially when users face challenges
-- Use "**bold text**" for important points and recommendations
+SUBSCRIPTION LEVEL: ${subscriptionLevel.toUpperCase()}
 
+PERSONALITY AND CAPABILITIES BASED ON SUBSCRIPTION:
+`;
+
+  if (isFullFeatured) {
+    contextInfo += `
+PRO/AGENCY FEATURES - FULL ACCESS:
+- You have FULL access to analyze user data and provide detailed insights
+- Provide specific, actionable recommendations based on their actual metrics
+- Interpret audit results and explain what they mean
+- Suggest concrete improvements and optimization strategies
+- Analyze trends and performance changes
+- Provide proactive alerts about metrics that need attention
+- Reference specific scores, citations, and competitive data
+- Be analytical and data-driven in your responses
+
+PERSONALITY: Expert analyst who provides deep insights and actionable recommendations
+- Use data-driven language: "Based on your audit scores...", "Your citation data shows...", "I recommend focusing on..."
+- Reference specific metrics and provide concrete next steps
+- Be proactive in identifying opportunities and issues
+`;
+  } else if (isBasicChatbot) {
+    contextInfo += `
+CORE PLAN FEATURES - LIMITED ACCESS:
+- You can ONLY provide tool guidance and feature explanations
+- DO NOT analyze user data or provide specific recommendations
+- DO NOT interpret audit scores or suggest improvements
+- Focus on HOW TO USE tools, not what the results mean
+- Explain what features do and how to navigate the platform
+- If asked for analysis or recommendations, politely redirect to upgrade
+
+PERSONALITY: Helpful guide who explains how to use the platform
+- Use instructional language: "To use this tool...", "This feature helps you...", "You can find this in..."
+- Focus on navigation and feature explanations
+- When asked for analysis, suggest upgrading for personalized insights
+`;
+  }
+
+  contextInfo += `
 USER CONTEXT:
 - Total sites: ${sites.length}
 - Current page: ${context.current_page || 'unknown'}
-- User activity: ${context.user_activity ? JSON.stringify(context.user_activity) : 'unknown'}
+- Subscription: ${subscriptionLevel}
+- Is full featured: ${isFullFeatured}
+- Is basic chatbot: ${isBasicChatbot}
 `;
 
   if (selectedSite) {
@@ -204,7 +240,7 @@ USER CONTEXT:
 SELECTED SITE: ${selectedSite.name} (${selectedSite.url})
 `;
 
-    if (auditData) {
+    if (auditData && isFullFeatured) {
       const overallScore = Math.round((
         auditData.ai_visibility_score +
         auditData.schema_score +
@@ -214,7 +250,7 @@ SELECTED SITE: ${selectedSite.name} (${selectedSite.url})
       ) / 5);
 
       contextInfo += `
-LATEST AUDIT RESULTS:
+LATEST AUDIT RESULTS (FULL ACCESS):
 - Overall Score: ${overallScore}/100
 - AI Visibility: ${auditData.ai_visibility_score}/100
 - Schema Score: ${auditData.schema_score}/100
@@ -223,6 +259,8 @@ LATEST AUDIT RESULTS:
 - Technical SEO: ${auditData.technical_seo_score}/100
 - Audit Date: ${new Date(auditData.created_at).toLocaleDateString()}
 - Audit Age: ${recentActivity?.auditAge || 'unknown'} days old
+
+ANALYSIS INSIGHTS:
 `;
 
       // Identify the lowest scoring area for recommendations
@@ -234,110 +272,115 @@ LATEST AUDIT RESULTS:
         'Technical SEO': auditData.technical_seo_score
       };
       const lowestArea = Object.entries(scores).reduce((a, b) => scores[a[0]] < scores[b[0]] ? a : b);
-      contextInfo += `- PRIORITY AREA: ${lowestArea[0]} (${lowestArea[1]}/100) - needs most attention\n`;
-    }
+      const highestArea = Object.entries(scores).reduce((a, b) => scores[a[0]] > scores[b[0]] ? a : b);
+      
+      contextInfo += `- PRIORITY AREA: ${lowestArea[0]} (${lowestArea[1]}/100) - needs immediate attention
+- STRENGTH: ${highestArea[0]} (${highestArea[1]}/100) - performing well
+- OVERALL TREND: ${overallScore >= 70 ? 'Good performance' : overallScore >= 50 ? 'Moderate performance' : 'Needs significant improvement'}
+`;
 
-    if (citationData.length > 0) {
-      contextInfo += `
-CITATIONS FOUND: ${citationData.length}
+      if (citationData.length > 0) {
+        contextInfo += `
+CITATIONS ANALYSIS:
+- Total Citations: ${citationData.length}
 - Citation Sources: ${citationData.map(c => c.source_type).join(', ')}
 - Recent Citations: ${recentActivity?.hasRecentCitations ? 'Yes' : 'No'}
+- Citation Quality: ${citationData.length >= 5 ? 'Good' : citationData.length >= 2 ? 'Moderate' : 'Low'}
 `;
-    }
+      }
 
-    if (summaryData.length > 0) {
-      contextInfo += `
-GENERATED SUMMARIES: ${summaryData.length}
-- Summary Types: ${summaryData.map(s => s.summary_type).join(', ')}
-- Recent Summaries: ${recentActivity?.hasRecentSummaries ? 'Yes' : 'No'}
-`;
-    }
-
-    if (entityData.length > 0) {
-      const entitiesWithGaps = entityData.filter(e => e.gap);
-      contextInfo += `
-ENTITY ANALYSIS:
+      if (entityData.length > 0) {
+        const entitiesWithGaps = entityData.filter(e => e.gap);
+        contextInfo += `
+ENTITY COVERAGE ANALYSIS:
 - Total Entities: ${entityData.length}
-- Entities with Coverage Gaps: ${entitiesWithGaps.length}
-- Top Entities: ${entityData.slice(0, 3).map(e => e.entity_name).join(', ')}
-${entitiesWithGaps.length > 0 ? `- GAPS TO ADDRESS: ${entitiesWithGaps.slice(0, 3).map(e => e.entity_name).join(', ')}` : ''}
+- Coverage Gaps: ${entitiesWithGaps.length} entities need attention
+- Coverage Quality: ${entitiesWithGaps.length === 0 ? 'Excellent' : entitiesWithGaps.length <= 3 ? 'Good' : 'Needs improvement'}
+${entitiesWithGaps.length > 0 ? `- PRIORITY GAPS: ${entitiesWithGaps.slice(0, 3).map(e => e.entity_name).join(', ')}` : ''}
 `;
-    }
+      }
 
-    if (competitorData.length > 0) {
-      contextInfo += `
-COMPETITORS TRACKED: ${competitorData.length}
+      if (competitorData.length > 0) {
+        contextInfo += `
+COMPETITIVE CONTEXT:
+- Competitors Tracked: ${competitorData.length}
 - Competitor Names: ${competitorData.map(c => c.name).join(', ')}
 `;
-    }
-
-    if (recentActivity) {
+      }
+    } else if (auditData && isBasicChatbot) {
       contextInfo += `
-RECENT ACTIVITY ANALYSIS:
-- Recent Audit: ${recentActivity.hasRecentAudit ? 'Yes' : 'No'}
-- Recent Citations: ${recentActivity.hasRecentCitations ? 'Yes' : 'No'}
-- Recent Summaries: ${recentActivity.hasRecentSummaries ? 'Yes' : 'No'}
-- Entity Gaps: ${recentActivity.entityGapsCount}
-- Competitors: ${recentActivity.competitorCount}
+AUDIT DATA AVAILABLE (LIMITED ACCESS):
+- User has audit data but you can only explain what audits measure, not analyze results
+- If asked about scores, explain what each metric means but don't provide specific recommendations
+- Direct them to upgrade for detailed analysis
 `;
     }
   }
 
   // Add page-specific context
-  const pageContext = getPageSpecificContext(context.current_page);
+  const pageContext = getPageSpecificContext(context.current_page, isFullFeatured);
   if (pageContext) {
     contextInfo += `\nCURRENT PAGE CONTEXT: ${pageContext}\n`;
   }
 
   contextInfo += `
+RESPONSE GUIDELINES FOR ${subscriptionLevel.toUpperCase()} PLAN:
+`;
 
-SEOGEMIX FEATURES TO RECOMMEND:
-- **AI Visibility Audit**: Comprehensive analysis of AI visibility factors
-- **Competitive Analysis**: Compare performance against competitors  
-- **AI Content Optimizer**: Analyze and optimize content for AI systems
-- **Schema Generator**: Create structured data markup
-- **Citation Tracker**: Monitor AI system citations
-- **Voice Assistant Tester**: Test voice assistant responses
-- **LLM Site Summaries**: Generate AI-optimized summaries
-- **Entity Coverage Analyzer**: Identify content gaps
-- **Prompt Match Suggestions**: Generate AI-optimized prompts
-- **AI Content Generator**: Create AI-friendly content
+  if (isFullFeatured) {
+    contextInfo += `
+1. **Analyze and recommend** - Use their actual data to provide specific insights
+2. **Be data-driven** - Reference specific scores, trends, and metrics
+3. **Provide actionable steps** - Give concrete next actions based on their situation
+4. **Identify priorities** - Tell them what to focus on first based on their weakest areas
+5. **Use their site name** and specific data points in recommendations
+6. **Suggest relevant tools** that will help with their specific issues
+7. **Be proactive** - Alert them to opportunities and issues they might not see
+8. **Format clearly** - Use bold for important points, bullets for action items
+`;
+  } else if (isBasicChatbot) {
+    contextInfo += `
+1. **Tool guidance only** - Explain how to use features, not what results mean
+2. **No data analysis** - Don't interpret scores or provide improvement suggestions
+3. **Educational focus** - Explain what tools do and how to navigate
+4. **Redirect for analysis** - If asked for recommendations, suggest upgrading
+5. **Be helpful** - Provide clear instructions on using the platform
+6. **Encourage upgrade** - Mention Pro benefits when relevant but don't be pushy
+`;
+  }
 
-RESPONSE GUIDELINES:
-1. **Be specific and actionable** - reference the user's actual data
-2. **Prioritize recommendations** based on their audit scores and gaps
-3. **Suggest relevant SEOgenix features** that can help with their specific issues
-4. **Be encouraging** - frame challenges as opportunities
-5. **Use formatting** - bold important points, use bullet points for lists
-6. **Include next steps** - tell them exactly what to do next
-7. **Reference their site by name** when giving advice
-8. **Use emojis sparingly** but effectively to add personality
-
+  contextInfo += `
 USER QUESTION: ${message}
 
-Provide a helpful, contextual response as Genie that addresses their specific situation:`;
+Respond as Genie with the appropriate level of access for their ${subscriptionLevel} subscription:`;
 
   return contextInfo;
 }
 
 // Helper function to get page-specific context
-function getPageSpecificContext(currentPage: string): string {
-  const pageContexts: { [key: string]: string } = {
+function getPageSpecificContext(currentPage: string, isFullFeatured: boolean): string {
+  const baseContexts: { [key: string]: string } = {
     '/dashboard': 'User is viewing their main dashboard with site overview and quick stats',
-    '/ai-visibility-audit': 'User is on the AI Visibility Audit page, likely wanting to understand or improve their audit scores',
+    '/ai-visibility-audit': 'User is on the AI Visibility Audit page',
     '/competitive-analysis': 'User is analyzing competitors and comparing performance',
-    '/ai-content-optimizer': 'User is optimizing content for AI systems and wants to improve content scores',
+    '/ai-content-optimizer': 'User is optimizing content for AI systems',
     '/schema-generator': 'User is working with schema markup and structured data',
-    '/citation-tracker': 'User is tracking AI citations and mentions of their content',
-    '/voice-assistant-tester': 'User is testing voice assistant responses about their site',
+    '/citation-tracker': 'User is tracking AI citations and mentions',
+    '/voice-assistant-tester': 'User is testing voice assistant responses',
     '/llm-site-summaries': 'User is generating or reviewing LLM-optimized summaries',
-    '/entity-coverage-analyzer': 'User is analyzing entity coverage and identifying content gaps',
-    '/prompt-match-suggestions': 'User is generating AI-optimized prompts and suggestions',
+    '/entity-coverage-analyzer': 'User is analyzing entity coverage and identifying gaps',
+    '/prompt-match-suggestions': 'User is generating AI-optimized prompts',
     '/ai-content-generator': 'User is creating AI-friendly content',
     '/account-settings': 'User is managing their account and subscription settings'
   };
 
-  return pageContexts[currentPage] || '';
+  const baseContext = baseContexts[currentPage] || '';
+  
+  if (isFullFeatured) {
+    return baseContext + ' - provide detailed analysis and specific recommendations';
+  } else {
+    return baseContext + ' - explain how to use the tools and features';
+  }
 }
 
 serve(async (req) => {
@@ -349,7 +392,7 @@ serve(async (req) => {
   try {
     console.log(`✨ Genie chatbot function called`);
     
-    const { message, user_id, site_id, context } = await req.json();
+    const { message, user_id, site_id, subscription_level, context } = await req.json();
     
     if (!message || typeof message !== 'string') {
       throw new Error('Message is required and must be a string');
@@ -359,35 +402,50 @@ serve(async (req) => {
       throw new Error('User ID is required');
     }
 
-    console.log(`💬 Processing message: "${message.substring(0, 50)}..." for user: ${user_id}`);
+    const userSubscription = subscription_level || 'free';
+    console.log(`💬 Processing message for ${userSubscription} user: "${message.substring(0, 50)}..."`);
+
+    // Check if chatbot is available for this subscription level
+    if (userSubscription === 'free') {
+      return new Response(
+        JSON.stringify({
+          error: 'Chatbot not available on free plan',
+          response: "✨ Hi! I'm Genie, but I'm only available for Core, Pro, and Agency subscribers. Upgrade to unlock AI guidance and personalized insights! 🚀"
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 403,
+        }
+      );
+    }
 
     // Get user's site data and activity for context
     const userData = await getUserSiteData(user_id, site_id);
     
-    console.log(`📊 User data loaded:`, {
+    console.log(`📊 User data loaded for ${userSubscription} user:`, {
       sites: userData.sites.length,
       selectedSite: userData.selectedSite?.name,
       hasAudit: !!userData.auditData,
       citations: userData.citationData.length,
       summaries: userData.summaryData.length,
       entities: userData.entityData.length,
-      competitors: userData.competitorData.length,
-      recentActivity: userData.recentActivity
+      competitors: userData.competitorData.length
     });
 
-    // Create contextual prompt with Genie's personality
-    const prompt = createContextualPrompt(message, userData, context || {});
+    // Create contextual prompt with subscription-based personality
+    const prompt = createContextualPrompt(message, userData, context || {}, userSubscription);
     
-    console.log(`🧠 Calling Gemini API with contextual prompt...`);
+    console.log(`🧠 Calling Gemini API with ${userSubscription} subscription context...`);
     
     // Get AI response
     const aiResponse = await callGeminiAPI(prompt);
     
-    console.log(`✅ Genie response generated (${aiResponse.length} characters)`);
+    console.log(`✅ Genie response generated for ${userSubscription} user (${aiResponse.length} characters)`);
 
     return new Response(
       JSON.stringify({
         response: aiResponse,
+        subscription_level: userSubscription,
         context_used: {
           sites_count: userData.sites.length,
           selected_site: userData.selectedSite?.name,
@@ -397,7 +455,9 @@ serve(async (req) => {
           entities_count: userData.entityData.length,
           competitors_count: userData.competitorData.length,
           recent_activity: userData.recentActivity,
-          current_page: context?.current_page
+          current_page: context?.current_page,
+          is_full_featured: userSubscription === 'pro' || userSubscription === 'agency',
+          is_basic_chatbot: userSubscription === 'core'
         }
       }),
       {
