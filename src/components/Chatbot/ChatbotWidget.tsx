@@ -477,17 +477,17 @@ Would you like to know how to use a specific tool instead?`,
           return <li key={index} className="ml-4 list-disc">{line.substring(2)}</li>;
         }
         if (line.startsWith('**') && line.endsWith('**')) {
-          return <p key={index} className="font-semibold text-indigo-700">{line.substring(2, line.length - 2)}</p>;
+          return <p key={index} className="font-semibold text-purple-700">{line.substring(2, line.length - 2)}</p>;
         }
         if (line.includes('**') && line.split('**').length === 3) {
           const parts = line.split('**');
-          return <p key={index}>{parts[0]}<strong className="text-indigo-700">{parts[1]}</strong>{parts[2]}</p>;
+          return <p key={index}>{parts[0]}<strong className="text-purple-700">{parts[1]}</strong>{parts[2]}</p>;
         }
         if (line.trim() === '') {
           return <br key={index} />;
         }
         if (line.startsWith('✨') || line.startsWith('🚀') || line.startsWith('💡') || line.startsWith('🔒')) {
-          return <p key={index} className="text-indigo-600 font-medium">{line}</p>;
+          return <p key={index} className="text-purple-600 font-medium">{line}</p>;
         }
         return <p key={index}>{line}</p>;
       });
@@ -530,10 +530,10 @@ Would you like to know how to use a specific tool instead?`,
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-xl shadow-2xl max-w-md w-full mx-4"
               >
-                <div className="relative bg-gradient-to-r from-indigo-600 to-purple-600 rounded-t-xl p-6 text-white">
+                <div className="relative bg-gradient-to-r from-purple-600 to-cyan-500 rounded-t-xl p-6 text-white">
                   <button
                     onClick={() => setShowUpsellModal(false)}
-                    className="absolute top-4 right-4 text-white hover:text-indigo-200 transition-colors"
+                    className="absolute top-4 right-4 text-white hover:text-purple-200 transition-colors"
                   >
                     <X size={20} />
                   </button>
@@ -547,11 +547,11 @@ Would you like to know how to use a specific tool instead?`,
                     </div>
                     <div>
                       <h2 className="text-xl font-bold">Meet Genie</h2>
-                      <p className="text-indigo-100 text-sm">Your AI SEO Assistant</p>
+                      <p className="text-purple-100 text-sm">Your AI SEO Assistant</p>
                     </div>
                   </div>
                   
-                  <p className="text-indigo-100 text-sm leading-relaxed">
+                  <p className="text-purple-100 text-sm leading-relaxed">
                     Get personalized guidance, tool explanations, and optimization insights powered by AI.
                   </p>
                 </div>
@@ -596,7 +596,7 @@ Would you like to know how to use a specific tool instead?`,
                         <div className="text-red-600 text-xs">❌ No AI Guidance</div>
                       </div>
                       <div className="text-right">
-                        <span className="text-indigo-600 text-sm font-medium">Core Plan</span>
+                        <span className="text-purple-600 text-sm font-medium">Core Plan</span>
                         <div className="text-green-600 text-xs">✅ AI Tool Guide</div>
                       </div>
                     </div>
@@ -610,7 +610,7 @@ Would you like to know how to use a specific tool instead?`,
                     <Link to="/account-settings" onClick={() => setShowUpsellModal(false)}>
                       <Button 
                         variant="primary" 
-                        className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+                        className="w-full bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600"
                       >
                         Upgrade to Core Plan
                       </Button>
@@ -652,7 +652,7 @@ Would you like to know how to use a specific tool instead?`,
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 ${className}`}
+            className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 text-white rounded-full p-4 shadow-lg transition-all duration-300 ${className}`}
           >
             <div className="relative">
               <Sparkles size={24} />
@@ -676,25 +676,25 @@ Would you like to know how to use a specific tool instead?`,
               opacity: 1, 
               y: 0, 
               scale: 1,
-              height: isMinimized ? 'auto' : '700px'
+              height: isMinimized ? 'auto' : '500px'
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className={`fixed bottom-6 right-6 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
-              isMinimized ? 'w-80' : 'w-96'
+              isMinimized ? 'w-80' : 'w-80 max-w-sm'
             } ${className}`}
           >
             {/* Header */}
             <div className={`flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg ${
               isFullFeatured 
                 ? 'bg-gradient-to-r from-green-50 to-blue-50' 
-                : 'bg-gradient-to-r from-indigo-50 to-purple-50'
+                : 'bg-gradient-to-r from-purple-50 to-cyan-50'
             }`}>
               <div className="flex items-center space-x-3">
                 <div className="relative">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     isFullFeatured 
                       ? 'bg-gradient-to-r from-green-600 to-blue-600' 
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600'
+                      : 'bg-gradient-to-r from-purple-600 to-cyan-500'
                   }`}>
                     <Sparkles size={16} className="text-white" />
                   </div>
@@ -730,13 +730,13 @@ Would you like to know how to use a specific tool instead?`,
               <div className="flex items-center space-x-1">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1 hover:bg-indigo-100 rounded transition-colors"
+                  className="p-1 hover:bg-purple-100 rounded transition-colors"
                 >
                   {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-indigo-100 rounded transition-colors"
+                  className="p-1 hover:bg-purple-100 rounded transition-colors"
                 >
                   <X size={16} />
                 </button>
@@ -746,22 +746,22 @@ Would you like to know how to use a specific tool instead?`,
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="h-96 overflow-y-auto p-4 space-y-4">
+                <div className="h-64 overflow-y-auto p-4 space-y-4">
                   {messages.map((message) => (
                     <div key={message.id}>
                       <div
                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
+                          className={`max-w-xs px-4 py-3 rounded-lg ${
                             message.type === 'user'
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                              ? 'bg-gradient-to-r from-purple-600 to-cyan-500 text-white'
                               : 'bg-gray-100 text-gray-900'
                           }`}
                         >
                           <div className="flex items-start space-x-2">
                             {message.type === 'assistant' && (
-                              <Sparkles size={16} className="mt-1 flex-shrink-0 text-indigo-600" />
+                              <Sparkles size={16} className="mt-1 flex-shrink-0 text-purple-600" />
                             )}
                             {message.type === 'user' && (
                               <User size={16} className="mt-1 flex-shrink-0 text-white" />
@@ -780,7 +780,7 @@ Would you like to know how to use a specific tool instead?`,
                             </div>
                           </div>
                           <div className={`text-xs mt-2 ${
-                            message.type === 'user' ? 'text-indigo-200' : 'text-gray-500'
+                            message.type === 'user' ? 'text-purple-200' : 'text-gray-500'
                           }`}>
                             {message.timestamp.toLocaleTimeString([], { 
                               hour: '2-digit', 
@@ -801,7 +801,7 @@ Would you like to know how to use a specific tool instead?`,
                             <button
                               key={index}
                               onClick={() => handleSuggestionClick(suggestion)}
-                              className="block w-full text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2 rounded border border-indigo-200 transition-colors"
+                              className="block w-full text-left text-xs text-purple-600 hover:text-purple-800 hover:bg-purple-50 p-2 rounded border border-purple-200 transition-colors"
                             >
                               {suggestion}
                             </button>
@@ -825,7 +825,7 @@ Would you like to know how to use a specific tool instead?`,
                         <button
                           key={index}
                           onClick={() => handleSuggestionClick(prompt)}
-                          className="block w-full text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2 rounded border border-indigo-200 transition-colors"
+                          className="block w-full text-left text-xs text-purple-600 hover:text-purple-800 hover:bg-purple-50 p-2 rounded border border-purple-200 transition-colors"
                         >
                           {prompt}
                         </button>
@@ -848,7 +848,7 @@ Would you like to know how to use a specific tool instead?`,
                           ? "Ask Genie to analyze your data or suggest improvements..."
                           : "Ask Genie how to use SEOgenix tools..."
                       }
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
                       disabled={isLoading}
                     />
                     <Button
@@ -857,6 +857,7 @@ Would you like to know how to use a specific tool instead?`,
                       size="sm"
                       disabled={!inputValue.trim() || isLoading}
                       icon={<Send size={16} />}
+                      className="bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-700 hover:to-cyan-600"
                     />
                   </form>
                   <div className="flex justify-between items-center mt-2">
