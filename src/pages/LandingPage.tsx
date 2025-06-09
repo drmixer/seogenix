@@ -43,9 +43,8 @@ const LandingPage = () => {
               <img 
                 src="https://i.imgur.com/bPM4L5Z.png" 
                 alt="SEOgenix Logo" 
-                className="h-10 w-10 object-contain"
+                className="h-16 w-16 object-contain"
               />
-              <span className="ml-3 text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">SEOgenix</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-4">
@@ -565,31 +564,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Social Proof / Stats Section */}
-      <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4 text-center">
-            {[
-              { number: "10,000+", label: "Websites Analyzed" },
-              { number: "50,000+", label: "AI Citations Tracked" },
-              { number: "95%", label: "Improvement Rate" },
-              { number: "24/7", label: "AI Monitoring" }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="text-4xl font-bold text-white mb-2">{stat.number}</div>
-                <div className="text-indigo-200">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -710,9 +684,8 @@ const LandingPage = () => {
                 <img 
                   src="https://i.imgur.com/bPM4L5Z.png" 
                   alt="SEOgenix Logo" 
-                  className="h-8 w-8 object-contain"
+                  className="h-12 w-12 object-contain"
                 />
-                <span className="ml-3 text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">SEOgenix</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The comprehensive platform for AI visibility optimization. Get found by ChatGPT, Perplexity, voice assistants, and all major AI systems.
@@ -735,8 +708,6 @@ const LandingPage = () => {
               <ul className="space-y-2 text-gray-400">
                 <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
               </ul>
             </div>
             
