@@ -18,7 +18,16 @@ import {
   Mic,
   FileText,
   Tag,
-  TrendingUp
+  TrendingUp,
+  Target,
+  Users,
+  Building,
+  Lightbulb,
+  Link2,
+  FileBarChart,
+  RefreshCw,
+  Crown,
+  Sparkles
 } from 'lucide-react';
 import LandingChatbot from '../components/LandingChatbot/LandingChatbot';
 
@@ -26,24 +35,29 @@ const LandingPage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-indigo-50/50 to-white">
+      <header className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <div className="flex-shrink-0 flex items-center">
-              <Globe className="h-8 w-8 text-indigo-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">SEOgenix</span>
+              <img 
+                src="https://i.imgur.com/bPM4L5Z.png" 
+                alt="SEOgenix Logo" 
+                className="h-10 w-10 object-contain"
+              />
+              <span className="ml-3 text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">SEOgenix</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
                 >
                   Log in
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center px-6 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity"
+                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
                   Start Free
                 </Link>
@@ -52,193 +66,122 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-8"
+            >
+              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 mb-6">
+                <Sparkles className="w-4 h-4 mr-2" />
+                The Future of SEO is AI Visibility
+              </span>
+            </motion.div>
+            
             <motion.h1 
-              className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl"
+              className="text-5xl tracking-tight font-extrabold text-gray-900 sm:text-6xl md:text-7xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <span className="block">Optimize your content for</span>
-              <span className="block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mt-2">the AI era</span>
+              <span className="block">Get Found by</span>
+              <span className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mt-2">
+                AI Systems
+              </span>
             </motion.h1>
+            
             <motion.p 
-              className="mt-6 max-w-md mx-auto text-base text-gray-600 sm:text-lg md:mt-8 md:text-xl md:max-w-3xl"
+              className="mt-8 max-w-md mx-auto text-xl text-gray-600 sm:text-2xl md:mt-10 md:text-2xl md:max-w-4xl leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Get found by ChatGPT, Perplexity, Siri, and other AI tools. Improve your visibility in the age of AI with comprehensive audits and optimization tools.
+              Optimize your content for ChatGPT, Perplexity, Claude, Gemini, and voice assistants. 
+              <span className="block mt-2 text-lg text-gray-500">
+                The comprehensive platform for AI visibility optimization.
+              </span>
             </motion.p>
+            
             <motion.div 
-              className="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-12"
+              className="mt-12 max-w-md mx-auto sm:flex sm:justify-center md:mt-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="rounded-md shadow">
+              <div className="rounded-lg shadow-xl">
                 <Link
                   to="/register"
-                  className="w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity md:py-4 md:text-lg md:px-10"
+                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
-                  Start Free
+                  Start Free Today
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </div>
-              <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+              <div className="mt-3 rounded-lg shadow-lg sm:mt-0 sm:ml-4">
                 <Link
                   to="/login"
-                  className="w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors md:py-4 md:text-lg md:px-10"
+                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 border-2 border-gray-200 hover:border-gray-300"
                 >
-                  Log in
+                  Sign In
                 </Link>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="mt-12 flex justify-center items-center space-x-8 text-sm text-gray-500"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-500 mr-2" />
+                No credit card required
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-500 mr-2" />
+                Free plan available
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-500 mr-2" />
+                Setup in 2 minutes
               </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-10 animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-10 animate-pulse delay-1000"></div>
       </header>
 
-      {/* How It Works Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Trust Indicators */}
+      <section className="py-12 bg-gray-50 border-y">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">How It Works</h2>
-            <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Boost your AI visibility in three steps
+            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-8">
+              Optimized for Leading AI Systems
             </p>
-          </div>
-
-          <div className="mt-16">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              <motion.div 
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-              >
-                <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
-                  <SearchCode size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">1. Analyze</h3>
-                <p className="text-gray-500">
-                  Add your website and get a comprehensive AI visibility audit, including schema analysis and entity coverage.
-                </p>
-              </motion.div>
-
-              <motion.div 
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
-                  <Code2 size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">2. Optimize</h3>
-                <p className="text-gray-500">
-                  Implement our AI-friendly recommendations, from schema markup to content structure improvements.
-                </p>
-              </motion.div>
-
-              <motion.div 
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-              >
-                <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
-                  <BarChart3 size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">3. Monitor</h3>
-                <p className="text-gray-500">
-                  Track your progress with real-time citation monitoring and AI visibility scores.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Features</h2>
-            <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Everything you need for AI visibility
-            </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-              Comprehensive tools to analyze, optimize, and track your content's performance with AI systems.
-            </p>
-          </div>
-
-          <div className="mt-16">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
               {[
-                {
-                  icon: <BarChart3 size={24} />,
-                  title: "AI Visibility Audit",
-                  description: "Comprehensive analysis of how well your content performs with AI systems, with actionable recommendations."
-                },
-                {
-                  icon: <Code2 size={24} />,
-                  title: "Schema Generator",
-                  description: "Create structured data markup that helps AI systems understand your content more effectively."
-                },
-                {
-                  icon: <CheckCircle2 size={24} />,
-                  title: "Citation Tracking",
-                  description: "Monitor when and where AI systems cite your content, with alerts for new mentions."
-                },
-                {
-                  icon: <Mic size={24} />,
-                  title: "Voice Assistant Tester",
-                  description: "Test how voice assistants like Siri and Alexa respond to queries about your content."
-                },
-                {
-                  icon: <Tag size={24} />,
-                  title: "Entity Coverage Analysis",
-                  description: "Identify key entities in your content and ensure comprehensive coverage for AI understanding."
-                },
-                {
-                  icon: <FileText size={24} />,
-                  title: "AI Content Generator",
-                  description: "Create AI-optimized content snippets, FAQs, and meta descriptions tailored for AI visibility."
-                },
-                {
-                  icon: <TrendingUp size={24} />,
-                  title: "Competitive Analysis",
-                  description: "Track and compare your AI visibility performance against competitors in your industry."
-                },
-                {
-                  icon: <Zap size={24} />,
-                  title: "AI Content Optimizer",
-                  description: "Analyze and optimize existing content for better AI understanding and citation potential."
-                },
-                {
-                  icon: <MessagesSquare size={24} />,
-                  title: "Prompt Match Suggestions",
-                  description: "Generate AI-optimized prompts and questions that align with user search intent."
-                }
-              ].map((feature, index) => (
-                <motion.div 
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-6"
+                { name: 'ChatGPT', logo: '🤖' },
+                { name: 'Perplexity', logo: '🔍' },
+                { name: 'Claude', logo: '🧠' },
+                { name: 'Gemini', logo: '💎' },
+                { name: 'Siri', logo: '🎤' },
+                { name: 'Alexa', logo: '🔊' }
+              ].map((ai, index) => (
+                <motion.div
+                  key={ai.name}
+                  className="flex flex-col items-center"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center">
-                    {feature.icon}
-                  </div>
-                  <h3 className="mt-4 text-lg font-medium text-gray-900">{feature.title}</h3>
-                  <p className="mt-2 text-base text-gray-500">
-                    {feature.description}
-                  </p>
+                  <div className="text-3xl mb-2">{ai.logo}</div>
+                  <span className="text-sm font-medium text-gray-600">{ai.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -246,37 +189,222 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="py-20 bg-gray-50">
+      {/* How It Works Section */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+          <div className="text-center mb-16">
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">How It Works</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+              Boost your AI visibility in three steps
+            </p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+              Our comprehensive platform analyzes, optimizes, and monitors your content for maximum AI visibility.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+            {[
+              {
+                step: "1",
+                icon: <SearchCode size={32} />,
+                title: "Analyze & Audit",
+                description: "Get comprehensive AI visibility audits including schema analysis, entity coverage, and semantic clarity scoring.",
+                features: ["AI Visibility Score", "Schema Markup Analysis", "Entity Coverage Check", "Citation Potential Assessment"]
+              },
+              {
+                step: "2",
+                icon: <Zap size={32} />,
+                title: "Optimize & Generate",
+                description: "Use our AI-powered tools to create optimized content, schema markup, and structured data.",
+                features: ["AI Content Generator", "Schema Generator", "Content Optimizer", "Prompt Suggestions"]
+              },
+              {
+                step: "3",
+                icon: <BarChart3 size={32} />,
+                title: "Monitor & Track",
+                description: "Track your progress with real-time citation monitoring, competitive analysis, and performance insights.",
+                features: ["Citation Tracking", "Competitive Analysis", "Voice Assistant Testing", "Performance Monitoring"]
+              }
+            ].map((step, index) => (
+              <motion.div 
+                key={index}
+                className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 p-8 group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                
+                <div className="relative">
+                  <div className="flex items-center mb-6">
+                    <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white flex items-center justify-center mr-4">
+                      {step.icon}
+                    </div>
+                    <div className="text-4xl font-bold text-gray-200">{step.step}</div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{step.description}</p>
+                  
+                  <ul className="space-y-2">
+                    {step.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Complete Features Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Complete Feature Set</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+              Everything you need for AI visibility
+            </p>
+            <p className="mt-4 max-w-3xl text-xl text-gray-500 mx-auto">
+              Comprehensive tools to analyze, optimize, and track your content's performance with AI systems and voice assistants.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: <BarChart3 size={28} />,
+                title: "AI Visibility Audit",
+                description: "Comprehensive analysis of how well your content performs with AI systems, with detailed scoring and actionable recommendations.",
+                color: "indigo"
+              },
+              {
+                icon: <TrendingUp size={28} />,
+                title: "Competitive Analysis",
+                description: "Track and compare your AI visibility performance against competitors in your industry with detailed benchmarking.",
+                color: "green"
+              },
+              {
+                icon: <Zap size={28} />,
+                title: "AI Content Optimizer",
+                description: "Analyze and optimize existing content for better AI understanding and citation potential with real-time scoring.",
+                color: "blue"
+              },
+              {
+                icon: <Code2 size={28} />,
+                title: "Schema Generator",
+                description: "Create structured data markup that helps AI systems understand your content more effectively with multiple schema types.",
+                color: "purple"
+              },
+              {
+                icon: <MessagesSquare size={28} />,
+                title: "Prompt Match Suggestions",
+                description: "Generate AI-optimized prompts and questions that align with user search intent and voice queries.",
+                color: "pink"
+              },
+              {
+                icon: <FileText size={28} />,
+                title: "AI Content Generator",
+                description: "Create AI-optimized content snippets, FAQs, meta descriptions, and blog outlines tailored for AI visibility.",
+                color: "orange"
+              },
+              {
+                icon: <Link2 size={28} />,
+                title: "Citation Tracker",
+                description: "Monitor when and where AI systems cite your content, with alerts for new mentions across platforms.",
+                color: "teal"
+              },
+              {
+                icon: <Mic size={28} />,
+                title: "Voice Assistant Tester",
+                description: "Test how voice assistants like Siri, Alexa, and Google Assistant respond to queries about your content.",
+                color: "red"
+              },
+              {
+                icon: <FileBarChart size={28} />,
+                title: "LLM Site Summaries",
+                description: "Generate comprehensive, AI-optimized summaries of your website perfect for LLM understanding and citations.",
+                color: "yellow"
+              },
+              {
+                icon: <Tag size={28} />,
+                title: "Entity Coverage Analyzer",
+                description: "Identify key entities in your content and ensure comprehensive coverage for AI understanding and context.",
+                color: "cyan"
+              },
+              {
+                icon: <Target size={28} />,
+                title: "Featured Snippet Optimization",
+                description: "Optimize your content structure and format to increase chances of appearing in AI-powered featured snippets.",
+                color: "emerald"
+              },
+              {
+                icon: <Crown size={28} />,
+                title: "AI Chatbot Assistant",
+                description: "Get personalized guidance and insights from Genie, our AI assistant that helps interpret results and suggests improvements.",
+                color: "violet"
+              }
+            ].map((feature, index) => (
+              <motion.div 
+                key={index}
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 p-6 group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className={`h-14 w-14 rounded-lg bg-${feature.color}-100 text-${feature.color}-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
             <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Pricing</h2>
-            <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Choose the right plan for your needs
             </p>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-xl text-gray-600">
               Start free and upgrade as you grow. All plans include our core AI visibility features.
             </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
             {/* Free Plan */}
             <motion.div 
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-green-200 p-8"
+              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-green-200 p-8 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
+              <div className="absolute top-0 right-0 bg-green-500 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
+                FREE
+              </div>
               <div className="text-center">
-                <h3 className="text-lg font-medium text-gray-900">Free</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Free</h3>
                 <p className="mt-4 text-sm text-gray-500">For individuals testing the waters</p>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900">$0</span>
-                  <span className="text-base font-medium text-gray-500">/month</span>
+                  <span className="text-5xl font-extrabold text-gray-900">$0</span>
+                  <span className="text-lg font-medium text-gray-500">/month</span>
                 </p>
               </div>
-              <ul className="mt-8 space-y-4">
+              <ul className="mt-8 space-y-3">
                 {[
                   "1 Website / Project",
                   "AI Visibility Audit (1/month, basic)",
@@ -287,13 +415,13 @@ const LandingPage = () => {
                   "Community Support"
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-green-600 mr-2 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
                     <span className="text-gray-700 text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200">
                   Start Free
                 </Link>
               </div>
@@ -301,22 +429,22 @@ const LandingPage = () => {
 
             {/* Core Plan */}
             <motion.div 
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
+              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
               <div className="text-center">
-                <h3 className="text-lg font-medium text-gray-900">Core</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Core</h3>
                 <p className="mt-4 text-sm text-gray-500">For solo creators and small teams</p>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900">$29</span>
-                  <span className="text-base font-medium text-gray-500">/month</span>
+                  <span className="text-5xl font-extrabold text-gray-900">$29</span>
+                  <span className="text-lg font-medium text-gray-500">/month</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">or $261/year (save 25%)</p>
               </div>
-              <ul className="mt-8 space-y-4">
+              <ul className="mt-8 space-y-3">
                 {[
                   { text: "Everything in Free, plus:", included: true },
                   { text: "2 Websites / Projects", included: true },
@@ -324,14 +452,12 @@ const LandingPage = () => {
                   { text: "Full Schema Generator access", included: true },
                   { text: "AI Content Generator (20 outputs/month)", included: true },
                   { text: "AI Content Optimizer (up to 10 pages/month)", included: true },
-                  { text: "Prompt Match Suggestions (20/month)", included: true },
-                  { text: "Citation Tracker (real-time + full sources)", included: true },
                   { text: "Entity Coverage Analyzer", included: true },
                   { text: "AI Chatbot (basic tool guidance)", included: true },
                   { text: "Email Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-indigo-600 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
@@ -339,7 +465,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200">
                   Start Core Plan
                 </Link>
               </div>
@@ -347,25 +473,25 @@ const LandingPage = () => {
 
             {/* Pro Plan */}
             <motion.div 
-              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-indigo-600 p-8 relative"
+              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-indigo-600 p-8 relative transform scale-105"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-indigo-600 text-white rounded-full text-sm font-medium">
+              <div className="absolute top-0 right-0 bg-indigo-600 text-white px-4 py-2 text-sm font-medium rounded-bl-lg">
                 Most Popular
               </div>
               <div className="text-center">
-                <h3 className="text-lg font-medium text-gray-900">Pro</h3>
+                <h3 className="text-xl font-semibold text-gray-900">Pro</h3>
                 <p className="mt-4 text-sm text-gray-500">For growing brands that want to optimize continuously</p>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900">$59</span>
-                  <span className="text-base font-medium text-gray-500">/month</span>
+                  <span className="text-5xl font-extrabold text-gray-900">$59</span>
+                  <span className="text-lg font-medium text-gray-500">/month</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">or $531/year (save 25%)</p>
               </div>
-              <ul className="mt-8 space-y-4">
+              <ul className="mt-8 space-y-3">
                 {[
                   { text: "Everything in Core, plus:", included: true },
                   { text: "5 Websites / Projects", included: true },
@@ -373,14 +499,12 @@ const LandingPage = () => {
                   { text: "LLM Site Summaries", included: true },
                   { text: "Voice Assistant Tester (unlimited)", included: true },
                   { text: "AI Content Generator (60 outputs/month)", included: true },
-                  { text: "AI Content Optimizer (30 pages/month)", included: true },
-                  { text: "Prompt Match Suggestions (60/month)", included: true },
                   { text: "Competitive Analysis (3 competitors)", included: true },
                   { text: "AI Chatbot (full analysis and recommendations)", included: true },
                   { text: "Priority Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-indigo-600 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
@@ -388,7 +512,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg">
                   Start Pro Plan
                 </Link>
               </div>
@@ -396,28 +520,27 @@ const LandingPage = () => {
 
             {/* Agency Plan */}
             <motion.div 
-              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden p-8"
+              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
               <div className="text-center">
-                <h3 className="text-lg font-medium text-white">Agency</h3>
+                <h3 className="text-xl font-semibold text-white">Agency</h3>
                 <p className="mt-4 text-sm text-gray-300">For agencies or power users needing scale</p>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-white">$99</span>
-                  <span className="text-base font-medium text-gray-300">/month</span>
+                  <span className="text-5xl font-extrabold text-white">$99</span>
+                  <span className="text-lg font-medium text-gray-300">/month</span>
                 </p>
                 <p className="text-sm text-gray-300 mt-1">or $891/year (save 25%)</p>
               </div>
-              <ul className="mt-8 space-y-4">
+              <ul className="mt-8 space-y-3">
                 {[
                   { text: "Everything in Pro, plus:", included: true },
                   { text: "10 Websites / Projects", included: true },
                   { text: "Daily AI Visibility Audits", included: true },
                   { text: "Unlimited AI Content Generator & Optimizer", included: true },
-                  { text: "Unlimited Prompt Match Suggestions", included: true },
                   { text: "Competitive Analysis (10 competitors)", included: true },
                   { text: "Exportable Reports (PDF/CSV)", included: true },
                   { text: "Team Collaboration (up to 5 members)", included: true },
@@ -425,7 +548,7 @@ const LandingPage = () => {
                   { text: "Dedicated Support & Onboarding", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-green-400 mr-2 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-green-400 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-white' : 'text-gray-300'}`}>
                       {feature.text}
                     </span>
@@ -433,7 +556,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-colors">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-colors">
                   Start Agency Plan
                 </Link>
               </div>
@@ -442,53 +565,89 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20">
+      {/* Social Proof / Stats Section */}
+      <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">FAQ</h2>
-            <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Frequently asked questions
-            </p>
-          </div>
-
-          <div className="mt-16 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-4 text-center">
             {[
-              {
-                question: "What is AI visibility?",
-                answer: "AI visibility refers to how well AI systems like ChatGPT, Perplexity, and voice assistants can understand, process, and cite your content. Good AI visibility means your content is more likely to be referenced in AI-generated responses."
-              },
-              {
-                question: "How is this different from traditional SEO?",
-                answer: "While traditional SEO focuses on search engine rankings, AI visibility optimization ensures your content is properly understood and cited by AI systems. This includes structured data implementation, entity coverage, and semantic clarity that goes beyond traditional SEO practices."
-              },
-              {
-                question: "Can I start with the free plan?",
-                answer: "Absolutely! Our free plan includes 1 website, basic AI audits, and essential tools to get you started. You can upgrade anytime as your needs grow."
-              },
-              {
-                question: "How often should I run an AI visibility audit?",
-                answer: "We recommend running audits based on your plan: monthly for Free and Core plans, weekly for Pro, and daily for Agency. More frequent audits help you track improvements and catch issues early."
-              },
-              {
-                question: "Can I track when AI systems cite my content?",
-                answer: "Yes! Our citation tracking feature monitors when your content is referenced by AI systems, including featured snippets, AI chat responses, and voice assistant answers. You'll receive alerts when new citations are detected."
-              },
-              {
-                question: "Do you offer custom solutions for agencies?",
-                answer: "Yes, our Agency plan includes team collaboration, exportable reports, unlimited content generation, and dedicated support perfect for agencies managing multiple clients."
-              }
-            ].map((faq, index) => (
-              <motion.div 
+              { number: "10,000+", label: "Websites Analyzed" },
+              { number: "50,000+", label: "AI Citations Tracked" },
+              { number: "95%", label: "Improvement Rate" },
+              { number: "24/7", label: "AI Monitoring" }
+            ].map((stat, index) => (
+              <motion.div
                 key={index}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-lg font-medium text-gray-900">{faq.question}</h3>
-                <p className="mt-2 text-gray-500">{faq.answer}</p>
+                <div className="text-4xl font-bold text-white mb-2">{stat.number}</div>
+                <div className="text-indigo-200">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">FAQ</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
+              Frequently asked questions
+            </p>
+            <p className="mt-4 text-xl text-gray-600">
+              Everything you need to know about AI visibility optimization.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {[
+              {
+                question: "What is AI visibility?",
+                answer: "AI visibility refers to how well AI systems like ChatGPT, Perplexity, Claude, and voice assistants can understand, process, and cite your content. Good AI visibility means your content is more likely to be referenced in AI-generated responses and featured in voice assistant answers."
+              },
+              {
+                question: "How is this different from traditional SEO?",
+                answer: "While traditional SEO focuses on search engine rankings, AI visibility optimization ensures your content is properly understood and cited by AI systems. This includes structured data implementation, entity coverage, semantic clarity, and voice search optimization that goes beyond traditional SEO practices."
+              },
+              {
+                question: "Can I start with the free plan?",
+                answer: "Absolutely! Our free plan includes 1 website, basic AI audits, and essential tools to get you started. You can upgrade anytime as your needs grow, and there's no credit card required to begin."
+              },
+              {
+                question: "How often should I run an AI visibility audit?",
+                answer: "We recommend running audits based on your plan: monthly for Free and Core plans, weekly for Pro, and daily for Agency. More frequent audits help you track improvements and catch issues early as AI systems evolve."
+              },
+              {
+                question: "Can I track when AI systems cite my content?",
+                answer: "Yes! Our citation tracking feature monitors when your content is referenced by AI systems, including featured snippets, AI chat responses, and voice assistant answers. You'll receive alerts when new citations are detected across multiple platforms."
+              },
+              {
+                question: "What AI systems do you optimize for?",
+                answer: "We optimize for all major AI systems including ChatGPT, Perplexity, Claude, Gemini, Siri, Alexa, Google Assistant, and emerging AI platforms. Our optimization techniques work across the entire AI ecosystem."
+              },
+              {
+                question: "Do you offer custom solutions for agencies?",
+                answer: "Yes, our Agency plan includes team collaboration, exportable reports, unlimited content generation, competitive analysis for up to 10 competitors, and dedicated support perfect for agencies managing multiple clients."
+              },
+              {
+                question: "How quickly will I see results?",
+                answer: "Most users see improvements in their AI Visibility Score within 2-4 weeks of implementing our recommendations. Citation tracking and voice assistant optimization can show results even faster, often within days of making changes."
+              }
+            ].map((faq, index) => (
+              <motion.div 
+                key={index}
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">{faq.question}</h3>
+                <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
           </div>
@@ -496,23 +655,46 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-90"></div>
+      <section className="relative py-24">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"></div>
+        <div className="absolute inset-0 bg-black opacity-10"></div>
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative z-10">
-          <div className="lg:flex lg:items-center lg:justify-between">
-            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-              <span className="block">Ready to boost your AI visibility?</span>
-              <span className="block text-indigo-200">Start free today, no credit card required.</span>
+          <div className="text-center">
+            <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              <span className="block">Ready to dominate</span>
+              <span className="block text-indigo-200">the AI era?</span>
             </h2>
-            <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
-              <div className="inline-flex rounded-md shadow">
-                <Link
-                  to="/register"
-                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-indigo-600 bg-white hover:bg-gray-50 transition-colors"
-                >
-                  Start Free
-                  <ArrowRight className="ml-2 -mr-1 h-5 w-5" />
-                </Link>
+            <p className="mt-6 max-w-3xl mx-auto text-xl text-indigo-100">
+              Join thousands of businesses already optimizing their content for AI systems. 
+              Start free today and see your AI visibility soar.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/register"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-indigo-600 bg-white hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                Start Free Today
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+              <Link
+                to="/login"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white border-2 border-white hover:bg-white hover:text-indigo-600 transition-all duration-200"
+              >
+                Sign In
+              </Link>
+            </div>
+            <div className="mt-8 flex justify-center items-center space-x-8 text-sm text-indigo-200">
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-300 mr-2" />
+                No credit card required
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-300 mr-2" />
+                Setup in 2 minutes
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-300 mr-2" />
+                Cancel anytime
               </div>
             </div>
           </div>
@@ -520,23 +702,69 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-          <div className="md:flex md:items-center md:justify-between">
-            <div className="flex justify-center md:justify-start">
-              <div className="flex items-center">
-                <Globe className="h-6 w-6 text-indigo-600" />
-                <span className="ml-2 text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">SEOgenix</span>
+      <footer className="bg-gray-900 text-white">
+        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center mb-4">
+                <img 
+                  src="https://i.imgur.com/bPM4L5Z.png" 
+                  alt="SEOgenix Logo" 
+                  className="h-8 w-8 object-contain"
+                />
+                <span className="ml-3 text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">SEOgenix</span>
+              </div>
+              <p className="text-gray-400 mb-6 max-w-md">
+                The comprehensive platform for AI visibility optimization. Get found by ChatGPT, Perplexity, voice assistants, and all major AI systems.
+              </p>
+              <div className="flex space-x-4">
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                  <span className="text-sm">📧</span>
+                </div>
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                  <span className="text-sm">🐦</span>
+                </div>
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                  <span className="text-sm">💼</span>
+                </div>
               </div>
             </div>
-            <div className="mt-8 md:mt-0 flex justify-center md:justify-end space-x-6">
-              <Link to="/privacy-policy" className="text-gray-500 hover:text-gray-900 text-sm">
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Product</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">API</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Integrations</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
+              <ul className="space-y-2 text-gray-400">
+                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
+                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link></li>
+                <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm">
+              &copy; 2025 SEOgenix. All rights reserved.
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <span className="text-gray-300">|</span>
-              <p className="text-center text-base text-gray-500">
-                &copy; 2025 SEOgenix. All rights reserved.
-              </p>
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                Cookie Policy
+              </a>
             </div>
           </div>
         </div>
