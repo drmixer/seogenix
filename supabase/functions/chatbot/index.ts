@@ -62,7 +62,7 @@ async function callGeminiAPI(prompt: string): Promise<string> {
   }
 }
 
-// Helper function to get user's site data
+// Helper function to get user's site data and recent activity
 async function getUserSiteData(userId: string, siteId?: string) {
   try {
     // Get user's sites
@@ -86,6 +86,7 @@ async function getUserSiteData(userId: string, siteId?: string) {
     let summaryData = null;
     let entityData = null;
     let competitorData = null;
+    let recentActivity = null;
 
     if (selectedSite) {
       // Get latest audit
@@ -118,7 +119,7 @@ async function getUserSiteData(userId: string, siteId?: string) {
       
       summaryData = summaries || [];
 
-      // Get entities
+      // Get entities with gaps (most actionable)
       const { data: entities } = await supabase
         .from('entities')
         .select('*')
@@ -138,6 +139,19 @@ async function getUserSiteData(userId: string, siteId?: string) {
         .limit(5);
       
       competitorData = competitors || [];
+
+      // Analyze recent activity patterns
+      const now = new Date();
+      const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+      
+      recentActivity = {
+        hasRecentAudit: auditData && new Date(auditData.created_at) > oneWeekAgo,
+        hasRecentCitations: citationData.some(c => new Date(c.detected_at) > oneWeekAgo),
+        hasRecentSummaries: summaryData.some(s => new Date(s.created_at) > oneWeekAgo),
+        entityGapsCount: entityData.filter(e => e.gap).length,
+        competitorCount: competitorData.length,
+        auditAge: auditData ? Math.floor((now.getTime() - new Date(auditData.created_at).getTime()) / (1000 * 60 * 60 * 24)) : null
+      };
     }
 
     return {
@@ -147,7 +161,8 @@ async function getUserSiteData(userId: string, siteId?: string) {
       citationData,
       summaryData,
       entityData,
-      competitorData
+      competitorData,
+      recentActivity
     };
   } catch (error) {
     console.error('Error fetching user site data:', error);
@@ -158,25 +173,35 @@ async function getUserSiteData(userId: string, siteId?: string) {
       citationData: [],
       summaryData: [],
       entityData: [],
-      competitorData: []
+      competitorData: [],
+      recentActivity: null
     };
   }
 }
 
-// Helper function to create contextual prompt
+// Helper function to create contextual prompt with personality
 function createContextualPrompt(message: string, userData: any, context: any): string {
-  const { sites, selectedSite, auditData, citationData, summaryData, entityData, competitorData } = userData;
+  const { sites, selectedSite, auditData, citationData, summaryData, entityData, competitorData, recentActivity } = userData;
   
-  let contextInfo = `You are an AI assistant for SEOgenix, a platform that helps users optimize their content for AI visibility. You are knowledgeable, helpful, and provide actionable advice.
+  let contextInfo = `You are Genie, an intelligent and helpful AI assistant for SEOgenix, a platform that helps users optimize their content for AI visibility. You have a friendly, knowledgeable personality and provide actionable advice with enthusiasm.
 
-User Context:
+PERSONALITY TRAITS:
+- Friendly and approachable, like a knowledgeable friend
+- Use occasional emojis (✨, 🚀, 💡, 📊, 🎯) to make responses engaging
+- Provide specific, actionable advice rather than generic tips
+- Reference the user's actual data when giving recommendations
+- Be encouraging and supportive, especially when users face challenges
+- Use "**bold text**" for important points and recommendations
+
+USER CONTEXT:
 - Total sites: ${sites.length}
 - Current page: ${context.current_page || 'unknown'}
+- User activity: ${context.user_activity ? JSON.stringify(context.user_activity) : 'unknown'}
 `;
 
   if (selectedSite) {
     contextInfo += `
-Selected Site: ${selectedSite.name} (${selectedSite.url})
+SELECTED SITE: ${selectedSite.name} (${selectedSite.url})
 `;
 
     if (auditData) {
@@ -189,7 +214,7 @@ Selected Site: ${selectedSite.name} (${selectedSite.url})
       ) / 5);
 
       contextInfo += `
-Latest Audit Results:
+LATEST AUDIT RESULTS:
 - Overall Score: ${overallScore}/100
 - AI Visibility: ${auditData.ai_visibility_score}/100
 - Schema Score: ${auditData.schema_score}/100
@@ -197,69 +222,122 @@ Latest Audit Results:
 - Citation Score: ${auditData.citation_score}/100
 - Technical SEO: ${auditData.technical_seo_score}/100
 - Audit Date: ${new Date(auditData.created_at).toLocaleDateString()}
+- Audit Age: ${recentActivity?.auditAge || 'unknown'} days old
 `;
+
+      // Identify the lowest scoring area for recommendations
+      const scores = {
+        'AI Visibility': auditData.ai_visibility_score,
+        'Schema': auditData.schema_score,
+        'Semantic': auditData.semantic_score,
+        'Citation': auditData.citation_score,
+        'Technical SEO': auditData.technical_seo_score
+      };
+      const lowestArea = Object.entries(scores).reduce((a, b) => scores[a[0]] < scores[b[0]] ? a : b);
+      contextInfo += `- PRIORITY AREA: ${lowestArea[0]} (${lowestArea[1]}/100) - needs most attention\n`;
     }
 
     if (citationData.length > 0) {
       contextInfo += `
-Recent Citations Found: ${citationData.length}
-Citation Sources: ${citationData.map(c => c.source_type).join(', ')}
+CITATIONS FOUND: ${citationData.length}
+- Citation Sources: ${citationData.map(c => c.source_type).join(', ')}
+- Recent Citations: ${recentActivity?.hasRecentCitations ? 'Yes' : 'No'}
 `;
     }
 
     if (summaryData.length > 0) {
       contextInfo += `
-Generated Summaries: ${summaryData.length}
-Summary Types: ${summaryData.map(s => s.summary_type).join(', ')}
+GENERATED SUMMARIES: ${summaryData.length}
+- Summary Types: ${summaryData.map(s => s.summary_type).join(', ')}
+- Recent Summaries: ${recentActivity?.hasRecentSummaries ? 'Yes' : 'No'}
 `;
     }
 
     if (entityData.length > 0) {
       const entitiesWithGaps = entityData.filter(e => e.gap);
       contextInfo += `
-Entity Analysis:
+ENTITY ANALYSIS:
 - Total Entities: ${entityData.length}
 - Entities with Coverage Gaps: ${entitiesWithGaps.length}
 - Top Entities: ${entityData.slice(0, 3).map(e => e.entity_name).join(', ')}
+${entitiesWithGaps.length > 0 ? `- GAPS TO ADDRESS: ${entitiesWithGaps.slice(0, 3).map(e => e.entity_name).join(', ')}` : ''}
 `;
     }
 
     if (competitorData.length > 0) {
       contextInfo += `
-Competitors Being Tracked: ${competitorData.length}
-Competitor Names: ${competitorData.map(c => c.name).join(', ')}
+COMPETITORS TRACKED: ${competitorData.length}
+- Competitor Names: ${competitorData.map(c => c.name).join(', ')}
+`;
+    }
+
+    if (recentActivity) {
+      contextInfo += `
+RECENT ACTIVITY ANALYSIS:
+- Recent Audit: ${recentActivity.hasRecentAudit ? 'Yes' : 'No'}
+- Recent Citations: ${recentActivity.hasRecentCitations ? 'Yes' : 'No'}
+- Recent Summaries: ${recentActivity.hasRecentSummaries ? 'Yes' : 'No'}
+- Entity Gaps: ${recentActivity.entityGapsCount}
+- Competitors: ${recentActivity.competitorCount}
 `;
     }
   }
 
+  // Add page-specific context
+  const pageContext = getPageSpecificContext(context.current_page);
+  if (pageContext) {
+    contextInfo += `\nCURRENT PAGE CONTEXT: ${pageContext}\n`;
+  }
+
   contextInfo += `
 
-Available SEOgenix Features:
-- AI Visibility Audit: Comprehensive analysis of AI visibility factors
-- Competitive Analysis: Compare performance against competitors
-- AI Content Optimizer: Analyze and optimize content for AI systems
-- Schema Generator: Create structured data markup
-- Citation Tracker: Monitor AI system citations
-- Voice Assistant Tester: Test voice assistant responses
-- LLM Site Summaries: Generate AI-optimized summaries
-- Entity Coverage Analyzer: Identify content gaps
-- Prompt Match Suggestions: Generate AI-optimized prompts
-- AI Content Generator: Create AI-friendly content
+SEOGEMIX FEATURES TO RECOMMEND:
+- **AI Visibility Audit**: Comprehensive analysis of AI visibility factors
+- **Competitive Analysis**: Compare performance against competitors  
+- **AI Content Optimizer**: Analyze and optimize content for AI systems
+- **Schema Generator**: Create structured data markup
+- **Citation Tracker**: Monitor AI system citations
+- **Voice Assistant Tester**: Test voice assistant responses
+- **LLM Site Summaries**: Generate AI-optimized summaries
+- **Entity Coverage Analyzer**: Identify content gaps
+- **Prompt Match Suggestions**: Generate AI-optimized prompts
+- **AI Content Generator**: Create AI-friendly content
 
-Guidelines for responses:
-1. Be helpful and provide actionable advice
-2. Reference the user's specific data when relevant
-3. Suggest specific SEOgenix features that could help
-4. Provide implementation guidance when asked
-5. Keep responses concise but comprehensive
-6. Use bullet points for lists and recommendations
-7. Be encouraging and supportive
+RESPONSE GUIDELINES:
+1. **Be specific and actionable** - reference the user's actual data
+2. **Prioritize recommendations** based on their audit scores and gaps
+3. **Suggest relevant SEOgenix features** that can help with their specific issues
+4. **Be encouraging** - frame challenges as opportunities
+5. **Use formatting** - bold important points, use bullet points for lists
+6. **Include next steps** - tell them exactly what to do next
+7. **Reference their site by name** when giving advice
+8. **Use emojis sparingly** but effectively to add personality
 
-User Question: ${message}
+USER QUESTION: ${message}
 
-Provide a helpful, contextual response based on the user's data and question:`;
+Provide a helpful, contextual response as Genie that addresses their specific situation:`;
 
   return contextInfo;
+}
+
+// Helper function to get page-specific context
+function getPageSpecificContext(currentPage: string): string {
+  const pageContexts: { [key: string]: string } = {
+    '/dashboard': 'User is viewing their main dashboard with site overview and quick stats',
+    '/ai-visibility-audit': 'User is on the AI Visibility Audit page, likely wanting to understand or improve their audit scores',
+    '/competitive-analysis': 'User is analyzing competitors and comparing performance',
+    '/ai-content-optimizer': 'User is optimizing content for AI systems and wants to improve content scores',
+    '/schema-generator': 'User is working with schema markup and structured data',
+    '/citation-tracker': 'User is tracking AI citations and mentions of their content',
+    '/voice-assistant-tester': 'User is testing voice assistant responses about their site',
+    '/llm-site-summaries': 'User is generating or reviewing LLM-optimized summaries',
+    '/entity-coverage-analyzer': 'User is analyzing entity coverage and identifying content gaps',
+    '/prompt-match-suggestions': 'User is generating AI-optimized prompts and suggestions',
+    '/ai-content-generator': 'User is creating AI-friendly content',
+    '/account-settings': 'User is managing their account and subscription settings'
+  };
+
+  return pageContexts[currentPage] || '';
 }
 
 serve(async (req) => {
@@ -269,7 +347,7 @@ serve(async (req) => {
   }
 
   try {
-    console.log(`🤖 Chatbot function called`);
+    console.log(`✨ Genie chatbot function called`);
     
     const { message, user_id, site_id, context } = await req.json();
     
@@ -283,7 +361,7 @@ serve(async (req) => {
 
     console.log(`💬 Processing message: "${message.substring(0, 50)}..." for user: ${user_id}`);
 
-    // Get user's site data for context
+    // Get user's site data and activity for context
     const userData = await getUserSiteData(user_id, site_id);
     
     console.log(`📊 User data loaded:`, {
@@ -293,10 +371,11 @@ serve(async (req) => {
       citations: userData.citationData.length,
       summaries: userData.summaryData.length,
       entities: userData.entityData.length,
-      competitors: userData.competitorData.length
+      competitors: userData.competitorData.length,
+      recentActivity: userData.recentActivity
     });
 
-    // Create contextual prompt
+    // Create contextual prompt with Genie's personality
     const prompt = createContextualPrompt(message, userData, context || {});
     
     console.log(`🧠 Calling Gemini API with contextual prompt...`);
@@ -304,7 +383,7 @@ serve(async (req) => {
     // Get AI response
     const aiResponse = await callGeminiAPI(prompt);
     
-    console.log(`✅ AI response generated (${aiResponse.length} characters)`);
+    console.log(`✅ Genie response generated (${aiResponse.length} characters)`);
 
     return new Response(
       JSON.stringify({
@@ -316,7 +395,9 @@ serve(async (req) => {
           citations_count: userData.citationData.length,
           summaries_count: userData.summaryData.length,
           entities_count: userData.entityData.length,
-          competitors_count: userData.competitorData.length
+          competitors_count: userData.competitorData.length,
+          recent_activity: userData.recentActivity,
+          current_page: context?.current_page
         }
       }),
       {
@@ -326,12 +407,12 @@ serve(async (req) => {
     );
 
   } catch (error) {
-    console.error('❌ Chatbot error:', error);
+    console.error('❌ Genie chatbot error:', error);
     
     return new Response(
       JSON.stringify({ 
         error: error.message,
-        response: "I apologize, but I'm having trouble processing your request right now. Please try again in a moment, or contact support if the issue persists."
+        response: "✨ I apologize, but I'm having trouble processing your request right now. Please try again in a moment, or contact support if the issue persists. I'm here to help you optimize your AI visibility! 🚀"
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
