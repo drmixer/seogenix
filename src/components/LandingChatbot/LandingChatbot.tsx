@@ -126,7 +126,7 @@ What would you like to know about SEOgenix? 🚀`;
       setMessages(prev => prev.map(msg => 
         msg.isLoading ? {
           ...msg,
-          content: data.response || 'I apologize, but I encountered an issue processing your request. Please try again.',
+          content: data.response || 'I apologize, but I encountered an issue processing your request. Please try again or contact our support team.',
           isLoading: false,
           suggestions: newSuggestions
         } : msg
@@ -302,12 +302,13 @@ What would you like to know about SEOgenix? 🚀`;
               opacity: 1, 
               y: 0, 
               scale: 1,
-              height: isMinimized ? 'auto' : '500px'
+              height: isMinimized ? 'auto' : '600px'
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className={`fixed bottom-6 right-6 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
               isMinimized ? 'w-80' : 'w-80 max-w-sm'
             } ${className}`}
+            style={{ maxHeight: 'calc(100vh - 100px)' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-gradient-to-r from-purple-50 to-cyan-50">
@@ -342,7 +343,7 @@ What would you like to know about SEOgenix? 🚀`;
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="h-64 overflow-y-auto p-4 space-y-4">
+                <div className="h-80 overflow-y-auto p-4 space-y-4">
                   {messages.map((message) => (
                     <div key={message.id}>
                       <div
@@ -431,7 +432,7 @@ What would you like to know about SEOgenix? 🚀`;
                 )}
 
                 {/* Input */}
-                <div className="p-4 border-t border-gray-200">
+                <div className="p-4 border-t border-gray-200 bg-white rounded-b-lg">
                   <form onSubmit={handleSubmit} className="flex space-x-2">
                     <input
                       ref={inputRef}

@@ -50,13 +50,13 @@ const LandingPage = () => {
               <div className="ml-10 flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-purple-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-purple-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors relative z-10"
                 >
                   Log in
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 relative z-10"
                 >
                   Start Free
                 </Link>
@@ -112,7 +112,7 @@ const LandingPage = () => {
               <div className="rounded-lg shadow-xl">
                 <Link
                   to="/register"
-                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 relative z-10"
                 >
                   Start Free Today
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -121,7 +121,7 @@ const LandingPage = () => {
               <div className="mt-3 rounded-lg shadow-lg sm:mt-0 sm:ml-4">
                 <Link
                   to="/login"
-                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 border-2 border-gray-200 hover:border-purple-300"
+                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 border-2 border-gray-200 hover:border-purple-300 relative z-10"
                 >
                   Sign In
                 </Link>
@@ -431,7 +431,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-200">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-200 relative z-10">
                   Start Free
                 </Link>
               </div>
@@ -476,7 +476,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-200">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-200 relative z-10">
                   Start Core Plan
                 </Link>
               </div>
@@ -524,7 +524,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-500 hover:from-purple-700 hover:via-blue-600 hover:to-cyan-600 transition-all duration-200 shadow-lg relative z-10">
                   Start Pro Plan
                 </Link>
               </div>
@@ -569,7 +569,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-colors">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-colors relative z-10">
                   Start Agency Plan
                 </Link>
               </div>
@@ -660,14 +660,14 @@ const LandingPage = () => {
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-purple-600 bg-white hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-purple-600 bg-white hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 relative z-10"
               >
                 Start Free Today
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 to="/login"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white border-2 border-white hover:bg-white hover:text-purple-600 transition-all duration-200"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white border-2 border-white hover:bg-white hover:text-purple-600 transition-all duration-200 relative z-10"
               >
                 Sign In
               </Link>
