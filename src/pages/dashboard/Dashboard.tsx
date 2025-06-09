@@ -4,11 +4,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useSubscription } from '../../contexts/SubscriptionContext';
 import { siteApi, auditApi, competitorApi } from '../../lib/api';
 import { motion } from 'framer-motion';
-import { Plus, ExternalLink, Calendar, Trash2, Lock, BarChart3, TrendingUp, Globe, Zap, Target } from 'lucide-react';
+import { Plus, ExternalLink, Calendar, Trash2, Lock, BarChart3, TrendingUp, Globe, Zap, Target, HelpCircle } from 'lucide-react';
 import AppLayout from '../../components/layout/AppLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import EmptyState from '../../components/ui/EmptyState';
+import ContextualChatbotUpsell from '../../components/Chatbot/ContextualChatbotUpsell';
 import toast from 'react-hot-toast';
 
 interface Site {
@@ -37,6 +38,7 @@ const Dashboard = () => {
   const [competitorCount, setCompetitorCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [showHelpUpsell, setShowHelpUpsell] = useState(false);
 
   useEffect(() => {
     const loadDashboardData = async () => {
@@ -113,6 +115,12 @@ const Dashboard = () => {
     }
   };
 
+  const handleHelpClick = () => {
+    if (currentPlan?.name === 'free') {
+      setShowHelpUpsell(true);
+    }
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -153,11 +161,24 @@ const Dashboard = () => {
         transition={{ duration: 0.5 }}
       >
         {/* Welcome Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Welcome back!</h1>
-          <p className="text-gray-600 mt-1">
-            Here's an overview of your AI visibility optimization platform.
-          </p>
+        <div className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Welcome back!</h1>
+            <p className="text-gray-600 mt-1">
+              Here's an overview of your AI visibility optimization platform.
+            </p>
+          </div>
+          
+          {/* Help Button for Free Users */}
+          {currentPlan?.name === 'free' && (
+            <button
+              onClick={handleHelpClick}
+              className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
+            >
+              <HelpCircle size={16} />
+              <span>Need Help?</span>
+            </button>
+          )}
         </div>
 
         {/* Enhanced Quick Stats */}
@@ -442,6 +463,14 @@ const Dashboard = () => {
             </Link>
           </div>
         </Card>
+
+        {/* Contextual Upsell for Free Users */}
+        {showHelpUpsell && (
+          <ContextualChatbotUpsell 
+            trigger="help-section"
+            onDismiss={() => setShowHelpUpsell(false)}
+          />
+        )}
       </motion.div>
     </AppLayout>
   );

@@ -23,6 +23,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { useSites } from '../../contexts/SiteContext';
 import SiteSelector from './SiteSelector';
 import ChatbotWidget from '../Chatbot/ChatbotWidget';
+import ChatbotUpsellBanner from '../Chatbot/ChatbotUpsellBanner';
 import toast from 'react-hot-toast';
 
 interface AppLayoutProps {
@@ -63,6 +64,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <div className="flex h-screen bg-gray-50">
+      {/* Chatbot Upsell Banner */}
+      <ChatbotUpsellBanner />
+      
       {/* Sidebar for desktop */}
       <div className="hidden md:flex md:flex-shrink-0">
         <div className="flex flex-col w-64">

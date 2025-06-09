@@ -8,6 +8,7 @@ import AppLayout from '../../components/layout/AppLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import EmptyState from '../../components/ui/EmptyState';
+import ContextualChatbotUpsell from '../../components/Chatbot/ContextualChatbotUpsell';
 import { Link } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
 import {
@@ -50,12 +51,14 @@ interface Audit {
 }
 
 const AiVisibilityAudit = () => {
-  const { canRunAudit, getAuditFrequency } = useSubscription();
+  const { canRunAudit, getAuditFrequency, currentPlan } = useSubscription();
   const { sites, selectedSite } = useSites();
   const [audits, setAudits] = useState<{ [siteId: string]: Audit }>({});
   const [isRunningAudit, setIsRunningAudit] = useState<{ [siteId: string]: boolean }>({});
   const [isRunningAllAudits, setIsRunningAllAudits] = useState(false);
   const [isLoadingAudits, setIsLoadingAudits] = useState(true);
+  const [showUpsell, setShowUpsell] = useState(false);
+  const [auditJustCompleted, setAuditJustCompleted] = useState(false);
 
   // Load latest audits for all sites
   useEffect(() => {
@@ -97,6 +100,16 @@ const AiVisibilityAudit = () => {
     loadAudits();
   }, [sites]);
 
+  // Show contextual upsell when audit completes for free users
+  useEffect(() => {
+    if (auditJustCompleted && currentPlan?.name === 'free') {
+      const timer = setTimeout(() => {
+        setShowUpsell(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [auditJustCompleted, currentPlan]);
+
   const runAuditForSite = async (site: Site) => {
     if (!canRunAudit()) {
       const frequency = getAuditFrequency();
@@ -116,6 +129,7 @@ const AiVisibilityAudit = () => {
       }));
 
       toast.success(`Audit completed for ${site.name}`);
+      setAuditJustCompleted(true);
     } catch (error) {
       console.error(`Error running audit for ${site.name}:`, error);
       toast.error(`Failed to run audit for ${site.name}`);
@@ -177,6 +191,7 @@ const AiVisibilityAudit = () => {
 
     if (successCount > 0) {
       toast.success(`Completed ${successCount} audit${successCount > 1 ? 's' : ''}${errorCount > 0 ? ` (${errorCount} failed)` : ''}`);
+      setAuditJustCompleted(true);
     } else {
       toast.error('All audits failed');
     }
@@ -587,6 +602,14 @@ const AiVisibilityAudit = () => {
               </div>
             </Card>
           </div>
+        )}
+
+        {/* Contextual Upsell for Free Users */}
+        {showUpsell && (
+          <ContextualChatbotUpsell 
+            trigger="audit-complete"
+            onDismiss={() => setShowUpsell(false)}
+          />
         )}
       </motion.div>
     </AppLayout>
