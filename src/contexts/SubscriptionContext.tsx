@@ -2,29 +2,33 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useAuth } from './AuthContext';
 import supabase from '../lib/supabaseClient';
 
-export type PlanTier = 'basic' | 'pro' | 'enterprise';
+export type PlanTier = 'free' | 'core' | 'pro' | 'agency';
 
 interface Plan {
   name: PlanTier;
   price: number;
+  yearlyPrice: number;
   limits: {
     sites: number;
-    competitorSites: number;
+    competitors: number;
     auditFrequency: 'monthly' | 'weekly' | 'daily';
-    citationsPerMonth: number;
+    auditsPerMonth: number;
     aiContentGenerations: number;
+    aiContentOptimizations: number;
+    promptSuggestions: number;
+    citationTracking: 'delayed' | 'realtime' | 'full';
     features: {
-      schemaGeneration: 'basic' | 'advanced' | 'custom';
-      citationTracking: 'basic' | 'realtime' | 'advanced';
-      voiceAssistant: boolean;
-      aiContent: boolean;
+      schemaGeneration: 'basic' | 'full' | 'unlimited';
       entityAnalysis: boolean;
+      voiceAssistant: boolean;
+      llmSummaries: boolean;
       competitiveAnalysis: boolean;
       contentOptimizer: boolean;
-      apiAccess: boolean;
-      whiteLabel: boolean;
+      exportReports: boolean;
+      teamCollaboration: boolean;
       prioritySupport: boolean;
-      dedicatedManager: boolean;
+      dedicatedSupport: boolean;
+      earlyAccess: boolean;
     };
   };
 }
@@ -32,6 +36,9 @@ interface Plan {
 interface Usage {
   citationsUsed: number;
   aiContentUsed: number;
+  aiContentOptimizations: number;
+  promptSuggestions: number;
+  auditsThisMonth: number;
   lastAuditDate: Date | null;
 }
 
@@ -44,80 +51,122 @@ interface SubscriptionContextType {
   getAuditFrequency: () => string;
   canRunAudit: () => boolean;
   canGenerateContent: () => boolean;
-  canTrackMoreCitations: () => boolean;
+  canOptimizeContent: () => boolean;
+  canGeneratePrompts: () => boolean;
+  canTrackCitations: () => boolean;
   loading: boolean;
 }
 
 const plans: Record<PlanTier, Plan> = {
-  basic: {
-    name: 'basic',
-    price: 29,
+  free: {
+    name: 'free',
+    price: 0,
+    yearlyPrice: 0,
     limits: {
       sites: 1,
-      competitorSites: 0,
+      competitors: 0,
       auditFrequency: 'monthly',
-      citationsPerMonth: 100,
-      aiContentGenerations: 10,
+      auditsPerMonth: 1,
+      aiContentGenerations: 3,
+      aiContentOptimizations: 0,
+      promptSuggestions: 5,
+      citationTracking: 'delayed',
       features: {
         schemaGeneration: 'basic',
-        citationTracking: 'basic',
-        voiceAssistant: false,
-        aiContent: false,
         entityAnalysis: false,
+        voiceAssistant: false,
+        llmSummaries: false,
         competitiveAnalysis: false,
         contentOptimizer: false,
-        apiAccess: false,
-        whiteLabel: false,
+        exportReports: false,
+        teamCollaboration: false,
         prioritySupport: false,
-        dedicatedManager: false,
+        dedicatedSupport: false,
+        earlyAccess: false,
+      },
+    },
+  },
+  core: {
+    name: 'core',
+    price: 29,
+    yearlyPrice: 261, // 25% discount
+    limits: {
+      sites: 2,
+      competitors: 0,
+      auditFrequency: 'monthly',
+      auditsPerMonth: 2,
+      aiContentGenerations: 20,
+      aiContentOptimizations: 10,
+      promptSuggestions: 20,
+      citationTracking: 'realtime',
+      features: {
+        schemaGeneration: 'full',
+        entityAnalysis: true,
+        voiceAssistant: false,
+        llmSummaries: false,
+        competitiveAnalysis: false,
+        contentOptimizer: true,
+        exportReports: false,
+        teamCollaboration: false,
+        prioritySupport: false,
+        dedicatedSupport: false,
+        earlyAccess: false,
       },
     },
   },
   pro: {
     name: 'pro',
-    price: 79,
+    price: 59,
+    yearlyPrice: 531, // 25% discount
     limits: {
-      sites: 3,
-      competitorSites: 3,
+      sites: 5,
+      competitors: 3,
       auditFrequency: 'weekly',
-      citationsPerMonth: 500,
-      aiContentGenerations: 50,
+      auditsPerMonth: 8,
+      aiContentGenerations: 60,
+      aiContentOptimizations: 30,
+      promptSuggestions: 60,
+      citationTracking: 'full',
       features: {
-        schemaGeneration: 'advanced',
-        citationTracking: 'realtime',
-        voiceAssistant: true,
-        aiContent: true,
+        schemaGeneration: 'full',
         entityAnalysis: true,
+        voiceAssistant: true,
+        llmSummaries: true,
         competitiveAnalysis: true,
         contentOptimizer: true,
-        apiAccess: false,
-        whiteLabel: false,
+        exportReports: false,
+        teamCollaboration: false,
         prioritySupport: true,
-        dedicatedManager: false,
+        dedicatedSupport: false,
+        earlyAccess: false,
       },
     },
   },
-  enterprise: {
-    name: 'enterprise',
-    price: 199,
+  agency: {
+    name: 'agency',
+    price: 99,
+    yearlyPrice: 891, // 25% discount
     limits: {
-      sites: Infinity,
-      competitorSites: Infinity,
+      sites: 10,
+      competitors: 10,
       auditFrequency: 'daily',
-      citationsPerMonth: Infinity,
+      auditsPerMonth: Infinity,
       aiContentGenerations: Infinity,
+      aiContentOptimizations: Infinity,
+      promptSuggestions: Infinity,
+      citationTracking: 'full',
       features: {
-        schemaGeneration: 'custom',
-        citationTracking: 'advanced',
-        voiceAssistant: true,
-        aiContent: true,
+        schemaGeneration: 'unlimited',
         entityAnalysis: true,
+        voiceAssistant: true,
+        llmSummaries: true,
         competitiveAnalysis: true,
         contentOptimizer: true,
-        apiAccess: true,
-        whiteLabel: true,
+        exportReports: true,
+        teamCollaboration: true,
         prioritySupport: true,
-        dedicatedManager: true,
+        dedicatedSupport: true,
+        earlyAccess: true,
       },
     },
   },
@@ -156,6 +205,9 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [usage, setUsage] = useState<Usage>({
     citationsUsed: 0,
     aiContentUsed: 0,
+    aiContentOptimizations: 0,
+    promptSuggestions: 0,
+    auditsThisMonth: 0,
     lastAuditDate: null,
   });
   const [loading, setLoading] = useState(true);
@@ -163,10 +215,13 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   useEffect(() => {
     const loadSubscription = async () => {
       if (!user) {
-        setCurrentPlan(null);
+        setCurrentPlan(plans.free); // Default to free plan for non-authenticated users
         setUsage({
           citationsUsed: 0,
           aiContentUsed: 0,
+          aiContentOptimizations: 0,
+          promptSuggestions: 0,
+          auditsThisMonth: 0,
           lastAuditDate: null,
         });
         setLoading(false);
@@ -175,11 +230,14 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
 
       // Check if Supabase is properly configured
       if (!isSupabaseConfigured()) {
-        console.warn('Supabase is not properly configured. Using default plan.');
-        setCurrentPlan(plans.basic);
+        console.warn('Supabase is not properly configured. Using free plan.');
+        setCurrentPlan(plans.free);
         setUsage({
           citationsUsed: 0,
           aiContentUsed: 0,
+          aiContentOptimizations: 0,
+          promptSuggestions: 0,
+          auditsThisMonth: 0,
           lastAuditDate: null,
         });
         setLoading(false);
@@ -255,9 +313,9 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
           setCurrentPlan(plans[planTier]);
           console.log(`✅ Set plan to: ${planTier}`);
         } else {
-          // Default to basic plan if no subscription found
-          setCurrentPlan(plans.basic);
-          console.log('✅ Set default plan: basic');
+          // Default to free plan if no subscription found
+          setCurrentPlan(plans.free);
+          console.log('✅ Set default plan: free');
         }
 
         // Set usage data
@@ -265,28 +323,40 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
           setUsage({
             citationsUsed: usageData.citations_used || 0,
             aiContentUsed: usageData.ai_content_used || 0,
+            aiContentOptimizations: usageData.ai_content_optimizations || 0,
+            promptSuggestions: usageData.prompt_suggestions || 0,
+            auditsThisMonth: usageData.audits_this_month || 0,
             lastAuditDate: usageData.last_audit_date ? new Date(usageData.last_audit_date) : null,
           });
           console.log('✅ Set usage data:', {
             citationsUsed: usageData.citations_used || 0,
             aiContentUsed: usageData.ai_content_used || 0,
+            aiContentOptimizations: usageData.ai_content_optimizations || 0,
+            promptSuggestions: usageData.prompt_suggestions || 0,
+            auditsThisMonth: usageData.audits_this_month || 0,
           });
         } else {
           // If no usage data exists, initialize with default values
           setUsage({
             citationsUsed: 0,
             aiContentUsed: 0,
+            aiContentOptimizations: 0,
+            promptSuggestions: 0,
+            auditsThisMonth: 0,
             lastAuditDate: null,
           });
           console.log('✅ Set default usage data');
         }
       } catch (error) {
         console.error('❌ Error loading subscription:', error);
-        // Default to basic plan on error
-        setCurrentPlan(plans.basic);
+        // Default to free plan on error
+        setCurrentPlan(plans.free);
         setUsage({
           citationsUsed: 0,
           aiContentUsed: 0,
+          aiContentOptimizations: 0,
+          promptSuggestions: 0,
+          auditsThisMonth: 0,
           lastAuditDate: null,
         });
         
@@ -308,38 +378,63 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     loadSubscription();
   }, [user]);
 
-  // 🚨 TESTING MODE: ALL FEATURES ENABLED FOR TESTING 🚨
   const isFeatureEnabled = (feature: keyof Plan['limits']['features']): boolean => {
-    console.log(`🧪 TESTING MODE: Feature ${feature} is enabled for testing`);
-    return true; // Enable all features for testing
+    if (!currentPlan) return false;
+    return currentPlan.limits.features[feature];
   };
 
   const getSiteLimit = (): number => {
-    return 10; // Allow up to 10 sites for testing
+    return currentPlan?.limits.sites || 1;
   };
 
   const getCompetitorSiteLimit = (): number => {
-    return 10; // Allow up to 10 competitor sites for testing
+    return currentPlan?.limits.competitors || 0;
   };
 
   const getAuditFrequency = (): string => {
-    return 'unlimited'; // No frequency limits for testing
+    return currentPlan?.limits.auditFrequency || 'monthly';
   };
 
-  // TESTING MODE: Always allow all actions
   const canRunAudit = (): boolean => {
-    console.log('🧪 TESTING MODE: Audit restrictions disabled');
-    return true;
+    if (!currentPlan) return false;
+    
+    const auditsPerMonth = currentPlan.limits.auditsPerMonth;
+    if (auditsPerMonth === Infinity) return true;
+    
+    return usage.auditsThisMonth < auditsPerMonth;
   };
 
   const canGenerateContent = (): boolean => {
-    console.log('🧪 TESTING MODE: Content generation restrictions disabled');
-    return true;
+    if (!currentPlan) return false;
+    
+    const contentLimit = currentPlan.limits.aiContentGenerations;
+    if (contentLimit === Infinity) return true;
+    
+    return usage.aiContentUsed < contentLimit;
   };
 
-  const canTrackMoreCitations = (): boolean => {
-    console.log('🧪 TESTING MODE: Citation tracking restrictions disabled');
-    return true;
+  const canOptimizeContent = (): boolean => {
+    if (!currentPlan) return false;
+    
+    const optimizationLimit = currentPlan.limits.aiContentOptimizations;
+    if (optimizationLimit === Infinity) return true;
+    if (optimizationLimit === 0) return false;
+    
+    return usage.aiContentOptimizations < optimizationLimit;
+  };
+
+  const canGeneratePrompts = (): boolean => {
+    if (!currentPlan) return false;
+    
+    const promptLimit = currentPlan.limits.promptSuggestions;
+    if (promptLimit === Infinity) return true;
+    
+    return usage.promptSuggestions < promptLimit;
+  };
+
+  const canTrackCitations = (): boolean => {
+    if (!currentPlan) return false;
+    return currentPlan.limits.citationTracking !== 'delayed' || usage.citationsUsed === 0;
   };
 
   return (
@@ -353,7 +448,9 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
         getAuditFrequency,
         canRunAudit,
         canGenerateContent,
-        canTrackMoreCitations,
+        canOptimizeContent,
+        canGeneratePrompts,
+        canTrackCitations,
         loading 
       }}
     >

@@ -13,7 +13,8 @@ import {
   Check,
   Zap,
   Shield,
-  Star
+  Star,
+  X
 } from 'lucide-react';
 
 const LandingPage = () => {
@@ -39,7 +40,7 @@ const LandingPage = () => {
                   to="/register"
                   className="button-primary"
                 >
-                  Sign up
+                  Start Free
                 </Link>
               </div>
             </div>
@@ -76,7 +77,7 @@ const LandingPage = () => {
                   to="/register"
                   className="w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:opacity-90 transition-opacity md:py-4 md:text-lg md:px-10"
                 >
-                  Get started
+                  Start Free
                 </Link>
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
@@ -233,40 +234,92 @@ const LandingPage = () => {
             <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Choose the right plan for your needs
             </p>
+            <p className="mt-4 text-lg text-gray-600">
+              Start free and upgrade as you grow. All plans include our core AI visibility features.
+            </p>
           </div>
 
-          <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {/* Basic Plan */}
+          <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-4">
+            {/* Free Plan */}
             <motion.div 
-              className="card p-8"
+              className="card p-8 border-2 border-green-200 bg-green-50"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-lg font-medium text-gray-900">Basic</h3>
-              <p className="mt-4 text-sm text-gray-500">Perfect for small websites and blogs</p>
-              <p className="mt-8">
-                <span className="text-4xl font-extrabold text-gray-900">$29</span>
-                <span className="text-base font-medium text-gray-500">/month</span>
-              </p>
+              <div className="text-center">
+                <h3 className="text-lg font-medium text-gray-900">Free</h3>
+                <p className="mt-4 text-sm text-gray-500">For individuals testing the waters</p>
+                <p className="mt-8">
+                  <span className="text-4xl font-extrabold text-gray-900">$0</span>
+                  <span className="text-base font-medium text-gray-500">/month</span>
+                </p>
+              </div>
               <ul className="mt-8 space-y-4">
                 {[
-                  "1 website",
-                  "Monthly AI visibility audit",
-                  "Basic schema generation",
-                  "Citation alerts",
-                  "Email support"
+                  "1 Website / Project",
+                  "AI Visibility Audit (1/month, basic)",
+                  "Schema Generator (basic types only)",
+                  "AI Content Generator (3 outputs/month)",
+                  "Prompt Match Suggestions (5/month)",
+                  "Citation Tracker (top 3 sources, delayed)",
+                  "Community Support"
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-primary-600 mr-2" />
-                    <span className="text-gray-500">{feature}</span>
+                    <Check className="h-5 w-5 text-green-600 mr-2 flex-shrink-0" />
+                    <span className="text-gray-700 text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
               <div className="mt-8">
                 <Link to="/register" className="button-primary w-full text-center">
-                  Get started
+                  Start Free
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Core Plan */}
+            <motion.div 
+              className="card p-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className="text-center">
+                <h3 className="text-lg font-medium text-gray-900">Core</h3>
+                <p className="mt-4 text-sm text-gray-500">For solo creators and small teams</p>
+                <p className="mt-8">
+                  <span className="text-4xl font-extrabold text-gray-900">$29</span>
+                  <span className="text-base font-medium text-gray-500">/month</span>
+                </p>
+                <p className="text-sm text-gray-500 mt-1">or $261/year (save 25%)</p>
+              </div>
+              <ul className="mt-8 space-y-4">
+                {[
+                  { text: "Everything in Free, plus:", included: true },
+                  { text: "2 Websites / Projects", included: true },
+                  { text: "AI Visibility Audit (2/month, full report)", included: true },
+                  { text: "Full Schema Generator access", included: true },
+                  { text: "AI Content Generator (20 outputs/month)", included: true },
+                  { text: "AI Content Optimizer (up to 10 pages/month)", included: true },
+                  { text: "Prompt Match Suggestions (20/month)", included: true },
+                  { text: "Citation Tracker (real-time + full sources)", included: true },
+                  { text: "Entity Coverage Analyzer", included: true },
+                  { text: "Email Support", included: true }
+                ].map((feature, index) => (
+                  <li key={index} className="flex items-center">
+                    <Check className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" />
+                    <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
+                      {feature.text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-8">
+                <Link to="/register" className="button-primary w-full text-center">
+                  Start Core Plan
                 </Link>
               </div>
             </motion.div>
@@ -282,68 +335,84 @@ const LandingPage = () => {
               <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-primary-600 text-white rounded-full text-sm font-medium">
                 Most Popular
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Pro</h3>
-              <p className="mt-4 text-sm text-gray-500">For growing businesses and content teams</p>
-              <p className="mt-8">
-                <span className="text-4xl font-extrabold text-gray-900">$79</span>
-                <span className="text-base font-medium text-gray-500">/month</span>
-              </p>
+              <div className="text-center">
+                <h3 className="text-lg font-medium text-gray-900">Pro</h3>
+                <p className="mt-4 text-sm text-gray-500">For growing brands that want to optimize continuously</p>
+                <p className="mt-8">
+                  <span className="text-4xl font-extrabold text-gray-900">$59</span>
+                  <span className="text-base font-medium text-gray-500">/month</span>
+                </p>
+                <p className="text-sm text-gray-500 mt-1">or $531/year (save 25%)</p>
+              </div>
               <ul className="mt-8 space-y-4">
                 {[
-                  "3 websites",
-                  "Weekly AI visibility audits",
-                  "Advanced schema generation",
-                  "Real-time citation tracking",
-                  "AI content suggestions",
-                  "Voice assistant testing",
-                  "Priority support"
+                  { text: "Everything in Core, plus:", included: true },
+                  { text: "5 Websites / Projects", included: true },
+                  { text: "Weekly AI Visibility Audits", included: true },
+                  { text: "LLM Site Summaries", included: true },
+                  { text: "Voice Assistant Tester (unlimited)", included: true },
+                  { text: "AI Content Generator (60 outputs/month)", included: true },
+                  { text: "AI Content Optimizer (30 pages/month)", included: true },
+                  { text: "Prompt Match Suggestions (60/month)", included: true },
+                  { text: "Competitive Analysis (3 competitors)", included: true },
+                  { text: "Priority Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-primary-600 mr-2" />
-                    <span className="text-gray-500">{feature}</span>
+                    <Check className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" />
+                    <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
+                      {feature.text}
+                    </span>
                   </li>
                 ))}
               </ul>
               <div className="mt-8">
                 <Link to="/register" className="button-primary w-full text-center">
-                  Get started
+                  Start Pro Plan
                 </Link>
               </div>
             </motion.div>
 
-            {/* Enterprise Plan */}
+            {/* Agency Plan */}
             <motion.div 
-              className="card p-8"
+              className="card p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-lg font-medium text-gray-900">Enterprise</h3>
-              <p className="mt-4 text-sm text-gray-500">For large organizations and agencies</p>
-              <p className="mt-8">
-                <span className="text-4xl font-extrabold text-gray-900">$199</span>
-                <span className="text-base font-medium text-gray-500">/month</span>
-              </p>
+              <div className="text-center">
+                <h3 className="text-lg font-medium text-white">Agency</h3>
+                <p className="mt-4 text-sm text-gray-300">For agencies or power users needing scale</p>
+                <p className="mt-8">
+                  <span className="text-4xl font-extrabold text-white">$99</span>
+                  <span className="text-base font-medium text-gray-300">/month</span>
+                </p>
+                <p className="text-sm text-gray-300 mt-1">or $891/year (save 25%)</p>
+              </div>
               <ul className="mt-8 space-y-4">
                 {[
-                  "Unlimited websites",
-                  "Daily AI visibility audits",
-                  "Custom schema templates",
-                  "Advanced entity analysis",
-                  "API access",
-                  "White-label reports",
-                  "Dedicated success manager"
+                  { text: "Everything in Pro, plus:", included: true },
+                  { text: "10 Websites / Projects", included: true },
+                  { text: "Daily AI Visibility Audits", included: true },
+                  { text: "Unlimited AI Content Generator & Optimizer", included: true },
+                  { text: "Unlimited Prompt Match Suggestions", included: true },
+                  { text: "Competitive Analysis (10 competitors)", included: true },
+                  { text: "Exportable Reports (PDF/CSV)", included: true },
+                  { text: "Team Collaboration (up to 5 members)", included: true },
+                  { text: "Early Access to New Features", included: true },
+                  { text: "Dedicated Support & Onboarding", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-primary-600 mr-2" />
-                    <span className="text-gray-500">{feature}</span>
+                    <Check className="h-5 w-5 text-green-400 mr-2 flex-shrink-0" />
+                    <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-white' : 'text-gray-300'}`}>
+                      {feature.text}
+                    </span>
                   </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="button-primary w-full text-center">
-                  Contact sales
+                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-colors">
+                  Start Agency Plan
                 </Link>
               </div>
             </motion.div>
@@ -372,8 +441,12 @@ const LandingPage = () => {
                 answer: "While traditional SEO focuses on search engine rankings, AI visibility optimization ensures your content is properly understood and cited by AI systems. This includes structured data implementation, entity coverage, and semantic clarity that goes beyond traditional SEO practices."
               },
               {
+                question: "Can I start with the free plan?",
+                answer: "Absolutely! Our free plan includes 1 website, basic AI audits, and essential tools to get you started. You can upgrade anytime as your needs grow."
+              },
+              {
                 question: "How often should I run an AI visibility audit?",
-                answer: "We recommend running a full audit at least monthly, with more frequent checks for high-traffic sites or after significant content updates. Our Pro and Enterprise plans include automated weekly and daily audits respectively."
+                answer: "We recommend running audits based on your plan: monthly for Free and Core plans, weekly for Pro, and daily for Agency. More frequent audits help you track improvements and catch issues early."
               },
               {
                 question: "Can I track when AI systems cite my content?",
@@ -381,7 +454,7 @@ const LandingPage = () => {
               },
               {
                 question: "Do you offer custom solutions for agencies?",
-                answer: "Yes, our Enterprise plan includes white-label reporting, API access, and custom schema templates perfect for agencies. Contact our sales team to discuss your specific needs."
+                answer: "Yes, our Agency plan includes team collaboration, exportable reports, unlimited content generation, and dedicated support perfect for agencies managing multiple clients."
               }
             ].map((faq, index) => (
               <motion.div 
@@ -407,7 +480,7 @@ const LandingPage = () => {
           <div className="lg:flex lg:items-center lg:justify-between">
             <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               <span className="block">Ready to boost your AI visibility?</span>
-              <span className="block text-primary-200">Get started with SEOgenix today.</span>
+              <span className="block text-primary-200">Start free today, no credit card required.</span>
             </h2>
             <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
               <div className="inline-flex rounded-md shadow">
@@ -415,7 +488,7 @@ const LandingPage = () => {
                   to="/register"
                   className="button-secondary"
                 >
-                  Get started
+                  Start Free
                   <ArrowRight className="ml-2 -mr-1 h-5 w-5" />
                 </Link>
               </div>
