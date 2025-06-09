@@ -35,87 +35,44 @@ const LandingPage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-gradient-to-br from-[#2BBCBB]/10 via-white to-[#9C26BB]/10">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] rounded-full opacity-20"
-            animate={{ 
-              y: [0, -20, 0],
-              scale: [1, 1.1, 1],
-              rotate: [0, 180, 360]
-            }}
-            transition={{ 
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-[#3A1690] to-[#9C26BB] rounded-full opacity-20"
-            animate={{ 
-              y: [0, 20, 0],
-              scale: [1, 0.9, 1],
-              rotate: [360, 180, 0]
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div 
-            className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-r from-[#1582C0] to-[#2BBCBB] rounded-full opacity-15"
-            animate={{ 
-              x: [-50, 50, -50],
-              y: [-50, 50, -50],
-              rotate: [0, 360, 0]
-            }}
-            transition={{ 
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
+      <header className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-pink-400/10 animate-gradient-x"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full opacity-15 animate-bounce"></div>
         </div>
-
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex items-center justify-between h-20">
             <motion.div 
               className="flex-shrink-0 flex items-center"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
             >
               <img 
                 src="https://i.imgur.com/bPM4L5Z.png" 
                 alt="SEOgenix Logo" 
-                className="h-20 w-20 object-contain drop-shadow-lg"
+                className="h-20 w-20 object-contain drop-shadow-lg hover:scale-110 transition-transform duration-300"
               />
             </motion.div>
-            <motion.div 
-              className="hidden md:block"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
+            <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-[#1582C0] px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-[#2BBCBB]/10"
+                  className="text-gray-700 hover:text-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-indigo-50"
                 >
                   Log in
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Start Free
                 </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
 
@@ -127,14 +84,10 @@ const LandingPage = () => {
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <motion.span 
-                className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#2BBCBB]/20 to-[#9C26BB]/20 text-[#3A1690] mb-6 border border-[#2BBCBB]/30"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
+              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-800 mb-6 shadow-lg">
+                <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
                 The Future of SEO is AI Visibility
-              </motion.span>
+              </span>
             </motion.div>
             
             <motion.h1 
@@ -144,20 +97,9 @@ const LandingPage = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <span className="block">Get Found by</span>
-              <motion.span 
-                className="block bg-gradient-to-r from-[#2BBCBB] via-[#1582C0] via-[#3A1690] to-[#9C26BB] bg-clip-text text-transparent mt-2"
-                animate={{ 
-                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                }}
-                transition={{ 
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                style={{ backgroundSize: '200% 200%' }}
-              >
+              <span className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mt-2 animate-gradient-x">
                 AI Systems
-              </motion.span>
+              </span>
             </motion.h1>
             
             <motion.p 
@@ -178,31 +120,23 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <motion.div 
-                className="rounded-lg shadow-xl"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <div className="rounded-lg shadow-xl">
                 <Link
                   to="/register"
-                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-white bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
                 >
                   Start Free Today
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
-              </motion.div>
-              <motion.div 
-                className="mt-3 rounded-lg shadow-lg sm:mt-0 sm:ml-4"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              </div>
+              <div className="mt-3 rounded-lg shadow-lg sm:mt-0 sm:ml-4">
                 <Link
                   to="/login"
-                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-[#3A1690] bg-white hover:bg-gray-50 transition-all duration-300 border-2 border-[#2BBCBB] hover:border-[#1582C0]"
+                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg"
                 >
                   Sign In
                 </Link>
-              </motion.div>
+              </div>
             </motion.div>
 
             <motion.div
@@ -211,44 +145,30 @@ const LandingPage = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Check className="w-4 h-4 text-[#2BBCBB] mr-2" />
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-500 mr-2" />
                 No credit card required
-              </motion.div>
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Check className="w-4 h-4 text-[#2BBCBB] mr-2" />
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-500 mr-2" />
                 Free plan available
-              </motion.div>
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Check className="w-4 h-4 text-[#2BBCBB] mr-2" />
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-500 mr-2" />
                 Setup in 2 minutes
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
       </header>
 
       {/* Trust Indicators */}
-      <section className="py-12 bg-gradient-to-r from-gray-50 to-[#2BBCBB]/5 border-y">
+      <section className="py-12 bg-gradient-to-r from-gray-50 to-indigo-50 border-y">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <motion.p 
-              className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
+            <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-8">
               Optimized for Leading AI Systems
-            </motion.p>
+            </p>
             <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
               {[
                 { name: 'ChatGPT', logo: '🤖' },
@@ -260,15 +180,15 @@ const LandingPage = () => {
               ].map((ai, index) => (
                 <motion.div
                   key={ai.name}
-                  className="flex flex-col items-center group"
+                  className="flex flex-col items-center p-4 rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.1, y: -5 }}
+                  whileHover={{ scale: 1.05 }}
                 >
-                  <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">{ai.logo}</div>
-                  <span className="text-sm font-medium text-gray-600 group-hover:text-[#1582C0] transition-colors">{ai.name}</span>
+                  <div className="text-3xl mb-2">{ai.logo}</div>
+                  <span className="text-sm font-medium text-gray-600">{ai.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -277,36 +197,16 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2BBCBB]/5 via-transparent to-[#9C26BB]/5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="py-24 bg-gradient-to-br from-white via-indigo-50/30 to-purple-50/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <motion.h2 
-              className="text-base font-semibold text-[#1582C0] tracking-wide uppercase"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              How It Works
-            </motion.h2>
-            <motion.p 
-              className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">How It Works</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Boost your AI visibility in three steps
-            </motion.p>
-            <motion.p 
-              className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+            </p>
+            <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
               Our comprehensive platform analyzes, optimizes, and monitors your content for maximum AI visibility.
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
@@ -317,7 +217,7 @@ const LandingPage = () => {
                 title: "Analyze & Audit",
                 description: "Get comprehensive AI visibility audits including schema analysis, entity coverage, and semantic clarity scoring.",
                 features: ["AI Visibility Score", "Schema Markup Analysis", "Entity Coverage Check", "Citation Potential Assessment"],
-                gradient: "from-[#2BBCBB] to-[#1582C0]"
+                gradient: "from-blue-500 to-indigo-600"
               },
               {
                 step: "2",
@@ -325,7 +225,7 @@ const LandingPage = () => {
                 title: "Optimize & Generate",
                 description: "Use our AI-powered tools to create optimized content, schema markup, and structured data.",
                 features: ["AI Content Generator", "Schema Generator", "Content Optimizer", "Prompt Suggestions"],
-                gradient: "from-[#1582C0] to-[#3A1690]"
+                gradient: "from-purple-500 to-pink-600"
               },
               {
                 step: "3",
@@ -333,30 +233,26 @@ const LandingPage = () => {
                 title: "Monitor & Track",
                 description: "Track your progress with real-time citation monitoring, competitive analysis, and performance insights.",
                 features: ["Citation Tracking", "Competitive Analysis", "Voice Assistant Testing", "Performance Monitoring"],
-                gradient: "from-[#3A1690] to-[#9C26BB]"
+                gradient: "from-green-500 to-teal-600"
               }
             ].map((step, index) => (
               <motion.div 
                 key={index}
-                className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 p-8 group"
+                className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 p-8 group transform hover:-translate-y-2"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
+                whileHover={{ scale: 1.02 }}
               >
-                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${step.gradient} rounded-full -translate-y-16 translate-x-16 opacity-20 group-hover:opacity-30 transition-all duration-500 group-hover:scale-110`}></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-all duration-500 group-hover:scale-110"></div>
                 
                 <div className="relative">
                   <div className="flex items-center mb-6">
-                    <motion.div 
-                      className={`flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-r ${step.gradient} text-white flex items-center justify-center mr-4`}
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
+                    <div className={`flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-r ${step.gradient} text-white flex items-center justify-center mr-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       {step.icon}
-                    </motion.div>
-                    <div className="text-4xl font-bold text-gray-200">{step.step}</div>
+                    </div>
+                    <div className="text-4xl font-bold text-gray-200 group-hover:text-gray-300 transition-colors">{step.step}</div>
                   </div>
                   
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
@@ -364,17 +260,10 @@ const LandingPage = () => {
                   
                   <ul className="space-y-2">
                     {step.features.map((feature, featureIndex) => (
-                      <motion.li 
-                        key={featureIndex} 
-                        className="flex items-center text-sm text-gray-600"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 * featureIndex }}
-                        viewport={{ once: true }}
-                      >
-                        <Check className="w-4 h-4 text-[#2BBCBB] mr-2 flex-shrink-0" />
+                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                        <Check className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                         {feature}
-                      </motion.li>
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -385,35 +274,16 @@ const LandingPage = () => {
       </section>
 
       {/* Complete Features Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-[#2BBCBB]/5">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-indigo-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <motion.h2 
-              className="text-base font-semibold text-[#1582C0] tracking-wide uppercase"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Complete Feature Set
-            </motion.h2>
-            <motion.p 
-              className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Complete Feature Set</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Everything you need for AI visibility
-            </motion.p>
-            <motion.p 
-              className="mt-4 max-w-3xl text-xl text-gray-500 mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+            </p>
+            <p className="mt-4 max-w-3xl text-xl text-gray-500 mx-auto">
               Comprehensive tools to analyze, optimize, and track your content's performance with AI systems and voice assistants.
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -422,91 +292,99 @@ const LandingPage = () => {
                 icon: <BarChart3 size={28} />,
                 title: "AI Visibility Audit",
                 description: "Comprehensive analysis of how well your content performs with AI systems, with detailed scoring and actionable recommendations.",
-                gradient: "from-[#2BBCBB] to-[#1582C0]"
+                color: "indigo",
+                gradient: "from-indigo-500 to-blue-600"
               },
               {
                 icon: <TrendingUp size={28} />,
                 title: "Competitive Analysis",
                 description: "Track and compare your AI visibility performance against competitors in your industry with detailed benchmarking.",
-                gradient: "from-[#1582C0] to-[#3A1690]"
+                color: "green",
+                gradient: "from-green-500 to-emerald-600"
               },
               {
                 icon: <Zap size={28} />,
                 title: "AI Content Optimizer",
                 description: "Analyze and optimize existing content for better AI understanding and citation potential with real-time scoring.",
-                gradient: "from-[#3A1690] to-[#9C26BB]"
+                color: "blue",
+                gradient: "from-blue-500 to-cyan-600"
               },
               {
                 icon: <Code2 size={28} />,
                 title: "Schema Generator",
                 description: "Create structured data markup that helps AI systems understand your content more effectively with multiple schema types.",
-                gradient: "from-[#9C26BB] to-[#2BBCBB]"
+                color: "purple",
+                gradient: "from-purple-500 to-violet-600"
               },
               {
                 icon: <MessagesSquare size={28} />,
                 title: "Prompt Match Suggestions",
                 description: "Generate AI-optimized prompts and questions that align with user search intent and voice queries.",
-                gradient: "from-[#2BBCBB] to-[#1582C0]"
+                color: "pink",
+                gradient: "from-pink-500 to-rose-600"
               },
               {
                 icon: <FileText size={28} />,
                 title: "AI Content Generator",
                 description: "Create AI-optimized content snippets, FAQs, meta descriptions, and blog outlines tailored for AI visibility.",
-                gradient: "from-[#1582C0] to-[#3A1690]"
+                color: "orange",
+                gradient: "from-orange-500 to-amber-600"
               },
               {
                 icon: <Link2 size={28} />,
                 title: "Citation Tracker",
                 description: "Monitor when and where AI systems cite your content, with alerts for new mentions across platforms.",
-                gradient: "from-[#3A1690] to-[#9C26BB]"
+                color: "teal",
+                gradient: "from-teal-500 to-cyan-600"
               },
               {
                 icon: <Mic size={28} />,
                 title: "Voice Assistant Tester",
                 description: "Test how voice assistants like Siri, Alexa, and Google Assistant respond to queries about your content.",
-                gradient: "from-[#9C26BB] to-[#2BBCBB]"
+                color: "red",
+                gradient: "from-red-500 to-pink-600"
               },
               {
                 icon: <FileBarChart size={28} />,
                 title: "LLM Site Summaries",
                 description: "Generate comprehensive, AI-optimized summaries of your website perfect for LLM understanding and citations.",
-                gradient: "from-[#2BBCBB] to-[#1582C0]"
+                color: "yellow",
+                gradient: "from-yellow-500 to-orange-600"
               },
               {
                 icon: <Tag size={28} />,
                 title: "Entity Coverage Analyzer",
                 description: "Identify key entities in your content and ensure comprehensive coverage for AI understanding and context.",
-                gradient: "from-[#1582C0] to-[#3A1690]"
+                color: "cyan",
+                gradient: "from-cyan-500 to-blue-600"
               },
               {
                 icon: <Target size={28} />,
                 title: "Featured Snippet Optimization",
                 description: "Optimize your content structure and format to increase chances of appearing in AI-powered featured snippets.",
-                gradient: "from-[#3A1690] to-[#9C26BB]"
+                color: "emerald",
+                gradient: "from-emerald-500 to-green-600"
               },
               {
                 icon: <Crown size={28} />,
                 title: "AI Chatbot Assistant",
                 description: "Get personalized guidance and insights from Genie, our AI assistant that helps interpret results and suggests improvements.",
-                gradient: "from-[#9C26BB] to-[#2BBCBB]"
+                color: "violet",
+                gradient: "from-violet-500 to-purple-600"
               }
             ].map((feature, index) => (
               <motion.div 
                 key={index}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 p-6 group"
+                className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 p-6 group transform hover:-translate-y-2"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, scale: 1.02 }}
+                whileHover={{ scale: 1.02 }}
               >
-                <motion.div 
-                  className={`h-14 w-14 rounded-lg bg-gradient-to-r ${feature.gradient} text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
+                <div className={`h-14 w-14 rounded-lg bg-gradient-to-r ${feature.gradient} text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                   {feature.icon}
-                </motion.div>
+                </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">
                   {feature.description}
@@ -518,49 +396,29 @@ const LandingPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#2BBCBB]/5 via-transparent to-[#9C26BB]/5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="py-24 bg-gradient-to-br from-white via-purple-50/30 to-indigo-50/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <motion.h2 
-              className="text-base font-semibold text-[#1582C0] tracking-wide uppercase"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Pricing
-            </motion.h2>
-            <motion.p 
-              className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Pricing</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Choose the right plan for your needs
-            </motion.p>
-            <motion.p 
-              className="mt-4 text-xl text-gray-600"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+            </p>
+            <p className="mt-4 text-xl text-gray-600">
               Start free and upgrade as you grow. All plans include our core AI visibility features.
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
             {/* Free Plan */}
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border-2 border-[#2BBCBB] p-8 relative"
+              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border-2 border-green-200 p-8 relative transform hover:-translate-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              whileHover={{ scale: 1.02 }}
             >
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
                 FREE
               </div>
               <div className="text-center">
@@ -581,21 +439,14 @@ const LandingPage = () => {
                   "Citation Tracker (top 3 sources, delayed)",
                   "Community Support"
                 ].map((feature, index) => (
-                  <motion.li 
-                    key={index} 
-                    className="flex items-center"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    viewport={{ once: true }}
-                  >
-                    <Check className="h-5 w-5 text-[#2BBCBB] mr-3 flex-shrink-0" />
+                  <li key={index} className="flex items-center">
+                    <Check className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
                     <span className="text-gray-700 text-sm">{feature}</span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690] transition-all duration-300">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Free
                 </Link>
               </div>
@@ -603,12 +454,12 @@ const LandingPage = () => {
 
             {/* Core Plan */}
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200 p-8"
+              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200 p-8 transform hover:-translate-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              whileHover={{ scale: 1.02 }}
             >
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-gray-900">Core</h3>
@@ -631,23 +482,16 @@ const LandingPage = () => {
                   { text: "AI Chatbot (basic tool guidance)", included: true },
                   { text: "Email Support", included: true }
                 ].map((feature, index) => (
-                  <motion.li 
-                    key={index} 
-                    className="flex items-center"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    viewport={{ once: true }}
-                  >
-                    <Check className="h-5 w-5 text-[#1582C0] mr-3 flex-shrink-0" />
+                  <li key={index} className="flex items-center">
+                    <Check className="h-5 w-5 text-indigo-600 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-[#1582C0] to-[#3A1690] hover:from-[#3A1690] hover:to-[#9C26BB] transition-all duration-300">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Core Plan
                 </Link>
               </div>
@@ -655,14 +499,13 @@ const LandingPage = () => {
 
             {/* Pro Plan */}
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border-2 border-[#3A1690] p-8 relative transform scale-105"
+              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border-2 border-indigo-600 p-8 relative transform scale-105 hover:scale-110"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.07 }}
             >
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-[#3A1690] to-[#9C26BB] text-white px-4 py-2 text-sm font-medium rounded-bl-lg">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 text-sm font-medium rounded-bl-lg">
                 Most Popular
               </div>
               <div className="text-center">
@@ -686,23 +529,16 @@ const LandingPage = () => {
                   { text: "AI Chatbot (full analysis and recommendations)", included: true },
                   { text: "Priority Support", included: true }
                 ].map((feature, index) => (
-                  <motion.li 
-                    key={index} 
-                    className="flex items-center"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    viewport={{ once: true }}
-                  >
-                    <Check className="h-5 w-5 text-[#3A1690] mr-3 flex-shrink-0" />
+                  <li key={index} className="flex items-center">
+                    <Check className="h-5 w-5 text-indigo-600 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-[#3A1690] to-[#9C26BB] hover:from-[#9C26BB] hover:to-[#2BBCBB] transition-all duration-300 shadow-lg">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Pro Plan
                 </Link>
               </div>
@@ -710,12 +546,12 @@ const LandingPage = () => {
 
             {/* Agency Plan */}
             <motion.div 
-              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden p-8"
+              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden p-8 transform hover:-translate-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              whileHover={{ scale: 1.02 }}
             >
               <div className="text-center">
                 <h3 className="text-xl font-semibold text-white">Agency</h3>
@@ -738,23 +574,16 @@ const LandingPage = () => {
                   { text: "Early Access to New Features", included: true },
                   { text: "Dedicated Support & Onboarding", included: true }
                 ].map((feature, index) => (
-                  <motion.li 
-                    key={index} 
-                    className="flex items-center"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * index }}
-                    viewport={{ once: true }}
-                  >
-                    <Check className="h-5 w-5 text-[#2BBCBB] mr-3 flex-shrink-0" />
+                  <li key={index} className="flex items-center">
+                    <Check className="h-5 w-5 text-green-400 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-white' : 'text-gray-300'}`}>
                       {feature.text}
                     </span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-gray-900 bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-white hover:to-gray-100 transition-colors">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Agency Plan
                 </Link>
               </div>
@@ -764,35 +593,16 @@ const LandingPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-[#2BBCBB]/5">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-indigo-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <motion.h2 
-              className="text-base font-semibold text-[#1582C0] tracking-wide uppercase"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              FAQ
-            </motion.h2>
-            <motion.p 
-              className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-            >
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">FAQ</h2>
+            <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Frequently asked questions
-            </motion.p>
-            <motion.p 
-              className="mt-4 text-xl text-gray-600"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-            >
+            </p>
+            <p className="mt-4 text-xl text-gray-600">
               Everything you need to know about AI visibility optimization.
-            </motion.p>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -832,14 +642,14 @@ const LandingPage = () => {
             ].map((faq, index) => (
               <motion.div 
                 key={index}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 p-8 group"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden border border-gray-100 p-8 transform hover:-translate-y-1"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, scale: 1.02 }}
+                whileHover={{ scale: 1.02 }}
               >
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 group-hover:text-[#1582C0] transition-colors">{faq.question}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">{faq.question}</h3>
                 <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
@@ -848,56 +658,26 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2BBCBB] via-[#1582C0] via-[#3A1690] to-[#9C26BB]"></div>
+      <section className="relative py-24">
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"></div>
         <div className="absolute inset-0 bg-black opacity-10"></div>
-        
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div 
-            className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full opacity-10"
-            animate={{ 
-              y: [0, -30, 0],
-              x: [0, 30, 0],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ 
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full opacity-10"
-            animate={{ 
-              y: [0, 30, 0],
-              x: [0, -30, 0],
-              scale: [1, 0.8, 1]
-            }}
-            transition={{ 
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </div>
-
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative z-10">
           <div className="text-center">
             <motion.h2 
               className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
               <span className="block">Ready to dominate</span>
-              <span className="block text-white/80">the AI era?</span>
+              <span className="block text-indigo-200">the AI era?</span>
             </motion.h2>
             <motion.p 
-              className="mt-6 max-w-3xl mx-auto text-xl text-white/90"
+              className="mt-6 max-w-3xl mx-auto text-xl text-indigo-100"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
               Join thousands of businesses already optimizing their content for AI systems. 
@@ -907,171 +687,116 @@ const LandingPage = () => {
               className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                to="/register"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-indigo-600 bg-white hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105"
               >
-                <Link
-                  to="/register"
-                  className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-[#1582C0] bg-white hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                >
-                  Start Free Today
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                Start Free Today
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+              <Link
+                to="/login"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white border-2 border-white hover:bg-white hover:text-indigo-600 transition-all duration-300 hover:shadow-lg"
               >
-                <Link
-                  to="/login"
-                  className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white border-2 border-white hover:bg-white hover:text-[#1582C0] transition-all duration-300"
-                >
-                  Sign In
-                </Link>
-              </motion.div>
+                Sign In
+              </Link>
             </motion.div>
             <motion.div 
-              className="mt-8 flex justify-center items-center space-x-8 text-sm text-white/80"
+              className="mt-8 flex justify-center items-center space-x-8 text-sm text-indigo-200"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Check className="w-4 h-4 text-white mr-2" />
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-300 mr-2" />
                 No credit card required
-              </motion.div>
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Check className="w-4 h-4 text-white mr-2" />
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-300 mr-2" />
                 Setup in 2 minutes
-              </motion.div>
-              <motion.div 
-                className="flex items-center"
-                whileHover={{ scale: 1.1 }}
-              >
-                <Check className="w-4 h-4 text-white mr-2" />
+              </div>
+              <div className="flex items-center">
+                <Check className="w-4 h-4 text-green-300 mr-2" />
                 Cancel anytime
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
+      <footer className="bg-gray-100 text-gray-800">
         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <motion.div 
                 className="flex items-center mb-4"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
                 <img 
                   src="https://i.imgur.com/bPM4L5Z.png" 
                   alt="SEOgenix Logo" 
-                  className="h-16 w-16 object-contain"
+                  className="h-16 w-16 object-contain drop-shadow-lg"
                 />
               </motion.div>
-              <motion.p 
-                className="text-gray-400 mb-6 max-w-md"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                viewport={{ once: true }}
-              >
+              <p className="text-gray-600 mb-6 max-w-md">
                 The comprehensive platform for AI visibility optimization. Get found by ChatGPT, Perplexity, voice assistants, and all major AI systems.
-              </motion.p>
-              <motion.div 
-                className="flex space-x-4"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                viewport={{ once: true }}
-              >
-                <motion.div 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-[#1582C0] transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
+              </p>
+              <div className="flex space-x-4">
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-300 transition-colors cursor-pointer">
                   <span className="text-sm">📧</span>
-                </motion.div>
-                <motion.div 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-[#1582C0] transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                >
+                </div>
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-300 transition-colors cursor-pointer">
                   <span className="text-sm">🐦</span>
-                </motion.div>
-                <motion.div 
-                  className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-[#1582C0] transition-colors cursor-pointer"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
+                </div>
+                <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-300 transition-colors cursor-pointer">
                   <span className="text-sm">💼</span>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-lg font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-[#2BBCBB] transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-[#2BBCBB] transition-colors">Pricing</a></li>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-900">Product</h3>
+              <ul className="space-y-2 text-gray-600">
+                <li><a href="#" className="hover:text-gray-900 transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-gray-900 transition-colors">Pricing</a></li>
               </ul>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-lg font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-[#2BBCBB] transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-[#2BBCBB] transition-colors">Blog</a></li>
-                <li><Link to="/privacy-policy" className="hover:text-[#2BBCBB] transition-colors">Privacy</Link></li>
-                <li><a href="#" className="hover:text-[#2BBCBB] transition-colors">Support</a></li>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-gray-900">Company</h3>
+              <ul className="space-y-2 text-gray-600">
+                <li><a href="#" className="hover:text-gray-900 transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-gray-900 transition-colors">Blog</a></li>
+                <li><Link to="/privacy-policy" className="hover:text-gray-900 transition-colors">Privacy</Link></li>
+                <li><a href="#" className="hover:text-gray-900 transition-colors">Support</a></li>
               </ul>
-            </motion.div>
+            </div>
           </div>
           
-          <motion.div 
-            className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-gray-400 text-sm">
+          <div className="border-t border-gray-300 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm">
               &copy; 2025 SEOgenix. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy-policy" className="text-gray-400 hover:text-[#2BBCBB] text-sm transition-colors">
+              <Link to="/privacy-policy" className="text-gray-500 hover:text-gray-900 text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <a href="#" className="text-gray-400 hover:text-[#2BBCBB] text-sm transition-colors">
+              <a href="#" className="text-gray-500 hover:text-gray-900 text-sm transition-colors">
                 Terms of Service
               </a>
-              <a href="#" className="text-gray-400 hover:text-[#2BBCBB] text-sm transition-colors">
+              <a href="#" className="text-gray-500 hover:text-gray-900 text-sm transition-colors">
                 Cookie Policy
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </footer>
 

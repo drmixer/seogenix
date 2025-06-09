@@ -255,17 +255,17 @@ What would you like to know about SEOgenix? 🚀`;
           return <li key={index} className="ml-4 list-disc">{line.substring(2)}</li>;
         }
         if (line.startsWith('**') && line.endsWith('**')) {
-          return <p key={index} className="font-semibold text-[#1582C0]">{line.substring(2, line.length - 2)}</p>;
+          return <p key={index} className="font-semibold text-indigo-700">{line.substring(2, line.length - 2)}</p>;
         }
         if (line.includes('**') && line.split('**').length === 3) {
           const parts = line.split('**');
-          return <p key={index}>{parts[0]}<strong className="text-[#1582C0]">{parts[1]}</strong>{parts[2]}</p>;
+          return <p key={index}>{parts[0]}<strong className="text-indigo-700">{parts[1]}</strong>{parts[2]}</p>;
         }
         if (line.trim() === '') {
           return <br key={index} />;
         }
         if (line.startsWith('✨') || line.startsWith('🚀') || line.startsWith('💡')) {
-          return <p key={index} className="text-[#1582C0] font-medium">{line}</p>;
+          return <p key={index} className="text-indigo-600 font-medium">{line}</p>;
         }
         return <p key={index}>{line}</p>;
       });
@@ -283,11 +283,11 @@ What would you like to know about SEOgenix? 🚀`;
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690] text-white rounded-full p-4 shadow-lg transition-all duration-300 ${className}`}
+            className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 ${className}`}
           >
             <div className="relative">
               <Sparkles size={24} />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#9C26BB] rounded-full animate-pulse"></div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
             </div>
           </motion.button>
         )}
@@ -302,21 +302,21 @@ What would you like to know about SEOgenix? 🚀`;
               opacity: 1, 
               y: 0, 
               scale: 1,
-              height: isMinimized ? 'auto' : '600px'
+              height: isMinimized ? 'auto' : '500px'
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className={`fixed bottom-6 right-6 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
-              isMinimized ? 'w-80' : 'w-96'
-            } ${className}`}
+              isMinimized ? 'w-80' : 'w-80 max-w-sm'
+            } ${className} max-h-[80vh]`}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-gradient-to-r from-[#2BBCBB]/10 to-[#9C26BB]/10">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-gradient-to-r from-indigo-50 to-purple-50">
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <div className="w-8 h-8 bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full flex items-center justify-center">
                     <Sparkles size={16} className="text-white" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#9C26BB] rounded-full animate-pulse"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900">Genie</h3>
@@ -326,13 +326,13 @@ What would you like to know about SEOgenix? 🚀`;
               <div className="flex items-center space-x-1">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1 hover:bg-[#2BBCBB]/10 rounded transition-colors"
+                  className="p-1 hover:bg-indigo-100 rounded transition-colors"
                 >
                   {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-[#2BBCBB]/10 rounded transition-colors"
+                  className="p-1 hover:bg-indigo-100 rounded transition-colors"
                 >
                   <X size={16} />
                 </button>
@@ -342,22 +342,22 @@ What would you like to know about SEOgenix? 🚀`;
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="h-80 overflow-y-auto p-4 space-y-4">
+                <div className="h-64 overflow-y-auto p-4 space-y-4">
                   {messages.map((message) => (
                     <div key={message.id}>
                       <div
                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
+                          className={`max-w-xs px-4 py-3 rounded-lg ${
                             message.type === 'user'
-                              ? 'bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] text-white'
+                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
                               : 'bg-gray-100 text-gray-900'
                           }`}
                         >
                           <div className="flex items-start space-x-2">
                             {message.type === 'assistant' && (
-                              <Sparkles size={16} className="mt-1 flex-shrink-0 text-[#1582C0]" />
+                              <Sparkles size={16} className="mt-1 flex-shrink-0 text-indigo-600" />
                             )}
                             {message.type === 'user' && (
                               <User size={16} className="mt-1 flex-shrink-0 text-white" />
@@ -376,7 +376,7 @@ What would you like to know about SEOgenix? 🚀`;
                             </div>
                           </div>
                           <div className={`text-xs mt-2 ${
-                            message.type === 'user' ? 'text-white/80' : 'text-gray-500'
+                            message.type === 'user' ? 'text-indigo-200' : 'text-gray-500'
                           }`}>
                             {message.timestamp.toLocaleTimeString([], { 
                               hour: '2-digit', 
@@ -393,11 +393,11 @@ What would you like to know about SEOgenix? 🚀`;
                             <Sparkles size={12} className="mr-1" />
                             Try asking:
                           </div>
-                          {message.suggestions.map((suggestion, index) => (
+                          {message.suggestions.slice(0, 2).map((suggestion, index) => (
                             <button
                               key={index}
                               onClick={() => handleSuggestionClick(suggestion)}
-                              className="block w-full text-left text-xs text-[#1582C0] hover:text-[#3A1690] hover:bg-[#2BBCBB]/10 p-2 rounded border border-[#2BBCBB]/30 transition-colors"
+                              className="block w-full text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2 rounded border border-indigo-200 transition-colors"
                             >
                               {suggestion}
                             </button>
@@ -417,11 +417,11 @@ What would you like to know about SEOgenix? 🚀`;
                       Popular questions:
                     </div>
                     <div className="space-y-2">
-                      {suggestedPrompts.slice(0, 3).map((prompt, index) => (
+                      {suggestedPrompts.slice(0, 2).map((prompt, index) => (
                         <button
                           key={index}
                           onClick={() => handleSuggestionClick(prompt)}
-                          className="block w-full text-left text-xs text-[#1582C0] hover:text-[#3A1690] hover:bg-[#2BBCBB]/10 p-2 rounded border border-[#2BBCBB]/30 transition-colors"
+                          className="block w-full text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2 rounded border border-indigo-200 transition-colors"
                         >
                           {prompt}
                         </button>
@@ -440,7 +440,7 @@ What would you like to know about SEOgenix? 🚀`;
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyPress={handleKeyPress}
                       placeholder="Ask me about SEOgenix..."
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2BBCBB] focus:border-transparent text-sm"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
                       disabled={isLoading}
                     />
                     <Button
@@ -449,13 +449,12 @@ What would you like to know about SEOgenix? 🚀`;
                       size="sm"
                       disabled={!inputValue.trim() || isLoading}
                       icon={<Send size={16} />}
-                      className="bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690]"
                     />
                   </form>
                   <div className="flex justify-between items-center mt-2">
                     <button
                       onClick={clearChat}
-                      className="text-xs text-gray-500 hover:text-[#1582C0] transition-colors"
+                      className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
                     >
                       Clear chat
                     </button>
