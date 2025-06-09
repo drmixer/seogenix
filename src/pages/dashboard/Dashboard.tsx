@@ -9,6 +9,7 @@ import AppLayout from '../../components/layout/AppLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import EmptyState from '../../components/ui/EmptyState';
+import AIVisibilityScore from '../../components/dashboard/AIVisibilityScore';
 import ContextualChatbotUpsell from '../../components/Chatbot/ContextualChatbotUpsell';
 import toast from 'react-hot-toast';
 
@@ -179,6 +180,11 @@ const Dashboard = () => {
               <span>Need Help?</span>
             </button>
           )}
+        </div>
+
+        {/* AI Visibility Score - Main Feature */}
+        <div className="mb-8">
+          <AIVisibilityScore />
         </div>
 
         {/* Enhanced Quick Stats */}
@@ -355,7 +361,7 @@ const Dashboard = () => {
                       URL
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                      Overall Score
+                      AI Visibility Score
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Last Audit

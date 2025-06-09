@@ -67,9 +67,11 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
         case '/dashboard':
           prompts = [
             `What should I focus on first to improve ${siteName}'s AI visibility?`,
-            'How do I interpret my audit scores?',
+            'How do I interpret my AI Visibility Score?',
             'What are the most important AI optimization steps?',
-            'Can you analyze my recent performance trends?'
+            'Can you analyze my recent performance trends?',
+            'Why did my AI Visibility Score change this week?',
+            'Which subscore needs the most attention?'
           ];
           break;
         case '/ai-visibility-audit':
@@ -98,7 +100,7 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
           break;
         default:
           prompts = [
-            `How can I improve ${siteName}'s performance with AI systems?`,
+            `How can I improve ${siteName}'s AI Visibility Score?`,
             'Can you analyze my current metrics and suggest next steps?',
             'What are my biggest optimization opportunities?',
             'How do I prioritize my AI visibility improvements?'
@@ -110,7 +112,7 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
         case '/dashboard':
           prompts = [
             'How do I use the dashboard features?',
-            'What do the different metrics mean?',
+            'What does the AI Visibility Score measure?',
             'How do I navigate between tools?',
             'What should I do first as a new user?'
           ];
@@ -165,7 +167,7 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({ className = '' }) => {
 
 ${selectedSite ? `I see you're working with **${selectedSite.name}**. ` : ''}I can help you with:
 
-• **Understanding your reports** and what they mean
+• **Understanding your AI Visibility Score** and what it means
 • **Analyzing your performance** and identifying trends
 • **Providing specific recommendations** for improvement
 • **Interpreting audit results** and competitive data
@@ -200,6 +202,11 @@ ${selectedSite ? `I see you're working with **${selectedSite.name}**. ` : ''}I c
   const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading || !isChatbotAvailable) return;
 
+    // Check for AI Visibility Score related questions and provide enhanced responses
+    const isAIVisibilityQuestion = content.toLowerCase().includes('ai visibility score') || 
+                                  content.toLowerCase().includes('score') ||
+                                  content.toLowerCase().includes('visibility');
+
     // Check for restricted content on Core plan
     if (isBasicChatbot && !isFullFeatured) {
       const restrictedKeywords = [
@@ -223,7 +230,7 @@ On your current Core plan, I can help with:
 • Navigation and getting started
 
 **Upgrade to Pro** to unlock:
-• Detailed report analysis
+• Detailed AI Visibility Score analysis
 • Custom improvement suggestions  
 • Performance insights and trends
 • Proactive optimization alerts
@@ -282,6 +289,7 @@ Would you like to know how to use a specific tool instead?`,
             total_sites: sites.length,
             is_full_featured: isFullFeatured,
             is_basic_chatbot: isBasicChatbot,
+            is_ai_visibility_question: isAIVisibilityQuestion,
             user_activity: {
               last_page: location.pathname,
               has_selected_site: !!selectedSite,
@@ -341,7 +349,14 @@ Would you like to know how to use a specific tool instead?`,
 
     if (isFullFeatured) {
       // Pro/Agency: Full suggestions including analysis and recommendations
-      if (lowerMessage.includes('audit') || lowerMessage.includes('score')) {
+      if (lowerMessage.includes('ai visibility score') || lowerMessage.includes('score')) {
+        suggestions = [
+          'Can you analyze my specific AI Visibility Score breakdown?',
+          'What should I prioritize to improve my score?',
+          'How do my subscores compare to benchmarks?',
+          'What specific actions will boost my lowest subscore?'
+        ];
+      } else if (lowerMessage.includes('audit') || lowerMessage.includes('score')) {
         suggestions = [
           'Can you analyze my specific audit results?',
           'What should I prioritize to improve my scores?',
@@ -364,7 +379,7 @@ Would you like to know how to use a specific tool instead?`,
         ];
       } else {
         suggestions = [
-          'Can you analyze my current performance?',
+          'Can you analyze my current AI Visibility Score?',
           'What are my biggest optimization opportunities?',
           'How do I prioritize my next improvements?',
           'What metrics should I focus on this week?'
@@ -423,6 +438,14 @@ Would you like to know how to use a specific tool instead?`,
     }
   };
 
+  const handleChatbotClick = () => {
+    if (!isChatbotAvailable) {
+      setShowUpsellModal(true);
+    } else {
+      setIsOpen(true);
+    }
+  };
+
   const clearChat = () => {
     if (!isChatbotAvailable) return;
     
@@ -468,14 +491,6 @@ Would you like to know how to use a specific tool instead?`,
         }
         return <p key={index}>{line}</p>;
       });
-  };
-
-  const handleChatbotClick = () => {
-    if (!isChatbotAvailable) {
-      setShowUpsellModal(true);
-    } else {
-      setIsOpen(true);
-    }
   };
 
   // Free plan upgrade prompt
