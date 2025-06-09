@@ -445,7 +445,7 @@ const AccountSettings = () => {
                     
                     <div className="mt-6">
                       {isCurrentPlan ? (
-                        <Button variant="secondary" className="w-full" disabled>
+                        <Button variant="secondary\" className="w-full\" disabled>
                           Current Plan
                         </Button>
                       ) : (
