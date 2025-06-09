@@ -8,6 +8,7 @@ import { SiteProvider } from './contexts/SiteContext';
 
 // Pages
 import LandingPage from './pages/LandingPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
@@ -45,7 +46,7 @@ function App() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-16 h-16 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -59,6 +60,7 @@ function App() {
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<LandingPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />

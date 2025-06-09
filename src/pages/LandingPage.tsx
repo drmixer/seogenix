@@ -14,31 +14,36 @@ import {
   Zap,
   Shield,
   Star,
-  X
+  X,
+  Mic,
+  FileText,
+  Tag,
+  TrendingUp
 } from 'lucide-react';
+import LandingChatbot from '../components/LandingChatbot/LandingChatbot';
 
 const LandingPage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-gradient-to-b from-primary-50/50 to-white">
+      <header className="relative overflow-hidden bg-gradient-to-b from-indigo-50/50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0 flex items-center">
-              <Globe className="h-8 w-8 text-primary-600" />
-              <span className="ml-2 text-2xl font-bold gradient-text">SEOgenix</span>
+              <Globe className="h-8 w-8 text-indigo-600" />
+              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">SEOgenix</span>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Log in
                 </Link>
                 <Link
                   to="/register"
-                  className="button-primary"
+                  className="inline-flex items-center px-6 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity"
                 >
                   Start Free
                 </Link>
@@ -56,7 +61,7 @@ const LandingPage = () => {
               transition={{ duration: 0.5 }}
             >
               <span className="block">Optimize your content for</span>
-              <span className="block gradient-text mt-2">the AI era</span>
+              <span className="block bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mt-2">the AI era</span>
             </motion.h1>
             <motion.p 
               className="mt-6 max-w-md mx-auto text-base text-gray-600 sm:text-lg md:mt-8 md:text-xl md:max-w-3xl"
@@ -75,7 +80,7 @@ const LandingPage = () => {
               <div className="rounded-md shadow">
                 <Link
                   to="/register"
-                  className="w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-primary-600 to-secondary-600 hover:opacity-90 transition-opacity md:py-4 md:text-lg md:px-10"
+                  className="w-full flex items-center justify-center px-8 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity md:py-4 md:text-lg md:px-10"
                 >
                   Start Free
                 </Link>
@@ -97,7 +102,7 @@ const LandingPage = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-primary-600 tracking-wide uppercase">How It Works</h2>
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">How It Works</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Boost your AI visibility in three steps
             </p>
@@ -106,13 +111,13 @@ const LandingPage = () => {
           <div className="mt-16">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               <motion.div 
-                className="card card-hover p-8"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 viewport={{ once: true }}
               >
-                <div className="h-12 w-12 rounded-md bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+                <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
                   <SearchCode size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">1. Analyze</h3>
@@ -122,13 +127,13 @@ const LandingPage = () => {
               </motion.div>
 
               <motion.div 
-                className="card card-hover p-8"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                <div className="h-12 w-12 rounded-md bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+                <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
                   <Code2 size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">2. Optimize</h3>
@@ -138,13 +143,13 @@ const LandingPage = () => {
               </motion.div>
 
               <motion.div 
-                className="card card-hover p-8"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                <div className="h-12 w-12 rounded-md bg-primary-100 text-primary-600 flex items-center justify-center mb-4">
+                <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center mb-4">
                   <BarChart3 size={24} />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">3. Monitor</h3>
@@ -161,7 +166,7 @@ const LandingPage = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-primary-600 tracking-wide uppercase">Features</h2>
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Features</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Everything you need for AI visibility
             </p>
@@ -189,30 +194,45 @@ const LandingPage = () => {
                   description: "Monitor when and where AI systems cite your content, with alerts for new mentions."
                 },
                 {
-                  icon: <Bot size={24} />,
+                  icon: <Mic size={24} />,
                   title: "Voice Assistant Tester",
                   description: "Test how voice assistants like Siri and Alexa respond to queries about your content."
                 },
                 {
-                  icon: <SearchCode size={24} />,
+                  icon: <Tag size={24} />,
                   title: "Entity Coverage Analysis",
                   description: "Identify key entities in your content and ensure comprehensive coverage for AI understanding."
                 },
                 {
-                  icon: <MessagesSquare size={24} />,
+                  icon: <FileText size={24} />,
                   title: "AI Content Generator",
                   description: "Create AI-optimized content snippets, FAQs, and meta descriptions tailored for AI visibility."
+                },
+                {
+                  icon: <TrendingUp size={24} />,
+                  title: "Competitive Analysis",
+                  description: "Track and compare your AI visibility performance against competitors in your industry."
+                },
+                {
+                  icon: <Zap size={24} />,
+                  title: "AI Content Optimizer",
+                  description: "Analyze and optimize existing content for better AI understanding and citation potential."
+                },
+                {
+                  icon: <MessagesSquare size={24} />,
+                  title: "Prompt Match Suggestions",
+                  description: "Generate AI-optimized prompts and questions that align with user search intent."
                 }
               ].map((feature, index) => (
                 <motion.div 
                   key={index}
-                  className="card card-hover p-6"
+                  className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-6"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <div className="h-12 w-12 rounded-md bg-primary-100 text-primary-600 flex items-center justify-center">
+                  <div className="h-12 w-12 rounded-md bg-indigo-100 text-indigo-600 flex items-center justify-center">
                     {feature.icon}
                   </div>
                   <h3 className="mt-4 text-lg font-medium text-gray-900">{feature.title}</h3>
@@ -230,7 +250,7 @@ const LandingPage = () => {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-primary-600 tracking-wide uppercase">Pricing</h2>
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Pricing</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Choose the right plan for your needs
             </p>
@@ -242,7 +262,7 @@ const LandingPage = () => {
           <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-4">
             {/* Free Plan */}
             <motion.div 
-              className="card p-8 border-2 border-green-200 bg-green-50"
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-green-200 p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -273,7 +293,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="button-primary w-full text-center">
+                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity">
                   Start Free
                 </Link>
               </div>
@@ -281,7 +301,7 @@ const LandingPage = () => {
 
             {/* Core Plan */}
             <motion.div 
-              className="card p-8"
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -307,10 +327,11 @@ const LandingPage = () => {
                   { text: "Prompt Match Suggestions (20/month)", included: true },
                   { text: "Citation Tracker (real-time + full sources)", included: true },
                   { text: "Entity Coverage Analyzer", included: true },
+                  { text: "AI Chatbot (basic tool guidance)", included: true },
                   { text: "Email Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
@@ -318,7 +339,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="button-primary w-full text-center">
+                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity">
                   Start Core Plan
                 </Link>
               </div>
@@ -326,13 +347,13 @@ const LandingPage = () => {
 
             {/* Pro Plan */}
             <motion.div 
-              className="card p-8 relative border-2 border-primary-600"
+              className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-indigo-600 p-8 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-primary-600 text-white rounded-full text-sm font-medium">
+              <div className="absolute top-0 right-0 -translate-y-1/2 px-4 py-1 bg-indigo-600 text-white rounded-full text-sm font-medium">
                 Most Popular
               </div>
               <div className="text-center">
@@ -355,10 +376,11 @@ const LandingPage = () => {
                   { text: "AI Content Optimizer (30 pages/month)", included: true },
                   { text: "Prompt Match Suggestions (60/month)", included: true },
                   { text: "Competitive Analysis (3 competitors)", included: true },
+                  { text: "AI Chatbot (full analysis and recommendations)", included: true },
                   { text: "Priority Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
@@ -366,7 +388,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="button-primary w-full text-center">
+                <Link to="/register" className="w-full flex items-center justify-center px-4 py-2 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 transition-opacity">
                   Start Pro Plan
                 </Link>
               </div>
@@ -374,7 +396,7 @@ const LandingPage = () => {
 
             {/* Agency Plan */}
             <motion.div 
-              className="card p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -424,7 +446,7 @@ const LandingPage = () => {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="text-base font-semibold text-primary-600 tracking-wide uppercase">FAQ</h2>
+            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">FAQ</h2>
             <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
               Frequently asked questions
             </p>
@@ -459,7 +481,7 @@ const LandingPage = () => {
             ].map((faq, index) => (
               <motion.div 
                 key={index}
-                className="card card-hover p-6 mb-4"
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-6 mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -475,18 +497,18 @@ const LandingPage = () => {
 
       {/* CTA Section */}
       <section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-secondary-600 opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-90"></div>
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative z-10">
           <div className="lg:flex lg:items-center lg:justify-between">
             <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               <span className="block">Ready to boost your AI visibility?</span>
-              <span className="block text-primary-200">Start free today, no credit card required.</span>
+              <span className="block text-indigo-200">Start free today, no credit card required.</span>
             </h2>
             <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
               <div className="inline-flex rounded-md shadow">
                 <Link
                   to="/register"
-                  className="button-secondary"
+                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-indigo-600 bg-white hover:bg-gray-50 transition-colors"
                 >
                   Start Free
                   <ArrowRight className="ml-2 -mr-1 h-5 w-5" />
@@ -503,11 +525,15 @@ const LandingPage = () => {
           <div className="md:flex md:items-center md:justify-between">
             <div className="flex justify-center md:justify-start">
               <div className="flex items-center">
-                <Globe className="h-6 w-6 text-primary-600" />
-                <span className="ml-2 text-xl font-bold gradient-text">SEOgenix</span>
+                <Globe className="h-6 w-6 text-indigo-600" />
+                <span className="ml-2 text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">SEOgenix</span>
               </div>
             </div>
-            <div className="mt-8 md:mt-0">
+            <div className="mt-8 md:mt-0 flex justify-center md:justify-end space-x-6">
+              <Link to="/privacy-policy" className="text-gray-500 hover:text-gray-900 text-sm">
+                Privacy Policy
+              </Link>
+              <span className="text-gray-300">|</span>
               <p className="text-center text-base text-gray-500">
                 &copy; 2025 SEOgenix. All rights reserved.
               </p>
@@ -515,6 +541,9 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {/* Landing Page Chatbot */}
+      <LandingChatbot />
     </div>
   );
 };
