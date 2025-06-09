@@ -22,6 +22,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 import { useSites } from '../../contexts/SiteContext';
 import SiteSelector from './SiteSelector';
+import ChatbotWidget from '../Chatbot/ChatbotWidget';
 import toast from 'react-hot-toast';
 
 interface AppLayoutProps {
@@ -260,6 +261,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </div>
         </main>
       </div>
+
+      {/* Chatbot Widget */}
+      <ChatbotWidget />
     </div>
   );
 };

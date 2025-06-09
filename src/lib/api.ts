@@ -713,3 +713,47 @@ export const promptApi = {
     }
   }
 };
+
+// Chatbot API
+export const chatbotApi = {
+  async sendMessage(message: string, siteId?: string, context?: any): Promise<any> {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      console.log('🤖 Calling chatbot edge function with message:', message.substring(0, 50) + '...');
+
+      const { data, error } = await supabase.functions.invoke('chatbot', {
+        body: { 
+          message, 
+          user_id: user.id, 
+          site_id: siteId,
+          context 
+        }
+      });
+
+      console.log('📥 Chatbot response:', { data, error });
+
+      if (error) {
+        console.error('❌ Chatbot edge function error:', error);
+        throw new Error(`Chatbot failed: ${error.message || 'Unknown error'}`);
+      }
+
+      if (!data) {
+        throw new Error('No data returned from chatbot edge function');
+      }
+
+      if (data.error) {
+        console.error('❌ Chatbot returned error:', data.error);
+        throw new Error(`Chatbot failed: ${data.error}`);
+      }
+
+      console.log('✅ Chatbot response received successfully');
+
+      return data;
+    } catch (error) {
+      console.error('❌ Error sending message to chatbot:', error);
+      throw error;
+    }
+  }
+};
