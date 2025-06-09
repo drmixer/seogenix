@@ -477,17 +477,17 @@ Would you like to know how to use a specific tool instead?`,
           return <li key={index} className="ml-4 list-disc">{line.substring(2)}</li>;
         }
         if (line.startsWith('**') && line.endsWith('**')) {
-          return <p key={index} className="font-semibold text-indigo-700">{line.substring(2, line.length - 2)}</p>;
+          return <p key={index} className="font-semibold text-[#1582C0]">{line.substring(2, line.length - 2)}</p>;
         }
         if (line.includes('**') && line.split('**').length === 3) {
           const parts = line.split('**');
-          return <p key={index}>{parts[0]}<strong className="text-indigo-700">{parts[1]}</strong>{parts[2]}</p>;
+          return <p key={index}>{parts[0]}<strong className="text-[#1582C0]">{parts[1]}</strong>{parts[2]}</p>;
         }
         if (line.trim() === '') {
           return <br key={index} />;
         }
         if (line.startsWith('✨') || line.startsWith('🚀') || line.startsWith('💡') || line.startsWith('🔒')) {
-          return <p key={index} className="text-indigo-600 font-medium">{line}</p>;
+          return <p key={index} className="text-[#1582C0] font-medium">{line}</p>;
         }
         return <p key={index}>{line}</p>;
       });
@@ -530,10 +530,10 @@ Would you like to know how to use a specific tool instead?`,
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
                 className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-xl shadow-2xl max-w-md w-full mx-4"
               >
-                <div className="relative bg-gradient-to-r from-indigo-600 to-purple-600 rounded-t-xl p-6 text-white">
+                <div className="relative bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] rounded-t-xl p-6 text-white">
                   <button
                     onClick={() => setShowUpsellModal(false)}
-                    className="absolute top-4 right-4 text-white hover:text-indigo-200 transition-colors"
+                    className="absolute top-4 right-4 text-white hover:text-gray-200 transition-colors"
                   >
                     <X size={20} />
                   </button>
@@ -543,15 +543,15 @@ Would you like to know how to use a specific tool instead?`,
                       <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
                         <Sparkles size={24} className="text-white" />
                       </div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-pulse"></div>
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#9C26BB] rounded-full animate-pulse"></div>
                     </div>
                     <div>
                       <h2 className="text-xl font-bold">Meet Genie</h2>
-                      <p className="text-indigo-100 text-sm">Your AI SEO Assistant</p>
+                      <p className="text-white/80 text-sm">Your AI SEO Assistant</p>
                     </div>
                   </div>
                   
-                  <p className="text-indigo-100 text-sm leading-relaxed">
+                  <p className="text-white/90 text-sm leading-relaxed">
                     Get personalized guidance, tool explanations, and optimization insights powered by AI.
                   </p>
                 </div>
@@ -559,8 +559,8 @@ Would you like to know how to use a specific tool instead?`,
                 <div className="p-6">
                   <div className="space-y-4 mb-6">
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                        <MessageCircle size={16} className="text-blue-600" />
+                      <div className="flex-shrink-0 w-8 h-8 bg-[#2BBCBB]/10 rounded-full flex items-center justify-center">
+                        <MessageCircle size={16} className="text-[#1582C0]" />
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 text-sm">Tool Guidance</h3>
@@ -569,8 +569,8 @@ Would you like to know how to use a specific tool instead?`,
                     </div>
                     
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                        <Crown size={16} className="text-green-600" />
+                      <div className="flex-shrink-0 w-8 h-8 bg-[#1582C0]/10 rounded-full flex items-center justify-center">
+                        <Crown size={16} className="text-[#3A1690]" />
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 text-sm">Pro Analysis</h3>
@@ -579,8 +579,8 @@ Would you like to know how to use a specific tool instead?`,
                     </div>
                     
                     <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                        <Sparkles size={16} className="text-purple-600" />
+                      <div className="flex-shrink-0 w-8 h-8 bg-[#9C26BB]/10 rounded-full flex items-center justify-center">
+                        <Sparkles size={16} className="text-[#9C26BB]" />
                       </div>
                       <div>
                         <h3 className="font-medium text-gray-900 text-sm">Smart Suggestions</h3>
@@ -596,8 +596,8 @@ Would you like to know how to use a specific tool instead?`,
                         <div className="text-red-600 text-xs">❌ No AI Guidance</div>
                       </div>
                       <div className="text-right">
-                        <span className="text-indigo-600 text-sm font-medium">Core Plan</span>
-                        <div className="text-green-600 text-xs">✅ AI Tool Guide</div>
+                        <span className="text-[#1582C0] text-sm font-medium">Core Plan</span>
+                        <div className="text-[#2BBCBB] text-xs">✅ AI Tool Guide</div>
                       </div>
                     </div>
                     <div className="text-center">
@@ -610,7 +610,7 @@ Would you like to know how to use a specific tool instead?`,
                     <Link to="/account-settings" onClick={() => setShowUpsellModal(false)}>
                       <Button 
                         variant="primary" 
-                        className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+                        className="w-full bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690]"
                       >
                         Upgrade to Core Plan
                       </Button>
@@ -652,13 +652,13 @@ Would you like to know how to use a specific tool instead?`,
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setIsOpen(true)}
-            className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-full p-4 shadow-lg transition-all duration-300 ${className}`}
+            className={`fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690] text-white rounded-full p-4 shadow-lg transition-all duration-300 ${className}`}
           >
             <div className="relative">
               <Sparkles size={24} />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#9C26BB] rounded-full animate-pulse"></div>
               {isFullFeatured && (
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#2BBCBB] rounded-full flex items-center justify-center">
                   <Zap size={8} className="text-white" />
                 </div>
               )}
@@ -676,7 +676,7 @@ Would you like to know how to use a specific tool instead?`,
               opacity: 1, 
               y: 0, 
               scale: 1,
-              height: isMinimized ? 'auto' : '700px'
+              height: isMinimized ? 'auto' : '600px'
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className={`fixed bottom-6 right-6 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
@@ -686,21 +686,21 @@ Would you like to know how to use a specific tool instead?`,
             {/* Header */}
             <div className={`flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg ${
               isFullFeatured 
-                ? 'bg-gradient-to-r from-green-50 to-blue-50' 
-                : 'bg-gradient-to-r from-indigo-50 to-purple-50'
+                ? 'bg-gradient-to-r from-[#2BBCBB]/10 to-[#1582C0]/10' 
+                : 'bg-gradient-to-r from-[#1582C0]/10 to-[#9C26BB]/10'
             }`}>
               <div className="flex items-center space-x-3">
                 <div className="relative">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     isFullFeatured 
-                      ? 'bg-gradient-to-r from-green-600 to-blue-600' 
-                      : 'bg-gradient-to-r from-indigo-600 to-purple-600'
+                      ? 'bg-gradient-to-r from-[#2BBCBB] to-[#1582C0]' 
+                      : 'bg-gradient-to-r from-[#1582C0] to-[#3A1690]'
                   }`}>
                     <Sparkles size={16} className="text-white" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#9C26BB] rounded-full animate-pulse"></div>
                   {isFullFeatured && (
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#2BBCBB] rounded-full flex items-center justify-center">
                       <Zap size={8} className="text-white" />
                     </div>
                   )}
@@ -709,12 +709,12 @@ Would you like to know how to use a specific tool instead?`,
                   <h3 className="font-medium text-gray-900 flex items-center">
                     Genie
                     {isFullFeatured && (
-                      <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-800 text-xs rounded-full">
+                      <span className="ml-2 px-2 py-0.5 bg-[#2BBCBB]/20 text-[#1582C0] text-xs rounded-full">
                         Pro
                       </span>
                     )}
                     {isBasicChatbot && (
-                      <span className="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      <span className="ml-2 px-2 py-0.5 bg-[#1582C0]/20 text-[#3A1690] text-xs rounded-full">
                         Core
                       </span>
                     )}
@@ -730,13 +730,13 @@ Would you like to know how to use a specific tool instead?`,
               <div className="flex items-center space-x-1">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1 hover:bg-indigo-100 rounded transition-colors"
+                  className="p-1 hover:bg-[#2BBCBB]/10 rounded transition-colors"
                 >
                   {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-indigo-100 rounded transition-colors"
+                  className="p-1 hover:bg-[#2BBCBB]/10 rounded transition-colors"
                 >
                   <X size={16} />
                 </button>
@@ -746,7 +746,7 @@ Would you like to know how to use a specific tool instead?`,
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="h-96 overflow-y-auto p-4 space-y-4">
+                <div className="h-80 overflow-y-auto p-4 space-y-4">
                   {messages.map((message) => (
                     <div key={message.id}>
                       <div
@@ -755,13 +755,13 @@ Would you like to know how to use a specific tool instead?`,
                         <div
                           className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
                             message.type === 'user'
-                              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
+                              ? 'bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] text-white'
                               : 'bg-gray-100 text-gray-900'
                           }`}
                         >
                           <div className="flex items-start space-x-2">
                             {message.type === 'assistant' && (
-                              <Sparkles size={16} className="mt-1 flex-shrink-0 text-indigo-600" />
+                              <Sparkles size={16} className="mt-1 flex-shrink-0 text-[#1582C0]" />
                             )}
                             {message.type === 'user' && (
                               <User size={16} className="mt-1 flex-shrink-0 text-white" />
@@ -780,7 +780,7 @@ Would you like to know how to use a specific tool instead?`,
                             </div>
                           </div>
                           <div className={`text-xs mt-2 ${
-                            message.type === 'user' ? 'text-indigo-200' : 'text-gray-500'
+                            message.type === 'user' ? 'text-white/80' : 'text-gray-500'
                           }`}>
                             {message.timestamp.toLocaleTimeString([], { 
                               hour: '2-digit', 
@@ -801,7 +801,7 @@ Would you like to know how to use a specific tool instead?`,
                             <button
                               key={index}
                               onClick={() => handleSuggestionClick(suggestion)}
-                              className="block w-full text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2 rounded border border-indigo-200 transition-colors"
+                              className="block w-full text-left text-xs text-[#1582C0] hover:text-[#3A1690] hover:bg-[#2BBCBB]/10 p-2 rounded border border-[#2BBCBB]/30 transition-colors"
                             >
                               {suggestion}
                             </button>
@@ -825,7 +825,7 @@ Would you like to know how to use a specific tool instead?`,
                         <button
                           key={index}
                           onClick={() => handleSuggestionClick(prompt)}
-                          className="block w-full text-left text-xs text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 p-2 rounded border border-indigo-200 transition-colors"
+                          className="block w-full text-left text-xs text-[#1582C0] hover:text-[#3A1690] hover:bg-[#2BBCBB]/10 p-2 rounded border border-[#2BBCBB]/30 transition-colors"
                         >
                           {prompt}
                         </button>
@@ -848,7 +848,7 @@ Would you like to know how to use a specific tool instead?`,
                           ? "Ask Genie to analyze your data or suggest improvements..."
                           : "Ask Genie how to use SEOgenix tools..."
                       }
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#2BBCBB] focus:border-transparent text-sm"
                       disabled={isLoading}
                     />
                     <Button
@@ -857,12 +857,13 @@ Would you like to know how to use a specific tool instead?`,
                       size="sm"
                       disabled={!inputValue.trim() || isLoading}
                       icon={<Send size={16} />}
+                      className="bg-gradient-to-r from-[#2BBCBB] to-[#1582C0] hover:from-[#1582C0] hover:to-[#3A1690]"
                     />
                   </form>
                   <div className="flex justify-between items-center mt-2">
                     <button
                       onClick={clearChat}
-                      className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
+                      className="text-xs text-gray-500 hover:text-[#1582C0] transition-colors"
                     >
                       Clear chat
                     </button>
@@ -873,16 +874,16 @@ Would you like to know how to use a specific tool instead?`,
                   
                   {/* Upgrade prompt for Core users */}
                   {isBasicChatbot && (
-                    <div className="mt-3 p-2 bg-gradient-to-r from-purple-50 to-blue-50 rounded-md border border-purple-200">
-                      <div className="flex items-center text-xs text-purple-700">
+                    <div className="mt-3 p-2 bg-gradient-to-r from-[#9C26BB]/10 to-[#1582C0]/10 rounded-md border border-[#9C26BB]/20">
+                      <div className="flex items-center text-xs text-[#3A1690]">
                         <Crown size={12} className="mr-1" />
                         <span className="font-medium">Want personalized insights?</span>
                       </div>
-                      <p className="text-xs text-purple-600 mt-1">
+                      <p className="text-xs text-[#1582C0] mt-1">
                         Upgrade to Pro for detailed analysis and custom recommendations.
                       </p>
                       <Link to="/account-settings">
-                        <Button size="sm" variant="outline" className="mt-2 text-xs">
+                        <Button size="sm" variant="outline" className="mt-2 text-xs border-[#2BBCBB] text-[#1582C0] hover:bg-[#2BBCBB]/10">
                           Upgrade to Pro
                         </Button>
                       </Link>
