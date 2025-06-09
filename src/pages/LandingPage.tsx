@@ -35,28 +35,39 @@ const LandingPage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      <header className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-blue-50">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex-shrink-0 flex items-center">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-orange-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-blue-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center justify-between h-24">
+            <motion.div 
+              className="flex-shrink-0 flex items-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
               <img 
                 src="https://i.imgur.com/bPM4L5Z.png" 
                 alt="SEOgenix Logo" 
-                className="h-16 w-16 object-contain"
+                className="h-20 w-20 object-contain drop-shadow-lg hover:scale-110 transition-transform duration-300"
               />
-            </div>
+            </motion.div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                  className="text-gray-700 hover:text-orange-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:bg-orange-50"
                 >
                   Log in
                 </Link>
                 <Link
                   to="/register"
-                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 text-base font-medium rounded-xl text-white bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Start Free
                 </Link>
@@ -65,7 +76,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
           <div className="text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -73,26 +84,26 @@ const LandingPage = () => {
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800 mb-6">
-                <Sparkles className="w-4 h-4 mr-2" />
+              <span className="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium bg-gradient-to-r from-orange-100 to-blue-100 text-orange-800 mb-6 shadow-lg">
+                <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
                 The Future of SEO is AI Visibility
               </span>
             </motion.div>
             
             <motion.h1 
-              className="text-5xl tracking-tight font-extrabold text-gray-900 sm:text-6xl md:text-7xl"
+              className="text-6xl tracking-tight font-extrabold text-gray-900 sm:text-7xl md:text-8xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <span className="block">Get Found by</span>
-              <span className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mt-2">
+              <span className="block bg-gradient-to-r from-orange-500 via-blue-600 to-orange-600 bg-clip-text text-transparent mt-2 animate-gradient bg-300% animate-pulse">
                 AI Systems
               </span>
             </motion.h1>
             
             <motion.p 
-              className="mt-8 max-w-md mx-auto text-xl text-gray-600 sm:text-2xl md:mt-10 md:text-2xl md:max-w-4xl leading-relaxed"
+              className="mt-8 max-w-md mx-auto text-xl text-gray-600 sm:text-2xl md:mt-12 md:text-2xl md:max-w-4xl leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -109,19 +120,19 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <div className="rounded-lg shadow-xl">
+              <div className="rounded-xl shadow-2xl">
                 <Link
                   to="/register"
-                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="w-full flex items-center justify-center px-12 py-5 text-lg font-semibold rounded-xl text-white bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105"
                 >
                   Start Free Today
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </div>
-              <div className="mt-3 rounded-lg shadow-lg sm:mt-0 sm:ml-4">
+              <div className="mt-3 rounded-xl shadow-xl sm:mt-0 sm:ml-4">
                 <Link
                   to="/login"
-                  className="w-full flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-all duration-200 border-2 border-gray-200 hover:border-gray-300"
+                  className="w-full flex items-center justify-center px-12 py-5 text-lg font-semibold rounded-xl text-gray-700 bg-white hover:bg-gray-50 transition-all duration-300 border-2 border-gray-200 hover:border-orange-300 hover:shadow-lg"
                 >
                   Sign In
                 </Link>
@@ -151,12 +162,12 @@ const LandingPage = () => {
         </div>
 
         {/* Floating Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-10 animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-10 animate-pulse delay-1000"></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-orange-400 to-blue-400 rounded-full opacity-20 animate-bounce"></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-gradient-to-r from-blue-400 to-orange-400 rounded-full opacity-20 animate-bounce delay-1000"></div>
       </header>
 
       {/* Trust Indicators */}
-      <section className="py-12 bg-gray-50 border-y">
+      <section className="py-16 bg-gradient-to-r from-gray-50 to-orange-50/30 border-y border-orange-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-medium text-gray-500 uppercase tracking-wide mb-8">
@@ -173,14 +184,15 @@ const LandingPage = () => {
               ].map((ai, index) => (
                 <motion.div
                   key={ai.name}
-                  className="flex flex-col items-center"
+                  className="flex flex-col items-center group"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
+                  whileHover={{ scale: 1.1 }}
                 >
-                  <div className="text-3xl mb-2">{ai.logo}</div>
-                  <span className="text-sm font-medium text-gray-600">{ai.name}</span>
+                  <div className="text-4xl mb-2 group-hover:animate-bounce">{ai.logo}</div>
+                  <span className="text-sm font-medium text-gray-600 group-hover:text-orange-600 transition-colors">{ai.name}</span>
                 </motion.div>
               ))}
             </div>
@@ -189,10 +201,11 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50/50 to-blue-50/50"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">How It Works</h2>
+            <h2 className="text-base font-semibold text-orange-600 tracking-wide uppercase">How It Works</h2>
             <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Boost your AI visibility in three steps
             </p>
@@ -208,42 +221,46 @@ const LandingPage = () => {
                 icon: <SearchCode size={32} />,
                 title: "Analyze & Audit",
                 description: "Get comprehensive AI visibility audits including schema analysis, entity coverage, and semantic clarity scoring.",
-                features: ["AI Visibility Score", "Schema Markup Analysis", "Entity Coverage Check", "Citation Potential Assessment"]
+                features: ["AI Visibility Score", "Schema Markup Analysis", "Entity Coverage Check", "Citation Potential Assessment"],
+                gradient: "from-orange-500 to-orange-600"
               },
               {
                 step: "2",
                 icon: <Zap size={32} />,
                 title: "Optimize & Generate",
                 description: "Use our AI-powered tools to create optimized content, schema markup, and structured data.",
-                features: ["AI Content Generator", "Schema Generator", "Content Optimizer", "Prompt Suggestions"]
+                features: ["AI Content Generator", "Schema Generator", "Content Optimizer", "Prompt Suggestions"],
+                gradient: "from-blue-500 to-blue-600"
               },
               {
                 step: "3",
                 icon: <BarChart3 size={32} />,
                 title: "Monitor & Track",
                 description: "Track your progress with real-time citation monitoring, competitive analysis, and performance insights.",
-                features: ["Citation Tracking", "Competitive Analysis", "Voice Assistant Testing", "Performance Monitoring"]
+                features: ["Citation Tracking", "Competitive Analysis", "Voice Assistant Testing", "Performance Monitoring"],
+                gradient: "from-orange-600 to-blue-600"
               }
             ].map((step, index) => (
               <motion.div 
                 key={index}
-                className="relative bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 p-8 group"
+                className="relative bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden border border-gray-100 p-8 group transform hover:-translate-y-2"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-100 to-blue-100 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity"></div>
                 
                 <div className="relative">
                   <div className="flex items-center mb-6">
-                    <div className="flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white flex items-center justify-center mr-4">
+                    <div className={`flex-shrink-0 w-16 h-16 rounded-xl bg-gradient-to-r ${step.gradient} text-white flex items-center justify-center mr-4 shadow-lg group-hover:scale-110 transition-transform`}>
                       {step.icon}
                     </div>
-                    <div className="text-4xl font-bold text-gray-200">{step.step}</div>
+                    <div className="text-4xl font-bold text-gray-200 group-hover:text-orange-200 transition-colors">{step.step}</div>
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-orange-700 transition-colors">{step.title}</h3>
                   <p className="text-gray-600 mb-6 leading-relaxed">{step.description}</p>
                   
                   <ul className="space-y-2">
@@ -262,10 +279,10 @@ const LandingPage = () => {
       </section>
 
       {/* Complete Features Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-orange-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Complete Feature Set</h2>
+            <h2 className="text-base font-semibold text-orange-600 tracking-wide uppercase">Complete Feature Set</h2>
             <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Everything you need for AI visibility
             </p>
@@ -280,87 +297,88 @@ const LandingPage = () => {
                 icon: <BarChart3 size={28} />,
                 title: "AI Visibility Audit",
                 description: "Comprehensive analysis of how well your content performs with AI systems, with detailed scoring and actionable recommendations.",
-                color: "indigo"
+                color: "orange"
               },
               {
                 icon: <TrendingUp size={28} />,
                 title: "Competitive Analysis",
                 description: "Track and compare your AI visibility performance against competitors in your industry with detailed benchmarking.",
-                color: "green"
+                color: "blue"
               },
               {
                 icon: <Zap size={28} />,
                 title: "AI Content Optimizer",
                 description: "Analyze and optimize existing content for better AI understanding and citation potential with real-time scoring.",
-                color: "blue"
+                color: "orange"
               },
               {
                 icon: <Code2 size={28} />,
                 title: "Schema Generator",
                 description: "Create structured data markup that helps AI systems understand your content more effectively with multiple schema types.",
-                color: "purple"
+                color: "blue"
               },
               {
                 icon: <MessagesSquare size={28} />,
                 title: "Prompt Match Suggestions",
                 description: "Generate AI-optimized prompts and questions that align with user search intent and voice queries.",
-                color: "pink"
+                color: "orange"
               },
               {
                 icon: <FileText size={28} />,
                 title: "AI Content Generator",
                 description: "Create AI-optimized content snippets, FAQs, meta descriptions, and blog outlines tailored for AI visibility.",
-                color: "orange"
+                color: "blue"
               },
               {
                 icon: <Link2 size={28} />,
                 title: "Citation Tracker",
                 description: "Monitor when and where AI systems cite your content, with alerts for new mentions across platforms.",
-                color: "teal"
+                color: "orange"
               },
               {
                 icon: <Mic size={28} />,
                 title: "Voice Assistant Tester",
                 description: "Test how voice assistants like Siri, Alexa, and Google Assistant respond to queries about your content.",
-                color: "red"
+                color: "blue"
               },
               {
                 icon: <FileBarChart size={28} />,
                 title: "LLM Site Summaries",
                 description: "Generate comprehensive, AI-optimized summaries of your website perfect for LLM understanding and citations.",
-                color: "yellow"
+                color: "orange"
               },
               {
                 icon: <Tag size={28} />,
                 title: "Entity Coverage Analyzer",
                 description: "Identify key entities in your content and ensure comprehensive coverage for AI understanding and context.",
-                color: "cyan"
+                color: "blue"
               },
               {
                 icon: <Target size={28} />,
                 title: "Featured Snippet Optimization",
                 description: "Optimize your content structure and format to increase chances of appearing in AI-powered featured snippets.",
-                color: "emerald"
+                color: "orange"
               },
               {
                 icon: <Crown size={28} />,
                 title: "AI Chatbot Assistant",
                 description: "Get personalized guidance and insights from Genie, our AI assistant that helps interpret results and suggests improvements.",
-                color: "violet"
+                color: "blue"
               }
             ].map((feature, index) => (
               <motion.div 
                 key={index}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 p-6 group"
+                className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 p-6 group transform hover:-translate-y-1"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
               >
-                <div className={`h-14 w-14 rounded-lg bg-${feature.color}-100 text-${feature.color}-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <div className={`h-14 w-14 rounded-xl bg-gradient-to-r ${feature.color === 'orange' ? 'from-orange-100 to-orange-200 text-orange-600' : 'from-blue-100 to-blue-200 text-blue-600'} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{feature.title}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-orange-700 transition-colors">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed">
                   {feature.description}
                 </p>
@@ -371,10 +389,11 @@ const LandingPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-50/30 to-blue-50/30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">Pricing</h2>
+            <h2 className="text-base font-semibold text-orange-600 tracking-wide uppercase">Pricing</h2>
             <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Choose the right plan for your needs
             </p>
@@ -386,13 +405,13 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
             {/* Free Plan */}
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-green-200 p-8 relative"
+              className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border-2 border-green-200 p-8 relative transform hover:-translate-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <div className="absolute top-0 right-0 bg-green-500 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 text-xs font-medium rounded-bl-lg">
                 FREE
               </div>
               <div className="text-center">
@@ -420,7 +439,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-xl text-white bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Free
                 </Link>
               </div>
@@ -428,7 +447,7 @@ const LandingPage = () => {
 
             {/* Core Plan */}
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 p-8"
+              className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200 p-8 transform hover:-translate-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
@@ -456,7 +475,7 @@ const LandingPage = () => {
                   { text: "Email Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-indigo-600 mr-3 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-orange-600 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
@@ -464,7 +483,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-xl text-white bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start Core Plan
                 </Link>
               </div>
@@ -472,13 +491,13 @@ const LandingPage = () => {
 
             {/* Pro Plan */}
             <motion.div 
-              className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-indigo-600 p-8 relative transform scale-105"
+              className="bg-white rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden border-2 border-orange-500 p-8 relative transform scale-105 hover:scale-110"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="absolute top-0 right-0 bg-indigo-600 text-white px-4 py-2 text-sm font-medium rounded-bl-lg">
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-orange-500 to-blue-600 text-white px-4 py-2 text-sm font-medium rounded-bl-lg">
                 Most Popular
               </div>
               <div className="text-center">
@@ -503,7 +522,7 @@ const LandingPage = () => {
                   { text: "Priority Support", included: true }
                 ].map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <Check className="h-5 w-5 text-indigo-600 mr-3 flex-shrink-0" />
+                    <Check className="h-5 w-5 text-orange-600 mr-3 flex-shrink-0" />
                     <span className={`text-sm ${feature.text.includes('Everything') ? 'font-medium text-gray-900' : 'text-gray-700'}`}>
                       {feature.text}
                     </span>
@@ -511,7 +530,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-xl text-white bg-gradient-to-r from-orange-500 to-blue-600 hover:from-orange-600 hover:to-blue-700 transition-all duration-300 shadow-xl hover:shadow-2xl">
                   Start Pro Plan
                 </Link>
               </div>
@@ -519,7 +538,7 @@ const LandingPage = () => {
 
             {/* Agency Plan */}
             <motion.div 
-              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden p-8"
+              className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden p-8 transform hover:-translate-y-2"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -555,7 +574,7 @@ const LandingPage = () => {
                 ))}
               </ul>
               <div className="mt-8">
-                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg text-gray-900 bg-white hover:bg-gray-100 transition-colors">
+                <Link to="/register" className="w-full flex items-center justify-center px-6 py-3 text-base font-medium rounded-xl text-gray-900 bg-white hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl">
                   Start Agency Plan
                 </Link>
               </div>
@@ -565,10 +584,10 @@ const LandingPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-orange-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-base font-semibold text-indigo-600 tracking-wide uppercase">FAQ</h2>
+            <h2 className="text-base font-semibold text-orange-600 tracking-wide uppercase">FAQ</h2>
             <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Frequently asked questions
             </p>
@@ -614,13 +633,13 @@ const LandingPage = () => {
             ].map((faq, index) => (
               <motion.div 
                 key={index}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-8"
+                className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 p-8 group transform hover:-translate-y-1"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">{faq.question}</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4 group-hover:text-orange-700 transition-colors">{faq.question}</h3>
                 <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
               </motion.div>
             ))}
@@ -629,35 +648,40 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24">
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"></div>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-500 via-blue-600 to-orange-600"></div>
         <div className="absolute inset-0 bg-black opacity-10"></div>
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-10 left-10 w-40 h-40 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-10 right-10 w-60 h-60 bg-white/10 rounded-full blur-xl animate-pulse delay-1000"></div>
+        </div>
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 relative z-10">
           <div className="text-center">
             <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
               <span className="block">Ready to dominate</span>
-              <span className="block text-indigo-200">the AI era?</span>
+              <span className="block text-orange-200">the AI era?</span>
             </h2>
-            <p className="mt-6 max-w-3xl mx-auto text-xl text-indigo-100">
+            <p className="mt-6 max-w-3xl mx-auto text-xl text-orange-100">
               Join thousands of businesses already optimizing their content for AI systems. 
               Start free today and see your AI visibility soar.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-indigo-600 bg-white hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl text-orange-600 bg-white hover:bg-gray-50 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
               >
                 Start Free Today
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 to="/login"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white border-2 border-white hover:bg-white hover:text-indigo-600 transition-all duration-200"
+                className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl text-white border-2 border-white hover:bg-white hover:text-orange-600 transition-all duration-300"
               >
                 Sign In
               </Link>
             </div>
-            <div className="mt-8 flex justify-center items-center space-x-8 text-sm text-indigo-200">
+            <div className="mt-8 flex justify-center items-center space-x-8 text-sm text-orange-200">
               <div className="flex items-center">
                 <Check className="w-4 h-4 text-green-300 mr-2" />
                 No credit card required
@@ -676,28 +700,29 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-gray-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800"></div>
+        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center mb-4">
                 <img 
                   src="https://i.imgur.com/bPM4L5Z.png" 
                   alt="SEOgenix Logo" 
-                  className="h-12 w-12 object-contain"
+                  className="h-16 w-16 object-contain drop-shadow-lg"
                 />
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The comprehensive platform for AI visibility optimization. Get found by ChatGPT, Perplexity, voice assistants, and all major AI systems.
               </p>
               <div className="flex space-x-4">
-                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                   <span className="text-sm">📧</span>
                 </div>
-                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
                   <span className="text-sm">🐦</span>
                 </div>
-                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                   <span className="text-sm">💼</span>
                 </div>
               </div>
@@ -706,18 +731,18 @@ const LandingPage = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-orange-400 transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-orange-400 transition-colors">Pricing</a></li>
               </ul>
             </div>
             
             <div>
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
-                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy</Link></li>
-                <li><a href="#" className="hover:text-white transition-colors">Support</a></li>
+                <li><a href="#" className="hover:text-orange-400 transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-orange-400 transition-colors">Blog</a></li>
+                <li><Link to="/privacy-policy" className="hover:text-orange-400 transition-colors">Privacy</Link></li>
+                <li><a href="#" className="hover:text-orange-400 transition-colors">Support</a></li>
               </ul>
             </div>
           </div>
@@ -727,13 +752,13 @@ const LandingPage = () => {
               &copy; 2025 SEOgenix. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacy-policy" className="text-gray-400 hover:text-white text-sm transition-colors">
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-orange-400 text-sm transition-colors">
                 Privacy Policy
               </Link>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              <a href="#" className="text-gray-400 hover:text-orange-400 text-sm transition-colors">
                 Terms of Service
               </a>
-              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+              <a href="#" className="text-gray-400 hover:text-orange-400 text-sm transition-colors">
                 Cookie Policy
               </a>
             </div>
