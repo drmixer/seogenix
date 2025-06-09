@@ -307,17 +307,17 @@ const CitationTracker = () => {
                   <h4 className="font-medium text-blue-800 mb-2">Search Results Summary</h4>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
                     <div className="flex items-center">
-                      <SourceLogo sourceType="Google" className="w-5 h-5 mr-2" />
+                      <SourceLogo sourceType="Google" className="w-6 h-6 mr-2" />
                       <span className="text-blue-600 font-medium">Google:</span>
                       <span className="ml-1 text-blue-800">{searchSummary.google_results || 0}</span>
                     </div>
                     <div className="flex items-center">
-                      <SourceLogo sourceType="News" className="w-5 h-5 mr-2" />
+                      <SourceLogo sourceType="News" className="w-6 h-6 mr-2" />
                       <span className="text-blue-600 font-medium">News:</span>
                       <span className="ml-1 text-blue-800">{searchSummary.news_results || 0}</span>
                     </div>
                     <div className="flex items-center">
-                      <SourceLogo sourceType="Reddit" className="w-5 h-5 mr-2" />
+                      <SourceLogo sourceType="Reddit" className="w-6 h-6 mr-2" />
                       <span className="text-blue-600 font-medium">Reddit:</span>
                       <span className="ml-1 text-blue-800">{searchSummary.reddit_results || 0}</span>
                     </div>
@@ -428,15 +428,15 @@ const CitationTracker = () => {
                     </p>
                     <ul className="mt-2 list-disc list-inside space-y-1">
                       <li className="flex items-center">
-                        <SourceLogo sourceType="Google" className="w-5 h-5 mr-2" />
+                        <SourceLogo sourceType="Google" className="w-6 h-6 mr-2" />
                         <strong>Google Search:</strong> Web mentions and featured snippets
                       </li>
                       <li className="flex items-center">
-                        <SourceLogo sourceType="News" className="w-5 h-5 mr-2" />
+                        <SourceLogo sourceType="News" className="w-6 h-6 mr-2" />
                         <strong>News Articles:</strong> Press coverage and industry publications
                       </li>
                       <li className="flex items-center">
-                        <SourceLogo sourceType="Reddit" className="w-5 h-5 mr-2" />
+                        <SourceLogo sourceType="Reddit" className="w-6 h-6 mr-2" />
                         <strong>Reddit:</strong> Community discussions and recommendations
                       </li>
                     </ul>
