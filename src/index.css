@@ -53,28 +53,6 @@
   }
 }
 
-/* Enhanced gradient animations */
-.animate-gradient-x {
-  background: linear-gradient(
-    270deg,
-    theme('colors.indigo.600'),
-    theme('colors.purple.600'),
-    theme('colors.pink.600'),
-    theme('colors.indigo.600')
-  );
-  background-size: 400% 400%;
-  animation: gradient-x 8s ease infinite;
-}
-
-@keyframes gradient-x {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
 /* Gradient animation */
 .animate-gradient {
   background: linear-gradient(
@@ -140,31 +118,4 @@
   50% {
     transform: translateY(-10px);
   }
-}
-
-/* Enhanced animations for modern feel */
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(79, 70, 229, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(79, 70, 229, 0.5);
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes bounce-subtle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.animate-bounce-subtle {
-  animation: bounce-subtle 3s ease-in-out infinite;
 }

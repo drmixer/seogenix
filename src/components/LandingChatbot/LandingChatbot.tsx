@@ -302,12 +302,12 @@ What would you like to know about SEOgenix? 🚀`;
               opacity: 1, 
               y: 0, 
               scale: 1,
-              height: isMinimized ? 'auto' : '500px'
+              height: isMinimized ? 'auto' : '700px'
             }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className={`fixed bottom-6 right-6 z-50 bg-white rounded-lg shadow-2xl border border-gray-200 ${
-              isMinimized ? 'w-80' : 'w-80 max-w-sm'
-            } ${className} max-h-[80vh]`}
+              isMinimized ? 'w-80' : 'w-96'
+            } ${className}`}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200 rounded-t-lg bg-gradient-to-r from-indigo-50 to-purple-50">
@@ -342,14 +342,14 @@ What would you like to know about SEOgenix? 🚀`;
             {!isMinimized && (
               <>
                 {/* Messages */}
-                <div className="h-64 overflow-y-auto p-4 space-y-4">
+                <div className="h-96 overflow-y-auto p-4 space-y-4">
                   {messages.map((message) => (
                     <div key={message.id}>
                       <div
                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         <div
-                          className={`max-w-xs px-4 py-3 rounded-lg ${
+                          className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
                             message.type === 'user'
                               ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
                               : 'bg-gray-100 text-gray-900'
@@ -393,7 +393,7 @@ What would you like to know about SEOgenix? 🚀`;
                             <Sparkles size={12} className="mr-1" />
                             Try asking:
                           </div>
-                          {message.suggestions.slice(0, 2).map((suggestion, index) => (
+                          {message.suggestions.map((suggestion, index) => (
                             <button
                               key={index}
                               onClick={() => handleSuggestionClick(suggestion)}
@@ -417,7 +417,7 @@ What would you like to know about SEOgenix? 🚀`;
                       Popular questions:
                     </div>
                     <div className="space-y-2">
-                      {suggestedPrompts.slice(0, 2).map((prompt, index) => (
+                      {suggestedPrompts.slice(0, 3).map((prompt, index) => (
                         <button
                           key={index}
                           onClick={() => handleSuggestionClick(prompt)}
